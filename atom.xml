@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>iTibbers</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://itibbers.com/"/>
+  <updated>2018-08-27T07:05:20.094Z</updated>
+  <id>https://itibbers.com/</id>
+  
+  <author>
+    <name>Ive</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浏览器及HTTP缓存机制</title>
+    <link href="https://itibbers.com/frontend/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%8AHTTP%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"/>
+    <id>https://itibbers.com/frontend/浏览器及HTTP缓存机制/</id>
+    <published>2018-07-26T07:02:32.000Z</published>
+    <updated>2018-08-27T07:05:20.094Z</updated>
+    
+    <content type="html"><![CDATA[<p>Web缓存是一种保存Web资源副本并在下次请求时直接使用该副本的技术。缓存=请求资源的副本</p><p>Web缓存可以分为这几种：浏览器缓存、CDN缓存、服务器缓存、数据库数据缓存 。因为可能会直接使用副本免于重新发送请求或者仅仅确认资源没变无需重新传输资源实体，Web缓存具有以下优点：</p><ul><li>可以减少延迟加快网页打开速度</li><li>重复利用资源减少网络带宽消耗</li><li>降低请求次数或者减少传输内容从而减轻服务器压力。</li></ul><a id="more"></a><p>[TOC]</p><p>这篇文章主要讨论和前端密切相关的浏览器HTTP缓存机制。浏览器HTTP缓存可以分为强缓存和协商缓存。强缓存和协商缓存最大也是最根本的区别是：强缓存命中的话不会发请求到服务器（比如chrome中的200 from memory cache），协商缓存一定会发请求到服务器，通过资源的请求首部字段验证资源是否命中协商缓存，如果协商缓存命中，服务器会将这个请求返回，但是不会返回这个资源的实体，而是通知客户端可以从缓存中加载这个资源（304 not modified）。简略流程图如下：</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnafr9qk3j30tq0f5400.jpg" alt=""></p><h2 id="1-浏览器HTTP缓存由HTTP报文的首部字段决定"><a href="#1-浏览器HTTP缓存由HTTP报文的首部字段决定" class="headerlink" title="1 浏览器HTTP缓存由HTTP报文的首部字段决定"></a>1 浏览器HTTP缓存由HTTP报文的首部字段决定</h2><p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1ftnagybj4hj30ea08twem.jpg" alt=""></p><ol><li><p>http header中与缓存有关的key<br><img src="https://ws4.sinaimg.cn/large/006tKfTcly1ftnahvfa0kj31420fi77l.jpg" alt=""></p></li><li><p>缓存协商策略用于重新验证缓存资源是否有效，有关的key<br><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnais0iauj314c0fqtbt.jpg" alt=""></p></li></ol><h3 id="1-1-控制强缓存的字段按优先级介绍"><a href="#1-1-控制强缓存的字段按优先级介绍" class="headerlink" title="1.1 控制强缓存的字段按优先级介绍"></a>1.1 控制强缓存的字段按优先级介绍</h3><ol><li><p>Pragma<br>Pragma是HTTP/1.1之前版本遗留的通用首部字段，仅作为于HTTP/1.0的向后兼容而使用。虽然它是一个通用首部，但是它在响应报文中时的行为没有规范，依赖于浏览器的实现。RFC中该字段只有no-cache一个可选值，会通知浏览器不直接使用缓存，要求向服务器发请求校验新鲜度。因为它优先级最高，当存在时一定不会命中强缓存。目前基本不使用。</p></li><li><p>Cache-Control<br>Cache-Control是一个通用首部字段，也是HTTP/1.1控制浏览器缓存的主流字段。<br>浏览器缓存里, Cache-Control是金字塔顶尖的规则, 它藐视一切其他设置, 只要其他设置与其抵触, 一律覆盖之.</p></li></ol><p>不仅如此, 它还是一个复合规则, 包含多种值, 横跨 存储策略, 过期策略 两种, 同时在请求头和响应头都可设置.</p><p>语法为: “Cache-Control : cache-directive”.</p><p>Cache-directive共有如下12种(其中请求中指令7种, 响应中指令9种):</p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1ftnal0pg00j31630elwjq.jpg" alt=""></p><ul><li><p>max-age（单位为s）设置缓存的存在时间，相对于发送请求的时间。只有响应报文首部设置Cache-Control为非0的max-age才有可能命中强缓存。当满足这个条件，同时响应报文首部中Cache-Control不存在no-cache、no-store且请求报文首部不存在Pragma字段，才会真正命中强缓存。</p></li><li><p>no-cache 表示请求必须先与服务器确认缓存的有效性，如果有效才能使用缓存（协商缓存），无论是响应报文首部还是请求报文首部出现这个字段均一定不会命中强缓存。Chrome硬性重新加载（Command+shift+R）会在请求的首部加上Pragma：no-cache和Cache-Control：no-cache。</p></li><li><p>no-store 表示禁止浏览器以及所有中间缓存存储任何版本的返回响应，一定不会出现强缓存和协商缓存，适合个人隐私数据或者经济类数据。</p></li><li><p>public 表明响应可以被浏览器、CDN等等缓存。</p></li><li><p>private 响应只作为私有的缓存，不能被CDN等缓存。如果要求HTTP认证，响应会自动设置为private。</p></li></ul><p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnamm7mgfj30gj0got8q.jpg" alt=""><br>图：Cache-Control策略优先级</p><p>Cache-Control 允许自由组合可选值，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control: max-age=3600, must-revalidate</span><br></pre></td></tr></table></figure></p><p>它意味着该资源是从原服务器上取得的，且其缓存（新鲜度）的有效时间为一小时，在后续一小时内，用户重新访问该资源则无须发送请求。 当然这种组合的方式也会有些限制，比如 no-cache 就不能和 max-age、min-fresh、max-stale 一起搭配使用。</p><p>3.Expires 是HTTP/1.1之前版本遗留的通用首部字段，仅作为于HTTP/1.0的向后兼容而使用。</p><p>即到期时间, 以服务器时间为参考系, 其优先级比 Cache-Control:max-age 低, 两者同时出现在响应头时, Expires将被后者覆盖. 如果Expires, Cache-Control: max-age, 或 Cache-Control:s-maxage 都没有在响应头中出现, 并且也没有其它缓存的设置, 那么浏览器默认会采用一个启发式的算法, 通常会取响应头的Date_value - Last-Modified_value值的10%作为缓存时间.</p><p>如下资源便采取了启发式缓存算法.<br><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnanz8dl3j30m3028wem.jpg" alt=""></p><p>其缓存时间为 (Date_value - Last-Modified_value) * 10%, 计算如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const Date_value = new Date(&apos;Thu, 06 Apr 2017 01:30:56 GMT&apos;).getTime();</span><br><span class="line">const LastModified_value = new Date(&apos;Thu, 01 Dec 2016 06:23:23 GMT&apos;).getTime();</span><br><span class="line">const cacheTime = (Date_value - LastModified_value) / 10;</span><br><span class="line">const Expires_timestamp = Date_value + cacheTime;</span><br><span class="line">const Expires_value = new Date(Expires_timestamp);</span><br><span class="line">console.log(&apos;Expires:&apos;, Expires_value); // Expires: Tue Apr 18 2017 23:25:41 GMT+0800 (CST)</span><br></pre></td></tr></table></figure></p><p>可见该资源将于2017年4月18日23点25分41秒过期, 尝试以下两步进行验证:</p><p>1) 试着把本地时间修改为2017年4月18日23点25分40秒, 迅速刷新页面, 发现强缓存依然有效(依旧是200 OK (from disk cache)).</p><p>2) 然后又修改本地时间为2017年4月18日23点26分40秒(即往后拨1分钟), 刷新页面, 发现缓存已过期, 此时浏览器重新向服务器发起了验证, 且命中了304协商缓存, 如下所示.</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnaon5w6vj30lm059js8.jpg" alt=""></p><p>3) 将本地时间恢复正常(即 2017-04-06 09:54:19). 刷新页面, 发现Date依然是4月18日, 如下所示.</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnap0d3a4j30nb093tai.jpg" alt=""></p><p>从⚠️ Provisional headers are shown 和Date字段可以看出来, 浏览器并未发出请求, 缓存依然有效, 只不过此时Status Code显示为200 OK. (甚至我还专门打开了charles, 也没有发现该资源的任何请求, 可见这个200 OK多少有些误导人的意味)</p><p>可见, 启发式缓存算法采用的缓存时间可长可短, 因此对于常规资源, 建议明确设置缓存时间(如指定max-age 或 expires).</p><h3 id="1-2-控制协商缓存的字段"><a href="#1-2-控制协商缓存的字段" class="headerlink" title="1.2 控制协商缓存的字段"></a>1.2 控制协商缓存的字段</h3><p>上述的首部字段均能让客户端决定是否向服务器发送请求，比如设置的缓存时间未过期，那么自然直接从本地缓存取数据即可（在chrome下表现为200 from cache），若缓存时间过期了或资源不该直接走缓存，则会发请求到服务器去。<br>我们现在要说的问题是，<strong>如果客户端向服务器发了请求，那么是否意味着一定要读取回该资源的整个实体内容呢？</strong><br>我们试着这么想——客户端上某个资源保存的缓存时间过期了，但这时候其实服务器并没有更新过这个资源，如果这个资源数据量很大，客户端要求服务器再把这个东西重新发一遍过来，是否非常浪费带宽和时间呢？<br>答案是肯定的，那么是否有办法让服务器知道客户端现在存有的缓存文件，其实跟自己所有的文件是一致的，然后直接告诉客户端说“这东西你直接用缓存里的就可以了，我这边没更新过呢，就不再传一次过去了”。<br>举例来说：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C：小服，你几岁了？</span><br><span class="line">S：小客，我18岁了。</span><br><span class="line">=================================</span><br><span class="line">C：小服 ，你几岁了？我猜你18岁了。</span><br><span class="line">S：靠，你知道还问我？（304）</span><br><span class="line">=================================</span><br><span class="line">C：小服 ，你几岁了？我猜你18岁了。</span><br><span class="line">S：小客 ，我19岁了。（200）</span><br></pre></td></tr></table></figure></p><p>为了让客户端与服务器之间能实现缓存文件是否更新的验证、提升缓存的复用率，Http1.1新增了几个首部字段来做这件事情。</p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnaq12rn7j30dz04imx2.jpg" alt=""></p><ol><li><p>Last-Modified/If-Modified-Since<br>If-Modified-Since是一个请求首部字段，并且只能用在GET或者HEAD请求中。<br>Last-Modified是一个响应首部字段，包含服务器认定的资源作出修改的日期及时间。<br>当带着If-Modified-Since头访问服务器请求资源时，服务器会检查Last-Modified，如果Last-Modified的时间早于或等于If-Modified-Since则会返回一个不带主体的304响应，否则将重新返回资源。<br>If-Modified-Since: , :: GMT Last-Modified: , :: GMT</p></li><li><p>ETag/If-None-Match</p></li></ol><p>ETag是一个响应首部字段，它是根据实体内容生成的一段hash字符串，标识资源的状态，由服务端产生。</p><p>If-None-Match是一个条件式的请求首部。如果请求资源时在请求首部加上这个字段，值为之前服务器端返回的资源上的ETag，则当且仅当服务器上没有任何资源的ETag属性值与这个首部中列出的时候，服务器才会返回带有所请求资源实体的200响应，否则服务器会返回不带实体的304响应。ETag优先级比Last-Modified高，同时存在时会以ETag为准。</p><p>If-None-Match: &lt;etag_value&gt; If-None-Match: &lt;etag_value&gt;, &lt;etag_value&gt;, … If-None-Match: *</p><p>ETag属性之间的比较采用的是弱比较算法，即两个文件除了每个比特都相同外，内容一致也可以认为是相同的。例如，如果两个页面仅仅在页脚的生成时间有所不同，就可以认为二者是相同的。</p><p>因为ETag的特性，所以相较于Last-Modified有一些优势：</p><ol><li>某些情况下服务器无法获取资源的最后修改时间</li><li>资源的最后修改时间变了但是内容没变，使用ETag可以正确缓存</li><li>如果资源修改非常频繁，在秒以下的时间进行修改，Last-Modified只能精确到秒</li></ol><h2 id="2-http其他字段"><a href="#2-http其他字段" class="headerlink" title="2 http其他字段"></a>2 http其他字段</h2><h3 id="2-1-Age"><a href="#2-1-Age" class="headerlink" title="2.1 Age"></a>2.1 Age</h3><p>出现此字段, 表示命中代理服务器的缓存. 它指的是代理服务器对于请求资源的已缓存时间, 单位为秒. 如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Age:2383321</span><br><span class="line">Date:Wed, 08 Mar 2017 16:12:42 GMT</span><br></pre></td></tr></table></figure></p><p>以上指的是, 代理服务器在2017年3月8日16:12:42时向源服务器发起了对该资源的请求, 目前已缓存了该资源2383321秒.</p><h3 id="2-2-Date"><a href="#2-2-Date" class="headerlink" title="2.2 Date"></a>2.2 Date</h3><p>指的是响应生成的时间. 请求经过代理服务器时, 返回的Date未必是最新的, 通常这个时候, 代理服务器将增加一个Age字段告知该资源已缓存了多久.</p><h3 id="2-3-Vary"><a href="#2-3-Vary" class="headerlink" title="2.3 Vary"></a>2.3 Vary</h3><p>对于服务器而言, 资源文件可能不止一个版本, 比如说压缩和未压缩, 针对不同的客户端, 通常需要返回不同的资源版本. 比如说老式的浏览器可能不支持解压缩, 这个时候, 就需要返回一个未压缩的版本; 对于新的浏览器, 支持压缩, 返回一个压缩的版本, 有利于节省带宽, 提升体验. 那么怎么区分这个版本呢, 这个时候就需要Vary了.<br>服务器通过指定Vary: Accept-Encoding, 告知代理服务器, 对于这个资源, 需要缓存两个版本: 压缩和未压缩. 这样老式浏览器和新的浏览器, 通过代理, 就分别拿到了未压缩和压缩版本的资源, 避免了都拿同一个资源的尴尬.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vary:Accept-Encoding,User-Agent</span><br></pre></td></tr></table></figure></p><p>如上设置, 代理服务器将针对是否压缩和浏览器类型两个维度去缓存资源. 如此一来, 同一个url, 就能针对PC和Mobile返回不同的缓存内容.</p><h2 id="3-缓存头部对比"><a href="#3-缓存头部对比" class="headerlink" title="3 缓存头部对比"></a>3 缓存头部对比</h2><p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1ftnasbu6u5j31dy0xeds0.jpg" alt=""></p><h2 id="4-用户刷新-访问行为"><a href="#4-用户刷新-访问行为" class="headerlink" title="4 用户刷新/访问行为"></a>4 用户刷新/访问行为</h2><p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnau6q6gcj30vy0dcabl.jpg" alt=""></p><h2 id="5-缓存实践"><a href="#5-缓存实践" class="headerlink" title="5 缓存实践"></a>5 缓存实践</h2><p>综上对各种HTTP缓存控制头部的对比以及用户可能出现的浏览器刷新行为的讨论，当我们在一个项目上做http缓存的应用时，我们实际上还是会把上述提及的大多数首部字段均使用上。</p><h3 id="5-1-Expires-Cache-Control"><a href="#5-1-Expires-Cache-Control" class="headerlink" title="5.1 Expires / Cache-Control"></a>5.1 Expires / Cache-Control</h3><p>Expires用时刻来标识失效时间，不免收到时间同步的影响，而Cache-Control使用时间间隔很好的解决了这个问题。 但是 Cache-Control 是 HTTP1.1 才有的，不适用于 HTTP1.0，而 Expires 既适用于 HTTP1.0，也适用于 HTTP1.1，所以说在大多数情况下同时发送这两个头会是一个更好的选择，当客户端两种头都能解析的时候，会优先使用 Cache-Control。</p><h3 id="5-2-Last-Modified-ETag"><a href="#5-2-Last-Modified-ETag" class="headerlink" title="5.2 Last-Modified / ETag"></a>5.2 Last-Modified / ETag</h3><p>二者都是通过某个标识值来请求资源， 如果服务器端的资源没有变化，则自动返回 HTTP 304 （Not Changed）状态码，内容为空，这样就节省了传输数据量。而当资源发生比那话后，返回和第一次请求时类似。从而保证不向客户端重复发出资源，也保证当服务器有变化时，客户端能够得到最新的资源。<br>其中Last-Modified使用文件最后修改作为文件标识值，它无法处理文件一秒内多次修改的情况，而且只要文件修改了哪怕文件实质内容没有修改，也会重新返回资源内容；ETag作为“被请求变量的实体值”，其完全可以解决Last-Modified头部的问题，但是其计算过程需要耗费服务器资源。</p><h3 id="5-3-from-cache-304"><a href="#5-3-from-cache-304" class="headerlink" title="5.3 from-cache / 304"></a>5.3 from-cache / 304</h3><p>Expires和Cache-Control都有一个问题就是服务端作为的修改，如果还在缓存时效里，那么客户端是不会去请求服务端资源的（非刷新），这就存在一个资源版本不符的问题，而强制刷新一定会发起HTTP请求并返回资源内容，无论该内容在这段时间内是否修改过；而Last-Modified和Etag每次请求资源都会发起请求，哪怕是很久都不会有修改的资源，都至少有一次请求响应的消耗。<br>对于所有可缓存资源，指定一个Expires或Cache-Control max-age以及一个Last-Modified或ETag至关重要。同时使用前者和后者可以很好的相互适应。<br>前者不需要每次都发起一次请求来校验资源时效性，后者保证当资源未出现修改的时候不需要重新发送该资源。而在用户的不同刷新页面行为中，二者的结合也能很好的利用HTTP缓存控制特性，无论是在地址栏输入URI然后输入回车进行访问，还是点击刷新按钮，浏览器都能充分利用缓存内容，避免进行不必要的请求与数据传输。</p><h3 id="5-4-避免304"><a href="#5-4-避免304" class="headerlink" title="5.4 避免304"></a>5.4 避免304</h3><p>同学们是否还记得我们在讨论用户刷新页面行为中体积的index.css文件，它实际上被命名为index.03d344bd.css。而细心的同学也会发现它的Expires和Cache-Control时间出奇的长，这难道不会导致用户无法得到其最近的内容吗？</p><p>其做法实际上很简单，它把服务侧ETag的那一套理论搬到了前端来使用。 页面的静态资源以版本形式发布，常用的方法是在文件名或参数带上一串md5或时间标记符：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://hm.baidu.com/hm.js?e23800c454aa573c0ccb16b52665ac26</span><br><span class="line">http://tb1.bdstatic.com/tb/_/tbean_safe_ajax_94e7ca2.js</span><br><span class="line">http://img1.gtimg.com/ninja/2/2016/04/ninja145972803357449.jpg</span><br></pre></td></tr></table></figure><p>可以看到上面的例子中有不同的做法，有的在URI后面加上了md5参数，有的将md5值作为文件名的一部分，有的将资源放在特性版本的目录中。<br>那么在文件没有变动的时候，浏览器不用发起请求直接可以使用缓存文件；而在文件有变化的时候，由于文件版本号的变更，导致文件名变化，请求的url变了，自然文件就更新了。这样能确保客户端能及时从服务器收取到新修改的文件。通过这样的处理，增长了静态资源，特别是图片资源的缓存时间，避免该资源很快过期，客户端频繁向服务端发起资源请求，服务器再返回304响应的情况（有Last-Modified/Etag）。</p><h3 id="5-5-Tips"><a href="#5-5-Tips" class="headerlink" title="5.5 Tips"></a>5.5 Tips</h3><ul><li>需要兼容HTTP1.0的时候需要使用Expires，不然可以考虑直接使用Cache-Control</li><li>需要处理一秒内多次修改的情况，或者其他Last-Modified处理不了的情况，才使用ETag，否则使用Last-Modified。</li><li>对于所有可缓存资源，需要指定一个Expires或Cache-Control，同时指定Last-Modified或者Etag。</li><li>可以通过标识文件版本名、加长缓存时间的方式来减少304响应。</li></ul><h2 id="6-问题及解决方案"><a href="#6-问题及解决方案" class="headerlink" title="6 问题及解决方案"></a>6 问题及解决方案</h2><ol><li><p>什么时候该设置缓存？</p></li><li><p>前端如何有效设置缓存？</p></li><li><p>开发中如何避免缓存？</p></li><li><p>既生Last-Modified，何生E-tag？</p></li><li><p>假设所请求资源于4月5日缓存, 且在4月12日过期.<br>当max-age 与 max-stale 和 min-fresh 同时使用时, 它们的设置相互之间独立生效, 最为保守的缓存策略总是有效. 这意味着, 如果max-age=10 days, max-stale=2 days, min-fresh=3 days, 那么:<br>由于客户端总是采用最保守的缓存策略, 因此, 4月9日后, 对于该资源的请求将重新向服务器发起验证.</p></li></ol><p>答案：</p><ol><li><p>根据缓存的作用及具体需求场景设置。</p></li><li><p><a href="http://wiki.xiaodutv.com/pages/viewpage.action?pageId=17173670#1.1%20%E6%8E%A7%E5%88%B6%E5%BC%BA%E7%BC%93%E5%AD%98%E7%9A%84%E5%AD%97%E6%AE%B5%E6%8C%89%E4%BC%98%E5%85%88%E7%BA%A7%E4%BB%8B%E7%BB%8D" target="_blank" rel="noopener">1.1 控制强缓存的字段按优先级介绍</a></p></li><li><p><a href="http://wiki.xiaodutv.com/pages/viewpage.action?pageId=17173670#4%20%E7%94%A8%E6%88%B7%E5%88%B7%E6%96%B0/%E8%AE%BF%E9%97%AE%E8%A1%8C%E4%B8%BA" target="_blank" rel="noopener">用户刷新/访问行为</a></p></li><li><p>既生Last-Modified，何生E-tag？</p></li></ol><p>你可能会觉得使用Last-Modified已经足以让浏览器知道本地的缓存副本是否足够新，为什么还需要Etag（实体标识）呢？</p><p>HTTP1.1中Etag的出现主要是为了解决几个Last-Modified比较难解决的问题：</p><p>a. Last-Modified标注的最后修改只能精确到秒级，如果某些文件在1秒钟以内，被修改多次的话，它将不能准确标注文件的修改时间</p><p>b. 如果某些文件会被定期生成，当有时内容并没有任何变化，但Last-Modified却改变了，导致文件没法使用缓存</p><p>c. 有可能存在服务器没有准确获取文件修改时间，或者与代理服务器时间不一致等情形</p><p>Etag是服务器自动生成或者由开发者生成的对应资源在服务器端的唯一标识符，能够更加准确的控制缓存。Last-Modified与ETag是可以一起使用的，服务器会优先验证ETag，一致的情况下，才会继续比对Last-Modified，最后才决定是否返回304。</p><h2 id="7-参考"><a href="#7-参考" class="headerlink" title="7 参考"></a>7 参考</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="noopener">HTTP 缓存 - HTTP | MDN</a><br><a href="http://wiki.xiaodutv.com/pages/viewpage.action?pageId=9963820" target="_blank" rel="noopener">浏览器缓存机制</a><br><a href="https://juejin.im/post/5a673af06fb9a01c927ed880" target="_blank" rel="noopener">浏览器HTTP缓存机制</a><br><a href="http://louiszhai.github.io/2017/04/07/http-cache/" target="_blank" rel="noopener">浏览器缓存机制剖析</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&amp;mid=2653578381&amp;idx=1&amp;sn=3f676e2b2e08bcff831c69d31cf51c51" target="_blank" rel="noopener">彻底弄懂 Http 缓存机制 - 基于缓存策略三要素分解法</a><br><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank" rel="noopener">Header Field Definitions</a><br><a href="https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">超文本传输协议</a><br><a href="https://github.com/Pines-Cheng/blog/issues/5" target="_blank" rel="noopener">前端必须知道的http缓存</a></p><hr><p><a href="#">🔝回到顶部</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Web缓存是一种保存Web资源副本并在下次请求时直接使用该副本的技术。缓存=请求资源的副本&lt;/p&gt;
+&lt;p&gt;Web缓存可以分为这几种：浏览器缓存、CDN缓存、服务器缓存、数据库数据缓存 。因为可能会直接使用副本免于重新发送请求或者仅仅确认资源没变无需重新传输资源实体，Web缓存具有以下优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以减少延迟加快网页打开速度&lt;/li&gt;
+&lt;li&gt;重复利用资源减少网络带宽消耗&lt;/li&gt;
+&lt;li&gt;降低请求次数或者减少传输内容从而减轻服务器压力。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="浏览器" scheme="https://itibbers.com/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+      <category term="http" scheme="https://itibbers.com/tags/http/"/>
+    
+      <category term="缓存" scheme="https://itibbers.com/tags/%E7%BC%93%E5%AD%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Node.js模拟请求发微博</title>
+    <link href="https://itibbers.com/Node-js/Node-js%E6%A8%A1%E6%8B%9F%E8%AF%B7%E6%B1%82%E5%8F%91%E5%BE%AE%E5%8D%9A/"/>
+    <id>https://itibbers.com/Node-js/Node-js模拟请求发微博/</id>
+    <published>2018-02-16T05:42:07.000Z</published>
+    <updated>2018-02-16T05:46:54.872Z</updated>
+    
+    <content type="html"><![CDATA[<p>新浪微博SDK需要申请App key，极其不方便，通过Node.js模拟请求发送微博，可以方便的达到某些<del>羞羞的</del>目的。<br><a id="more"></a></p><h1 id="weibo-post"><a href="#weibo-post" class="headerlink" title="weibo-post"></a><a href="https://github.com/itibbers/weibo-post" target="_blank" rel="noopener">weibo-post</a></h1><p>Post weibo text from https based on node.</p><h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>Using npm:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm i --save-dev weibo-post</span><br></pre></td></tr></table></figure></p><p>In Node.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> weiboPost = <span class="built_in">require</span>(<span class="string">'weibo-post'</span>);</span><br><span class="line"></span><br><span class="line">weiboPost.setCookie(<span class="string">'your weibo login cookie'</span>);</span><br><span class="line">weiboPost.post(<span class="string">'your post content'</span>);</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;新浪微博SDK需要申请App key，极其不方便，通过Node.js模拟请求发送微博，可以方便的达到某些&lt;del&gt;羞羞的&lt;/del&gt;目的。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Node.js" scheme="https://itibbers.com/categories/Node-js/"/>
+    
+    
+      <category term="node" scheme="https://itibbers.com/tags/node/"/>
+    
+      <category term="npm" scheme="https://itibbers.com/tags/npm/"/>
+    
+      <category term="发微博" scheme="https://itibbers.com/tags/%E5%8F%91%E5%BE%AE%E5%8D%9A/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo图片快捷插入</title>
+    <link href="https://itibbers.com/frontend/hexo%E5%9B%BE%E7%89%87%E5%BF%AB%E6%8D%B7%E6%8F%92%E5%85%A5/"/>
+    <id>https://itibbers.com/frontend/hexo图片快捷插入/</id>
+    <published>2018-01-30T06:00:29.000Z</published>
+    <updated>2018-01-31T02:45:02.752Z</updated>
+    
+    <content type="html"><![CDATA[<p>博客使用hexo搭建，托管于Github，vim编辑文章，生成发布，但是图片插入一直是个头疼的问题，有各种依赖于微博图床的插件/app，可以方便发布，像是iPic，但是好担心微博啥时候不干了，图片存多了，总有一种不安全感，也没法批量管理。于是写了一个shell，本来想写vim插件的，看了看略麻烦。(这种方式shell也不是很麻烦嘛 hahhh)<br><img src="/images/1517292548.png" alt=""><br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hexoimg () &#123;</span><br><span class="line">    CURRENTDATE=`date +%s`</span><br><span class="line">    imgname=&quot;$1&quot;</span><br><span class="line">    extension=&quot;$&#123;imgname##*.&#125;&quot;</span><br><span class="line">    fname=&quot;$CURRENTDATE.$extension&quot;</span><br><span class="line">    cp $1 ~/www/itibbers/source/images/$fname</span><br><span class="line">    echo \!\[\]\(/images/$fname\) | pbcopy</span><br><span class="line">    echo \!\[\]\(/images/$fname\) Copied to Clipboard :\)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>拖动图片到terminal是图片绝对地址，这样就可以在vim运行bash，实现拖动上传图片并返回markdown格式化后的img url，返回后粘贴就可以，相当方便了。见图</p><p><img src="/images/1517294274.png" alt=""></p><p><img src="/images/1517293146.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;博客使用hexo搭建，托管于Github，vim编辑文章，生成发布，但是图片插入一直是个头疼的问题，有各种依赖于微博图床的插件/app，可以方便发布，像是iPic，但是好担心微博啥时候不干了，图片存多了，总有一种不安全感，也没法批量管理。于是写了一个shell，本来想写vim插件的，看了看略麻烦。(这种方式shell也不是很麻烦嘛 hahhh)&lt;br&gt;&lt;img src=&quot;/images/1517292548.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="hexo" scheme="https://itibbers.com/tags/hexo/"/>
+    
+      <category term="plugin" scheme="https://itibbers.com/tags/plugin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Broadcast/EventBus优缺点</title>
+    <link href="https://itibbers.com/android/Broadcast-EventBus%E4%BC%98%E7%BC%BA%E7%82%B9/"/>
+    <id>https://itibbers.com/android/Broadcast-EventBus优缺点/</id>
+    <published>2018-01-24T08:59:09.000Z</published>
+    <updated>2018-01-24T09:03:16.178Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在知乎上，看到一个关于android中本地广播和eventbus选择的问题，感觉说的挺好的，我在这里记录一下；<br>本地广播是相对消耗时间、空间最多的一种方式，但是大家都知道，广播是四大组件之一，许多系统级的事件都是通过广播来通知的，比如说网络的变化、电量的变化，短信发送和接收的状态，所以，如果与android系统进行相关的通知，还是要选择本地广播；在BroadcastReceiver的 onReceive方法中，可以获得Context 、intent参数，这两个参数可以调用许多的sdk中的方法，而eventbus获得这两个参数相对比较困难；<br><a id="more"></a><br>因此广播相对于其他的方式而言，广播是重量级的，消耗资源较多的方式。他的优势体现在与sdk连接紧密，如果需要同 android 交互的时候，广播的便捷性会抵消掉它过多的资源消耗，但是如果不同android交互，或者说，只做很少的交互，使用广播是一种浪费；<br>EventBus 作为 Android 开发中常用的框架，拥有着许多优点：<br>调度灵活。不依赖于 Context，使用时无需像广播一样关注 Context 的注入与传递。父类对于通知的监听和处理可以继承给子类，这对于简化代码至关重要；通知的优先级，能够保证 Subscriber 关注最重要的通知；粘滞事件（sticky events）能够保证通知不会因 Subscriber 的不在场而忽略。可继承、优先级、粘滞，是 EventBus 比之于广播、观察者等方式最大的优点，它们使得创建结构良好组织紧密的通知系统成为可能。<br>使用简单。EventBus 的 Subscriber 注册非常简单，调用 eventBus 对象的 register 方法即可，如果不想创建 eventBus 还可以直接调用静态方法 EventBus.getDefault() 获取默认实例，Subscriber 接收到通知之后的操作放在 onEvent 方法里就行了。成为 Publisher 的过程就更简单了，只需要调用合适的 eventBus（自己创建的或是默认的）的 post 方法即可。<br>快速且轻量。作为 github 的明星项目之一， EventBus 的源代码中许多技巧来改善性能，<br>eventbus的缺点是他的代码逻辑不是很清楚，在 Subscriber 注册的时候，Subscriber 中的方法会被遍历查找以 onEvent 开头的 public 方法。这将带来一些问题，一旦对代码进行混淆，就无法查找到了。好消息是 EventBus 已经打算使用注解来实现，这应该能够解决代码混淆的问题。<br>但有一个缺点是观察者独有的，那就是观察者可能会造成接口的膨胀。特别是当程序要求大量形式各异的通知，而程序员有没有做出良好的抽象时，代码中会包含大量的接口，接口数量的增长又会带来命名、注释等等一大堆问题。本质上说观察者要求程序员从零开始实现事件的产生、分发与处理过程，这就要求参与者必须对整个通知过程有着良好的理解。当程序代码适量时，这是一个合理的要求，然而当程序太大时，这将成为一种负担。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天在知乎上，看到一个关于android中本地广播和eventbus选择的问题，感觉说的挺好的，我在这里记录一下；&lt;br&gt;本地广播是相对消耗时间、空间最多的一种方式，但是大家都知道，广播是四大组件之一，许多系统级的事件都是通过广播来通知的，比如说网络的变化、电量的变化，短信发送和接收的状态，所以，如果与android系统进行相关的通知，还是要选择本地广播；在BroadcastReceiver的 onReceive方法中，可以获得Context 、intent参数，这两个参数可以调用许多的sdk中的方法，而eventbus获得这两个参数相对比较困难；&lt;br&gt;
+    
+    </summary>
+    
+      <category term="android" scheme="https://itibbers.com/categories/android/"/>
+    
+    
+      <category term="Broadcast" scheme="https://itibbers.com/tags/Broadcast/"/>
+    
+      <category term="EventBus" scheme="https://itibbers.com/tags/EventBus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>连接FTP发送&quot;AUTH TLS&quot;命令后提示“无法连接到服务器”</title>
+    <link href="https://itibbers.com/daily/%E8%BF%9E%E6%8E%A5FTP%E5%8F%91%E9%80%81%22AUTH%20TLS%22%E5%91%BD%E4%BB%A4%E5%90%8E%E6%8F%90%E7%A4%BA%E2%80%9C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E2%80%9D/"/>
+    <id>https://itibbers.com/daily/连接FTP发送&quot;AUTH TLS&quot;命令后提示“无法连接到服务器”/</id>
+    <published>2017-09-22T05:17:40.000Z</published>
+    <updated>2017-09-22T05:32:57.665Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题场景："><a href="#问题场景：" class="headerlink" title="问题场景："></a>问题场景：</h2><p>使用FTP客户端连接虚拟主机时，从FTP操作记录中看到客户端在执行AUTH TLS命令后，提示 无法连接到服务器 的错误信息，这是由于目前虚拟主机不支持FTP over TLS的连接方式。FTP over TLS是指客户端显式请求（客户端发送 AUTH TLS 命令）对FTP会话加密。虚拟主机服务器会拒绝请求TLS的连接.</p><p><img src="/images/ftp-auth-tls-1.png" alt="ftp-auth-tls"></p><a id="more"></a><h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><p>客户可以设置FTP客户端不要求会话加密，即采用普通的FTP会话方式。</p><p>以FileZilla软件为例，客户在管理站点的时候，加密选择为 只使用普通FTP（不安全） ，如下图所示，保存站点信息之后，再次连接虚拟主机服务器，测试即可成功。</p><p><img src="/images/ftp-auth-tls-2.png" alt="ftp-auth-tls"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;问题场景：&quot;&gt;&lt;a href=&quot;#问题场景：&quot; class=&quot;headerlink&quot; title=&quot;问题场景：&quot;&gt;&lt;/a&gt;问题场景：&lt;/h2&gt;&lt;p&gt;使用FTP客户端连接虚拟主机时，从FTP操作记录中看到客户端在执行AUTH TLS命令后，提示 无法连接到服务器 的错误信息，这是由于目前虚拟主机不支持FTP over TLS的连接方式。FTP over TLS是指客户端显式请求（客户端发送 AUTH TLS 命令）对FTP会话加密。虚拟主机服务器会拒绝请求TLS的连接.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/ftp-auth-tls-1.png&quot; alt=&quot;ftp-auth-tls&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="daily" scheme="https://itibbers.com/categories/daily/"/>
+    
+    
+      <category term="ftp" scheme="https://itibbers.com/tags/ftp/"/>
+    
+      <category term="auth-tls" scheme="https://itibbers.com/tags/auth-tls/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一句话解压目录下所有gz文件</title>
+    <link href="https://itibbers.com/linux/%E4%B8%80%E5%8F%A5%E8%AF%9D%E8%A7%A3%E5%8E%8B%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89gz%E6%96%87%E4%BB%B6/"/>
+    <id>https://itibbers.com/linux/一句话解压目录下所有gz文件/</id>
+    <published>2017-07-26T00:54:32.000Z</published>
+    <updated>2017-08-21T06:56:51.627Z</updated>
+    
+    <content type="html"><![CDATA[<p>服务器迁移过程中，把www目录下所有文件通过 tar -zxvf 命令打包，再下载上传到新服务器，再解压。<br>但是解压后发现个问题，部分文件带着.gz文件后缀。（压缩后有15G大小，难道解压的不充分？）</p><a id="more"></a><p>如果是.gz压缩包(不带tar)，用gzip命令即可(-d选项可以解压)，格式是<br>gzip 压缩包名(包括后面的.gz) -d 解压位置<br>如果不指定解压位置，将解压到当前工作文件夹里</p><p>于是写了个shell，这句命令解压当前目录下所有gz文件，服务器恢复正常使用：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ -name *.gz -exec gzip -d &#123;&#125; \;</span><br></pre></td></tr></table></figure><p>文件较多，需要耐心等待解压过程。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;服务器迁移过程中，把www目录下所有文件通过 tar -zxvf 命令打包，再下载上传到新服务器，再解压。&lt;br&gt;但是解压后发现个问题，部分文件带着.gz文件后缀。（压缩后有15G大小，难道解压的不充分？）&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="https://itibbers.com/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://itibbers.com/tags/linux/"/>
+    
+      <category term="gz" scheme="https://itibbers.com/tags/gz/"/>
+    
+      <category term="shell" scheme="https://itibbers.com/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>kindeditor上传大文件报错</title>
+    <link href="https://itibbers.com/frontend/kindeditor%E4%B8%8A%E4%BC%A0%E5%A4%A7%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99/"/>
+    <id>https://itibbers.com/frontend/kindeditor上传大文件报错/</id>
+    <published>2017-01-11T09:56:20.000Z</published>
+    <updated>2017-08-19T13:20:41.681Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="框架本身文件大小限制"><a href="#框架本身文件大小限制" class="headerlink" title="框架本身文件大小限制"></a>框架本身文件大小限制</h1><h2 id="框架JS文件"><a href="#框架JS文件" class="headerlink" title="框架JS文件"></a>框架JS文件</h2><p>方法一：配置参数</p><pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;kindeditor/themes/default/default.css&quot; /&gt;&lt;script charset=&quot;utf-8&quot; src=&quot;kindeditor/kindeditor-all.js&quot;&gt;&lt;/script&gt;&lt;script charset=&quot;utf-8&quot; src=&quot;kindeditor/lang/zh-CN.js&quot;&gt;&lt;/script&gt;&lt;script&gt;KindEditor.ready(function(K) {    K.create(&apos;#content&apos;,{    imageSizeLimit : &apos;10MB&apos;, //批量上传图片单张最大容量    imageUploadLimit : 100 //批量上传图片同时上传最多个数    });});&lt;/script&gt;&lt;textarea id=&quot;content&quot; name=&quot;content&quot; style=&quot; width: 99%; height: 500px; visibility: hidden; display: block; &quot;&gt;&lt;/textarea&gt;</code></pre><p>方法二：修改框架kindeditor-all.js文件<br>imgPath = self.pluginsPath + ‘multiimage/images/‘, //默认上传目录<br>imageSizeLimit = K.undef(self.imageSizeLimit, ‘1MB’), //默认上传单个文件大小<br>imageFileTypes = K.undef(self.imageFileTypes, ‘<em>.jpg;</em>.gif;*.png’), //默认上传类型<br>imageUploadLimit = K.undef(self.imageUploadLimit, 20), //默认一次性批量上传图片的个数</p><h2 id="框架php文件"><a href="#框架php文件" class="headerlink" title="框架php文件"></a>框架php文件</h2><p>kindeditor/php/upload_json.php<br>//最大文件大小<br>$max_size = 1000000;</p><h1 id="php-ini"><a href="#php-ini" class="headerlink" title="php.ini"></a>php.ini</h1><ol><li>post_max_size = 50M ; Maximum size of POST data that PHP will accept.</li><li>; Its value may be 0 to disable the limit. It is ignored if POST data reading</li><li>; is disabled through enable_post_data_reading.</li><li>upload_max_filesize = 50M ; Maximum allowed size for uploaded files.</li></ol><p>技巧：注意查看php错误日志</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;框架本身文件大小限制&quot;&gt;&lt;a href=&quot;#框架本身文件大小限制&quot; class=&quot;headerlink&quot; title=&quot;框架本身文件大小限制&quot;&gt;&lt;/a&gt;框架本身文件大小限制&lt;/h1&gt;&lt;h2 id=&quot;框架JS文件&quot;&gt;&lt;a href=&quot;#框架JS文件&quot; class=&quot;
+      
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="error" scheme="https://itibbers.com/tags/error/"/>
+    
+      <category term="kindeditor" scheme="https://itibbers.com/tags/kindeditor/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>An invalid form control with name=&#39;xxx&#39; is not focusable.</title>
+    <link href="https://itibbers.com/frontend/An-invalid-form-control-with-name-xxx-is-not-focusable/"/>
+    <id>https://itibbers.com/frontend/An-invalid-form-control-with-name-xxx-is-not-focusable/</id>
+    <published>2016-11-22T05:43:18.000Z</published>
+    <updated>2017-08-19T13:18:25.622Z</updated>
+    
+    <content type="html"><![CDATA[<p>表单提交的时候，如果控件是display:none;并且所填项可以为空，则必须删除required，否则在chrome浏览器下会报错。</p><p>Chrome浏览器要重点控制是必需的，但仍然是空的，所以，它可以弹出消息“请在此输入”。但是，如果该控件隐藏在Chrome浏览器要弹出消息，那就是在表单提交的时间，Chrome浏览器无法集中控制，因为它是隐藏的，因此表格后，提交。<br>因此，要解决这个问题，通过javascript隐藏控件时，我们也必须删除’required’的属性，控制。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;表单提交的时候，如果控件是display:none;并且所填项可以为空，则必须删除required，否则在chrome浏览器下会报错。&lt;/p&gt;
+&lt;p&gt;Chrome浏览器要重点控制是必需的，但仍然是空的，所以，它可以弹出消息“请在此输入”。但是，如果该控件隐藏在Chrome浏
+      
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="form" scheme="https://itibbers.com/tags/form/"/>
+    
+      <category term="js" scheme="https://itibbers.com/tags/js/"/>
+    
+      <category term="css" scheme="https://itibbers.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>set autocommit=0与start transaction区别</title>
+    <link href="https://itibbers.com/frontend/set-autocommit-0%E4%B8%8Estart-transaction%E5%8C%BA%E5%88%AB/"/>
+    <id>https://itibbers.com/frontend/set-autocommit-0与start-transaction区别/</id>
+    <published>2016-11-17T06:32:49.000Z</published>
+    <updated>2017-08-19T13:15:57.907Z</updated>
+    
+    <content type="html"><![CDATA[<p>set autocommit=0,<br>当前session禁用自动提交事物，自此句执行以后，每个SQL语句或者语句块所在的事务都需要显示”commit”才能提交事务。</p><p>start transaction</p><p>指的是启动一个新事务。</p><p>在默认的情况下，MySQL从自动提交（autocommit）模式运行，这种模式会在每条语句执行完毕后把它作出的修改立刻提交给数据库并使之永久化。事实上，这相当于把每一条语句都隐含地当做一个事务来执行。如果你想明确地执行事务，需要禁用自动提交模式并告诉MySQL你想让它在何时提交或回滚有关的修改。<br>执行事务的常用办法是发出一条START TRANSACTION（或BEGIN）语句挂起自动提交模式，然后执行构成本次事务的各条语句，最后用一条 COMMIT语句结束事务并把它们作出的修改永久性地记入数据库。万一在事务过程中发生错误，用一条ROLLBACK语句撤销事务并把数据库恢复到事务开 始之前的状态。</p><p>START TRANSACTION语句”挂起”自动提交模式的含义是：在事务被提交或回滚之后，该模式将恢复到开始本次事务的 START TRANSACTION语句被执行之前的状态。（如果自动提交模式原来是激活的，结束事务将让你回到自动提交模式；如果它原来是禁用的，结束 当前事务将开始下一个事务。）</p><p>如果是autocommit模式  ，autocommit的值应该为 1 ，不autocommit 的值是 0 ；请在试验前 确定autocommit 的模式是否开启</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;set autocommit=0,&lt;br&gt;当前session禁用自动提交事物，自此句执行以后，每个SQL语句或者语句块所在的事务都需要显示”commit”才能提交事务。&lt;/p&gt;
+&lt;p&gt;start transaction&lt;/p&gt;
+&lt;p&gt;指的是启动一个新事务。&lt;/p&gt;
+&lt;p&gt;在
+      
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="mysql" scheme="https://itibbers.com/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS线程和异步</title>
+    <link href="https://itibbers.com/frontend/JS%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%BC%82%E6%AD%A5/"/>
+    <id>https://itibbers.com/frontend/JS线程和异步/</id>
+    <published>2016-07-14T02:20:21.000Z</published>
+    <updated>2017-08-19T13:13:46.288Z</updated>
+    
+    <content type="html"><![CDATA[<p>重新认识javascript的settimeout和异步</p><p>今晚看到QLeelulu的一道JavaScript面试题（setTimeout），稍微想了一下，好不容易连猜带蒙，凑巧说对了答案。但是原因到底是什么呢？自己一时也说不太清楚，反正感觉就是一个死循环造成的。然后看了一下文章下面的评论，发现5楼和6楼的回答很有道理,主要意思就是说javascript引擎是单线程执行的，while循环那里执行的时候，settimeout里面的函数根本没有执行的机会，这样while那里永远为真，造成死循环。但是单纯看还是不怎么踏实，最后发挥实践精神，自己动手做了两个实验：</p><p>1、简单的settimeout</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function () &#123; while (true) &#123; &#125; &#125;, 1000);</span><br><span class="line">setTimeout(function () &#123; alert(&apos;end 2&apos;); &#125;, 2000);</span><br><span class="line">setTimeout(function () &#123; alert(&apos;end 1&apos;); &#125;, 100);</span><br><span class="line">alert(&apos;end&apos;);</span><br></pre></td></tr></table></figure><p>执行的结果是弹出‘end’‘end 1’，然后浏览器假死，就是不弹出‘end 2’。也就是说第一个settimeout里执行的时候是一个死循环，这个直接导致了理论上比它晚一秒执行的第二个settimeout里的函数被阻塞，这个和我们平时所理解的异步函数多线程互不干扰是不符的。</p><p>2、ajax请求回调</p><p>接着我们来测试一下通过xmlhttprequest实现ajax异步请求调用，主要代码如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var xmlReq = createXMLHTTP();//创建一个xmlhttprequest对象</span><br><span class="line">function testAsynRequest() &#123;</span><br><span class="line">    var url = &quot;/AsyncHandler.ashx?action=ajax&quot;;</span><br><span class="line">    xmlReq.open(&quot;post&quot;, url, true);</span><br><span class="line">    xmlReq.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">    xmlReq.onreadystatechange = function () &#123;</span><br><span class="line">        if (xmlReq.readyState == 4) &#123;</span><br><span class="line">            if (xmlReq.status == 200) &#123;</span><br><span class="line">                var jsonData = eval(&apos;(&apos; + xmlReq.responseText + &apos;)&apos;);</span><br><span class="line">                alert(jsonData.message);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (xmlReq.status == 404) &#123;</span><br><span class="line">                alert(&quot;Requested URL is not found.&quot;);</span><br><span class="line">            &#125; else if (xmlReq.status == 403) &#123;</span><br><span class="line">                alert(&quot;Access denied.&quot;);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                alert(&quot;status is &quot; + xmlReq.status);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    xmlReq.send(null);</span><br><span class="line">&#125;</span><br><span class="line">testAsynRequest();//1秒后调用回调函数</span><br><span class="line"></span><br><span class="line">while (true) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在服务端实现简单的输出：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">private void ProcessAjaxRequest(HttpContext context)</span><br><span class="line">&#123;</span><br><span class="line">    string action = context.Request[&quot;ajax&quot;];</span><br><span class="line">    Thread.Sleep(1000);//等1秒</span><br><span class="line">    string jsonObject = &quot;&#123;\&quot;message\&quot;:\&quot;&quot; + action + &quot;\&quot;&#125;&quot;;</span><br><span class="line">    context.Response.Write(jsonObject);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>理论上，如果ajax异步请求，它的异步回调函数是在单独一个线程中，那么回调函数必然不被其他线程”阻挠“而顺利执行，也就是1秒后，它回调执行弹出‘ajax’，可是实际情况并非如此，回调函数无法执行，因为浏览器再次因为死循环假死。</p><p>结论：根据实践结果，可以得出，javascript引擎确实是单线程处理它的任务队列（能理解成就是普通函数和回调函数构成的队列吗？）的。在javascript里实现异步编程很大程度上就是一种障眼法，单线程的引擎实现多线程的编程，如果要实现一些资源同步互斥之类的操作（一如C#、Java等语言的多线程），我感觉真正实现起来根本无法轻易得到保证。</p><p>补充：如何实现javascript的sleep呢？在stackoverflow上找到一篇javascript sleep，试了一下，效果是有了，但是执行的时候cpu很高，真还不如直接settimeout呢。</p><p>////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</p><p><a href="http://www.cnblogs.com/QLeelulu/archive/2011/06/13/2079965.html" target="_blank" rel="noopener">http://www.cnblogs.com/QLeelulu/archive/2011/06/13/2079965.html</a><br>一道JavaScript面试题（setTimeout）</p><p>下面的代码，多久之后会弹出’end’？ 为什么？</p><p>var t = true;</p><p>setTimeout(function(){ t = false; }, 1000);</p><p>while(t){ }</p><p>alert(‘end’);</p><p>这是以前在想有没办法实现阻塞javascript线程的时候（即实现sleep方法），想过的一种实现。<br>很简单，是吧？<br>是吗？</p><p> timeout 回调 是要等退出全部 execution context stack 后,才去计时的.<br>典型的死循环……js是单线程执行的，while里面死掉的时候setTimeout里面的函数是没机会执行的。</p><p>///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</p><p><a href="http://www.jb51.net/article/70971.htm" target="_blank" rel="noopener">http://www.jb51.net/article/70971.htm</a></p><p>虽然有越来越多的网站在应用AJAX技术进行开发，但是构建一个复杂的AJAX应用仍然是一个难题。</p><p>造成这些困难的主要原因是什么呢？是与服务器的异步通信问题？还是GUI程序设计问题呢？通常这两项工作都是由桌面程序来完成的，那究竟为何开发一个可以实现同样功能的AJAX应用就这么困难呢？</p><p>大家都知道javascript是单线程执行的，但是又可以通过setTimeout或者setInterval定时执行一个方法，通过Ajax可以在向服务器端发送请求没有收到回应可以继续执行主逻辑。这些是如何做到的呢，下面就来探讨下。</p><p>先看如下一段代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">  &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    function printHello()</span><br><span class="line">    &#123;</span><br><span class="line">      console.time(&quot;hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    function printHello1()</span><br><span class="line">    &#123;</span><br><span class="line">      console.timeEnd(&quot;hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    setTimeout(printHello,1000);</span><br><span class="line">    setTimeout(printHello1,5000);</span><br><span class="line">    function wait(time)</span><br><span class="line">    &#123;</span><br><span class="line">      var now = Date.now();</span><br><span class="line">      while(Date.now() - now &lt; time)</span><br><span class="line">      &#123;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    wait(5000);</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><p>以上代码得执行结果为</p><p>1</p><p>hello: 0.124ms</p><p>从代码可以看出，printHello 与printHello1几乎是同时执行的。如果对于多线程模型，应该执行间隔是4000ms。</p><p>以上的原因是setTimeout只是将事件到时间点压入队列，而不是立即执行。具体何时执行还要看浏览器的空闲程度。</p><p>其实虽然javascript是单线程的，但是浏览器是多线程的，典型的浏览器有如下线程：</p><p>javascript引擎线程<br>界面渲染线程<br>浏览器事件触发线程<br>Http请求线程</p><p>javascript单线程指的是javascript引擎线程单线程处理它的事件队列，而浏览器是事件驱动的，很多事件都是异步的，比如鼠标点击事件，setTimeout，Ajax回调事件，当这些事件发生时，浏览器会将这些事件放入执行队列，待浏览器空闲时再执行。</p><p>另外，值得一提的是，ajax调用确实是异步的，浏览器会启动一个新线程来想服务端发送请求，如果设置了回调事件，会根据服务端返回状态将回调事件放入事件队列。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> function printHello()</span><br><span class="line">&#123;</span><br><span class="line">  console.time(&quot;hello&quot;);</span><br><span class="line">&#125;</span><br><span class="line">function printHello1()</span><br><span class="line">&#123;</span><br><span class="line">  console.timeEnd(&quot;hello&quot;);</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(printHello,1000);</span><br><span class="line"></span><br><span class="line">setTimeout(printHello1,5000);</span><br></pre></td></tr></table></figure></p><p>如果执行这段代码，得到的却是接近4000ms的结果，验证了<br>setTimeout只是将事件到时间点压入队列，而不是立即执行。具体何时执行还要看浏览器的空闲程度。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;重新认识javascript的settimeout和异步&lt;/p&gt;
+&lt;p&gt;今晚看到QLeelulu的一道JavaScript面试题（setTimeout），稍微想了一下，好不容易连猜带蒙，凑巧说对了答案。但是原因到底是什么呢？自己一时也说不太清楚，反正感觉就是一个死循环造成的
+      
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="js" scheme="https://itibbers.com/tags/js/"/>
+    
+      <category term="thread" scheme="https://itibbers.com/tags/thread/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>快速幂 快速幂取模</title>
+    <link href="https://itibbers.com/backend/%E5%BF%AB%E9%80%9F%E5%B9%82-%E5%BF%AB%E9%80%9F%E5%B9%82%E5%8F%96%E6%A8%A1/"/>
+    <id>https://itibbers.com/backend/快速幂-快速幂取模/</id>
+    <published>2016-06-22T01:24:34.000Z</published>
+    <updated>2017-08-19T13:09:01.361Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2><p>求x^m 一般方法是 xm = x * xm-1，这样需要做m次乘法，未免过慢。</p><p>加速方法有两种。</p><p>1.基于当m为偶数时， xm = (x2)^(m/2) ；当m为奇数时， xm = x * xm-1。显然当m为偶数时m会减半，当m为奇数时，下次就是偶数。m可以很快收敛到0.（^表示幂）</p><p>2.将m看成二进制串mkmk-1…m1m0，那么xm = xm0<em>2^0 + m1</em>2^1 + … + mk<em>2^k = xm0</em>2^0 <em> xm1</em>2^1 <em> … </em> xmk*2^k.  mi为0或1，假设平均有一半mi为1，即k个，那么总共才只需要做（k+(k/2)）次乘法。</p><p>下面给出代码。第一个方法是加速方法1，第二个方法是加速方法1的迭代形式，第三个方法是加速方法2。</p><p>在网上看到有人将 <em>2 或 /2，改为移位运算，就说效率更高。这其实是扯谈。连我们都知道移位运算效率高，</em>2 和 /2 就是一个相当于移位运算的操作，做编译器的人会不知道？即使你写成 *2 或 /2，编译器也会帮你优化为移位运算。不相信的同学可以用C语言测试一下，只需将代码编译成汇编代码看看是否一样。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">pow</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">fastExp</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(m == <span class="number">0</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(m % <span class="number">2</span> == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">//x^m = (x^2)^(m/2)</span></span><br><span class="line">            <span class="keyword">return</span> fastExp(x*x, m/<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//x^m = x * x(m-1)</span></span><br><span class="line">            <span class="keyword">return</span> x * fastExp(x, m-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">fastExp_iter</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result  = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(m != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(m % <span class="number">2</span> == <span class="number">0</span>)&#123;</span><br><span class="line">                x *= x;</span><br><span class="line">                m /= <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                result *= x;</span><br><span class="line">                m --;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">fastExpBin</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">        <span class="comment">//x^m = x^(m0 * 2^0) * x^(m1 * 2^1) * x^(m2 * 2^2) * ... * x^(mk * 2^k)</span></span><br><span class="line">        <span class="keyword">int</span> result  = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(m != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((m&amp;<span class="number">1</span>) == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="comment">//m0 = 1</span></span><br><span class="line">                result *= x;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//x对应每一位mi</span></span><br><span class="line">            x *= x;</span><br><span class="line">            m &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++)</span><br><span class="line">            System.out.print(fastExp(<span class="number">2</span>, i) + <span class="string">" "</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++)</span><br><span class="line">            System.out.print(fastExp_iter(<span class="number">2</span>, i) + <span class="string">" "</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++)</span><br><span class="line">            System.out.print(fastExpBin(<span class="number">2</span>, i) + <span class="string">" "</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="快速幂取模"><a href="#快速幂取模" class="headerlink" title="快速幂取模"></a>快速幂取模</h2><p>与快速幂类似</p><p>只是在每次运算的时候要作mod m运算，利用的是模运算规则 (a <em> b) mod m = ((a mod m) </em> (b mod m)) mod m.</p><p>用快速幂取模的方法比直接求幂再取模的方法要快，因为将乘数限制在一定的范围。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;快速幂&quot;&gt;&lt;a href=&quot;#快速幂&quot; class=&quot;headerlink&quot; title=&quot;快速幂&quot;&gt;&lt;/a&gt;快速幂&lt;/h2&gt;&lt;p&gt;求x^m 一般方法是 xm = x * xm-1，这样需要做m次乘法，未免过慢。&lt;/p&gt;
+&lt;p&gt;加速方法有两种。&lt;/p&gt;
+&lt;p&gt;1.
+      
+    
+    </summary>
+    
+      <category term="backend" scheme="https://itibbers.com/categories/backend/"/>
+    
+    
+      <category term="algorithm" scheme="https://itibbers.com/tags/algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>*nix系统下字符编码转换方法</title>
+    <link href="https://itibbers.com/daily/nix%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95/"/>
+    <id>https://itibbers.com/daily/nix系统下字符编码转换方法/</id>
+    <published>2016-06-22T01:09:40.000Z</published>
+    <updated>2017-08-19T13:11:18.813Z</updated>
+    
+    <content type="html"><![CDATA[<p>用windows的时候，如果把gbk转换为utf8，有几个方法，一是记事本另存为，但是存在BOM的问题，另一种方法是通过不产生BOM的软件，如vim，sublime来code或保存，太过麻烦。</p><p>今天无意中发现了Mac系统下，有个iconv的命令，可以非常方便的转换字符编码。</p><p>iconv -f gbk -t utf-8 gbk.cpp &gt; utf8.cpp</p><p>配合管道输出，简直不能更方便。</p><p>后来发现不光Mac系统有，所以*nix系统都有这个命令。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NAME</span><br><span class="line">       iconv - character set conversion</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       iconv [OPTION...] [-f encoding] [-t encoding] [inputfile ...]</span><br><span class="line">       iconv -l</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;用windows的时候，如果把gbk转换为utf8，有几个方法，一是记事本另存为，但是存在BOM的问题，另一种方法是通过不产生BOM的软件，如vim，sublime来code或保存，太过麻烦。&lt;/p&gt;
+&lt;p&gt;今天无意中发现了Mac系统下，有个iconv的命令，可以非常方便的
+      
+    
+    </summary>
+    
+      <category term="daily" scheme="https://itibbers.com/categories/daily/"/>
+    
+    
+      <category term="linux" scheme="https://itibbers.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS滚动加载数据的方法</title>
+    <link href="https://itibbers.com/frontend/JS%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>https://itibbers.com/frontend/JS滚动加载数据的方法/</id>
+    <published>2016-06-08T02:52:12.000Z</published>
+    <updated>2017-08-19T13:06:49.758Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(window).scroll(function () &#123;</span><br><span class="line">    var scrollTop = $(this).scrollTop();</span><br><span class="line">    var scrollHeight = $(document).height();</span><br><span class="line">    var windowHeight = $(this).height();</span><br><span class="line">    if (scrollTop + windowHeight == scrollHeight) &#123;</span><br><span class="line">        //异步加载数据的方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="js" scheme="https://itibbers.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go-Pholcus抓人民网新闻规则</title>
+    <link href="https://itibbers.com/backend/Go-Pholcus%E7%88%AC%E8%99%AB%E8%A7%84%E5%88%99/"/>
+    <id>https://itibbers.com/backend/Go-Pholcus爬虫规则/</id>
+    <published>2016-04-21T03:44:03.000Z</published>
+    <updated>2017-08-21T06:49:41.404Z</updated>
+    
+    <content type="html"><![CDATA[<p>Go语言下有个爬虫软件pholcus，写了个爬虫的规则，抓的是人民网的最新新闻和IJGUC所有期刊。<br>pholcus开源软件做的还是挺棒的，但是觉得go语言不太好玩。<br>规则放到了<a href="https://github.com/itibbers/pholcus-spider-lib" target="_blank" rel="noopener">Github</a><br><a id="more"></a></p><h3 id="人民网新闻"><a href="#人民网新闻" class="headerlink" title="人民网新闻"></a>人民网新闻</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spider_lib</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基础包</span></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"log"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// "github.com/PuerkitoBio/goquery"                        //DOM解析</span></span><br><span class="line">    <span class="string">"github.com/henrylee2cn/pholcus/app/downloader/request"</span> <span class="comment">//必需</span></span><br><span class="line">    <span class="comment">// "github.com/henrylee2cn/pholcus/logs"               //信息输出</span></span><br><span class="line">    . <span class="string">"github.com/henrylee2cn/pholcus/app/spider"</span> <span class="comment">//必需</span></span><br><span class="line">    <span class="comment">// . "github.com/henrylee2cn/pholcus/app/spider/common" //选用</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// net包</span></span><br><span class="line">    <span class="comment">// "net/http" //设置http.Header</span></span><br><span class="line">    <span class="comment">// "net/url"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 编码包</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// "encoding/xml"</span></span><br><span class="line">    <span class="string">"encoding/json"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 字符串处理包</span></span><br><span class="line">    <span class="comment">// "regexp"</span></span><br><span class="line">    <span class="comment">// "strconv"</span></span><br><span class="line">    <span class="comment">// "strings"</span></span><br><span class="line">    <span class="comment">// 其他包</span></span><br><span class="line">    <span class="comment">// "fmt"</span></span><br><span class="line">    <span class="comment">// "math"</span></span><br><span class="line">    <span class="comment">// "time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    People.Register()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Item <span class="keyword">struct</span> &#123;</span><br><span class="line">    Id       <span class="keyword">string</span> <span class="string">`json:"id"`</span></span><br><span class="line">    Title    <span class="keyword">string</span> <span class="string">`json:"title"`</span></span><br><span class="line">    Url      <span class="keyword">string</span> <span class="string">`json:"url"`</span></span><br><span class="line">    Date     <span class="keyword">string</span> <span class="string">`json:"date"`</span></span><br><span class="line">    NodeId   <span class="keyword">string</span> <span class="string">`json:"nodeId"`</span></span><br><span class="line">    ImgCount <span class="keyword">string</span> <span class="string">`json:"imgCount"`</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> News <span class="keyword">struct</span> &#123;</span><br><span class="line">    Items []Item <span class="string">`json:"items"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> news News</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> People = &amp;Spider&#123;</span><br><span class="line">    Name:        <span class="string">"人民网新闻抓取"</span>,</span><br><span class="line">    Description: <span class="string">"人民网最新分类新闻"</span>,</span><br><span class="line">    <span class="comment">// Pausetime:    300,</span></span><br><span class="line">    <span class="comment">// Keyin:        KEYIN,</span></span><br><span class="line">    <span class="comment">// Limit:        LIMIT,</span></span><br><span class="line">    EnableCookie: <span class="literal">false</span>,</span><br><span class="line">    RuleTree: &amp;RuleTree&#123;</span><br><span class="line">        Root: <span class="function"><span class="keyword">func</span><span class="params">(ctx *Context)</span></span> &#123;</span><br><span class="line">            ctx.AddQueue(&amp;request.Request&#123;</span><br><span class="line">                Method: <span class="string">"GET"</span>,</span><br><span class="line">                Url:    <span class="string">"http://news.people.com.cn/210801/211150/index.js?cache=false"</span>,</span><br><span class="line">                Rule:   <span class="string">"新闻列表"</span>,</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        Trunk: <span class="keyword">map</span>[<span class="keyword">string</span>]*Rule&#123;</span><br><span class="line">            <span class="string">"新闻列表"</span>: &#123;</span><br><span class="line">                ParseFunc: <span class="function"><span class="keyword">func</span><span class="params">(ctx *Context)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//query := ctx.GetDom()</span></span><br><span class="line">                    <span class="comment">//str := query.Find("body").Text()</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">//str := `&#123;"items":[&#123;"id":"282","title":"人社&amp;nbsp;转型升级&amp;quot;战术&amp;quot;手册","url":"ht","date":"201","nodeId":"1001","imgCount":"4"&#125;]&#125;`</span></span><br><span class="line"></span><br><span class="line">                    str := ctx.GetText()</span><br><span class="line"></span><br><span class="line">                    err := json.Unmarshal([]<span class="keyword">byte</span>(str), &amp;news)</span><br><span class="line">                    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                        log.Printf(<span class="string">"解析错误： %v\n"</span>, err)</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">/////////////////</span></span><br><span class="line">                    newsLength := <span class="built_in">len</span>(news.Items)</span><br><span class="line">                    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; newsLength; i++ &#123;</span><br><span class="line">                        ctx.AddQueue(&amp;request.Request&#123;</span><br><span class="line">                            Url:  news.Items[i].Url,</span><br><span class="line">                            Rule: <span class="string">"热点新闻"</span>,</span><br><span class="line">                            Temp: <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">                                <span class="string">"id"</span>:       news.Items[i].Id,</span><br><span class="line">                                <span class="string">"title"</span>:    news.Items[i].Title,</span><br><span class="line">                                <span class="string">"date"</span>:     news.Items[i].Date,</span><br><span class="line">                                <span class="string">"newsType"</span>: news.Items[i].NodeId,</span><br><span class="line">                            &#125;,</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">/////////////////</span></span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="string">"热点新闻"</span>: &#123;</span><br><span class="line">                <span class="comment">//注意：有无字段语义和是否输出数据必须保持一致</span></span><br><span class="line">                ItemFields: []<span class="keyword">string</span>&#123;</span><br><span class="line">                    <span class="string">"ID"</span>,</span><br><span class="line">                    <span class="string">"标题"</span>,</span><br><span class="line">                    <span class="string">"内容"</span>,</span><br><span class="line">                    <span class="string">"类别"</span>,</span><br><span class="line">                    <span class="string">"ReleaseTime"</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">                ParseFunc: <span class="function"><span class="keyword">func</span><span class="params">(ctx *Context)</span></span> &#123;</span><br><span class="line">                    query := ctx.GetDom()</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 获取内容</span></span><br><span class="line">                    content := query.Find(<span class="string">"#p_content"</span>).Text()</span><br><span class="line">                    <span class="comment">// re, _ := regexp.Compile("\\&lt;[\\S\\s]+?\\&gt;")</span></span><br><span class="line">                    <span class="comment">// content = re.ReplaceAllStringFunc(content, strings.ToLower)</span></span><br><span class="line">                    <span class="comment">// content = re.ReplaceAllString(content, "")</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 结果存入Response中转</span></span><br><span class="line">                    ctx.Output(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">                        <span class="number">0</span>: ctx.GetTemp(<span class="string">"id"</span>, <span class="string">""</span>),</span><br><span class="line">                        <span class="number">1</span>: ctx.GetTemp(<span class="string">"title"</span>, <span class="string">""</span>),</span><br><span class="line">                        <span class="number">2</span>: content,</span><br><span class="line">                        <span class="number">3</span>: ctx.GetTemp(<span class="string">"newsType"</span>, <span class="string">""</span>),</span><br><span class="line">                        <span class="number">4</span>: ctx.GetTemp(<span class="string">"date"</span>, <span class="string">""</span>),</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="IJGUC期刊"><a href="#IJGUC期刊" class="headerlink" title="IJGUC期刊"></a>IJGUC期刊</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spider_lib</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基础包</span></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="comment">// "log"</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"github.com/PuerkitoBio/goquery"</span>                        <span class="comment">//DOM解析</span></span><br><span class="line">    <span class="string">"github.com/henrylee2cn/pholcus/app/downloader/request"</span> <span class="comment">//必需</span></span><br><span class="line">    . <span class="string">"github.com/henrylee2cn/pholcus/app/spider"</span>           <span class="comment">//必需</span></span><br><span class="line">    <span class="comment">// "github.com/henrylee2cn/pholcus/logs"         //信息输出</span></span><br><span class="line">    <span class="comment">// . "github.com/henrylee2cn/pholcus/app/spider/common" //选用</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// net包</span></span><br><span class="line">    <span class="comment">// "net/http" //设置http.Header</span></span><br><span class="line">    <span class="comment">// "net/url"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 编码包</span></span><br><span class="line">    <span class="comment">// "encoding/xml"</span></span><br><span class="line">    <span class="comment">// "encoding/json"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 字符串处理包</span></span><br><span class="line">    <span class="string">"regexp"</span></span><br><span class="line">    <span class="string">"strconv"</span></span><br><span class="line">    <span class="comment">// "strings"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他包</span></span><br><span class="line">    <span class="comment">// "fmt"</span></span><br><span class="line">    <span class="comment">// "math"</span></span><br><span class="line">    <span class="comment">// "time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    IJGUC.Register()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> IJGUC = &amp;Spider&#123;</span><br><span class="line">    Name:        <span class="string">"IJGUC期刊"</span>,</span><br><span class="line">    Description: <span class="string">"IJGUC期刊"</span>,</span><br><span class="line">    <span class="comment">// Pausetime:    300,</span></span><br><span class="line">    <span class="comment">// Keyin:        KEYIN,</span></span><br><span class="line">    <span class="comment">// Limit:        LIMIT,</span></span><br><span class="line">    EnableCookie: <span class="literal">false</span>,</span><br><span class="line">    RuleTree: &amp;RuleTree&#123;</span><br><span class="line">        Root: <span class="function"><span class="keyword">func</span><span class="params">(ctx *Context)</span></span> &#123;</span><br><span class="line">            ctx.AddQueue(&amp;request.Request&#123;</span><br><span class="line">                Url:  <span class="string">"http://www.inderscience.com/info/inarticletoc.php?jcode=ijguc&amp;year=2016&amp;vol=7&amp;issue=1"</span>,</span><br><span class="line">                Rule: <span class="string">"期刊列表"</span>,</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        Trunk: <span class="keyword">map</span>[<span class="keyword">string</span>]*Rule&#123;</span><br><span class="line">            <span class="string">"期刊列表"</span>: &#123;</span><br><span class="line">                ParseFunc: <span class="function"><span class="keyword">func</span><span class="params">(ctx *Context)</span></span> &#123;</span><br><span class="line">                    query := ctx.GetDom()</span><br><span class="line">                    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">7</span>; i++ &#123;</span><br><span class="line">                        id := <span class="string">"#eventbody"</span> + strconv.Itoa(i) + <span class="string">" a"</span></span><br><span class="line">                        query.Find(id).Each(<span class="function"><span class="keyword">func</span><span class="params">(j <span class="keyword">int</span>, s *goquery.Selection)</span></span> &#123;</span><br><span class="line">                            <span class="keyword">if</span> url, ok := s.Attr(<span class="string">"href"</span>); ok &#123;</span><br><span class="line">                                <span class="comment">// log.Print(url)</span></span><br><span class="line">                                ctx.AddQueue(&amp;request.Request&#123;Url: url, Rule: <span class="string">"文章列表"</span>&#125;)</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">"文章列表"</span>: &#123;</span><br><span class="line">                ParseFunc: <span class="function"><span class="keyword">func</span><span class="params">(ctx *Context)</span></span> &#123;</span><br><span class="line">                    query := ctx.GetDom()</span><br><span class="line">                    <span class="comment">//#journalcol1 article table tbody tr td:eq(1) table:eq(1) a</span></span><br><span class="line">                    query.Find(<span class="string">"#journalcol1 article table tbody tr td"</span>).Each(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>, td *goquery.Selection)</span></span> &#123;</span><br><span class="line">                        <span class="keyword">if</span> i == <span class="number">1</span> &#123;</span><br><span class="line">                            td.Find(<span class="string">"table"</span>).Each(<span class="function"><span class="keyword">func</span><span class="params">(j <span class="keyword">int</span>, table *goquery.Selection)</span></span> &#123;</span><br><span class="line">                                <span class="keyword">if</span> j == <span class="number">1</span> &#123;</span><br><span class="line">                                    table.Find(<span class="string">"a"</span>).Each(<span class="function"><span class="keyword">func</span><span class="params">(k <span class="keyword">int</span>, a *goquery.Selection)</span></span> &#123;</span><br><span class="line">                                        <span class="keyword">if</span> k%<span class="number">2</span> == <span class="number">0</span> &#123;</span><br><span class="line">                                            <span class="keyword">if</span> url, ok := a.Attr(<span class="string">"href"</span>); ok &#123;</span><br><span class="line">                                                <span class="comment">// log.Print(url)</span></span><br><span class="line">                                                ctx.AddQueue(&amp;request.Request&#123;Url: url, Rule: <span class="string">"文章页"</span>&#125;)</span><br><span class="line">                                            &#125;</span><br><span class="line">                                        &#125;</span><br><span class="line">                                    &#125;)</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">"文章页"</span>: &#123;</span><br><span class="line">                <span class="comment">//注意：有无字段语义和是否输出数据必须保持一致</span></span><br><span class="line">                ItemFields: []<span class="keyword">string</span>&#123;</span><br><span class="line">                    <span class="string">"Title"</span>,</span><br><span class="line">                    <span class="string">"Author"</span>,</span><br><span class="line">                    <span class="string">"Addresses"</span>,</span><br><span class="line">                    <span class="string">"Journal"</span>,</span><br><span class="line">                    <span class="string">"Abstract"</span>,</span><br><span class="line">                    <span class="string">"Keywords"</span>,</span><br><span class="line">                    <span class="string">"DOI"</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">                ParseFunc: <span class="function"><span class="keyword">func</span><span class="params">(ctx *Context)</span></span> &#123;</span><br><span class="line">                    query := ctx.GetDom()</span><br><span class="line">                    <span class="comment">// 获取内容</span></span><br><span class="line">                    content := query.Find(<span class="string">"#col1"</span>).Text()</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 过滤标签</span></span><br><span class="line">                    re, _ := regexp.Compile(<span class="string">"\\&lt;[\\S\\s]+?\\&gt;"</span>)</span><br><span class="line">                    content = re.ReplaceAllString(content, <span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// Title</span></span><br><span class="line">                    re, _ = regexp.Compile(<span class="string">"Title:(.*?)Author:"</span>)</span><br><span class="line">                    title := re.FindStringSubmatch(content)[<span class="number">1</span>]</span><br><span class="line">                    <span class="comment">// Author</span></span><br><span class="line">                    re, _ = regexp.Compile(<span class="string">"Author:(.*?)Addresses:"</span>)</span><br><span class="line">                    au := re.FindStringSubmatch(content)</span><br><span class="line">                    <span class="keyword">var</span> author <span class="keyword">string</span></span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">len</span>(au) &gt; <span class="number">0</span> &#123;</span><br><span class="line">                        author = au[<span class="number">1</span>]</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        re, _ = regexp.Compile(<span class="string">"Author:(.*?)Address:"</span>)</span><br><span class="line">                        author = re.FindStringSubmatch(content)[<span class="number">1</span>]</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// Addresses &amp; Address</span></span><br><span class="line">                    re, _ = regexp.Compile(<span class="string">"Addresses:(.*?)Journal:"</span>)</span><br><span class="line">                    address := re.FindStringSubmatch(content)</span><br><span class="line">                    <span class="keyword">var</span> addresses <span class="keyword">string</span></span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">len</span>(address) &gt; <span class="number">0</span> &#123;</span><br><span class="line">                        addresses = address[<span class="number">1</span>]</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        re, _ = regexp.Compile(<span class="string">"Address:(.*?)Journal:"</span>)</span><br><span class="line">                        addresses = re.FindStringSubmatch(content)[<span class="number">1</span>]</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// Journal</span></span><br><span class="line">                    re, _ = regexp.Compile(<span class="string">"Journal:(.*?)Abstract:"</span>)</span><br><span class="line">                    journal := re.FindStringSubmatch(content)[<span class="number">1</span>]</span><br><span class="line">                    <span class="comment">// Abstract</span></span><br><span class="line">                    re, _ = regexp.Compile(<span class="string">"Abstract:(.*?)Keywords:"</span>)</span><br><span class="line">                    abstract := re.FindStringSubmatch(content)[<span class="number">1</span>]</span><br><span class="line">                    <span class="comment">// Keywords</span></span><br><span class="line">                    re, _ = regexp.Compile(<span class="string">"Keywords:(.*?)DOI:"</span>)</span><br><span class="line">                    keywords := re.FindStringSubmatch(content)[<span class="number">1</span>]</span><br><span class="line">                    <span class="comment">// DOI</span></span><br><span class="line">                    re, _ = regexp.Compile(<span class="string">"DOI: "</span>)</span><br><span class="line">                    doiIndex := re.FindStringSubmatchIndex(content)</span><br><span class="line">                    rs := []<span class="keyword">rune</span>(content)</span><br><span class="line">                    left := doiIndex[<span class="number">1</span>] - <span class="number">8</span></span><br><span class="line">                    right := left + <span class="number">43</span></span><br><span class="line">                    doi := <span class="keyword">string</span>(rs[left:right])</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 结果存入Response中转</span></span><br><span class="line">                    ctx.Output(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">                        <span class="number">0</span>: title,</span><br><span class="line">                        <span class="number">1</span>: author,</span><br><span class="line">                        <span class="number">2</span>: addresses,</span><br><span class="line">                        <span class="number">3</span>: journal,</span><br><span class="line">                        <span class="number">4</span>: abstract,</span><br><span class="line">                        <span class="number">5</span>: keywords,</span><br><span class="line">                        <span class="number">6</span>: doi,</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Go语言下有个爬虫软件pholcus，写了个爬虫的规则，抓的是人民网的最新新闻和IJGUC所有期刊。&lt;br&gt;pholcus开源软件做的还是挺棒的，但是觉得go语言不太好玩。&lt;br&gt;规则放到了&lt;a href=&quot;https://github.com/itibbers/pholcus-spider-lib&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Github&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="backend" scheme="https://itibbers.com/categories/backend/"/>
+    
+    
+      <category term="go" scheme="https://itibbers.com/tags/go/"/>
+    
+      <category term="spider" scheme="https://itibbers.com/tags/spider/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ionic &amp; AngularJS传递url类型的参数</title>
+    <link href="https://itibbers.com/frontend/ionic-AngularJS%E4%BC%A0%E9%80%92url%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0/"/>
+    <id>https://itibbers.com/frontend/ionic-AngularJS传递url类型的参数/</id>
+    <published>2016-03-21T06:38:49.000Z</published>
+    <updated>2017-08-21T06:42:01.180Z</updated>
+    
+    <content type="html"><![CDATA[<p>ionic用的是ui-router，如果参数是一个路径，直接使用：<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url: &quot;/newslist/:url&quot;,</span><br></pre></td></tr></table></figure></p><p>就会出现问题，比如当传递的时候：<code>href=&quot;#/tab/&quot;，假如u的值为</code><a href="http://isunday.top`，那么拼接起来就会变成：" target="_blank" rel="noopener">http://isunday.top`，那么拼接起来就会变成：</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#/tab/http://isunday.top</span><br></pre></td></tr></table></figure></p><p>造成错误, so，定义path类型的路由应该如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url: &quot;/newslist/&#123;path:.*&#125;&quot;</span><br></pre></td></tr></table></figure></p><p>或者：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url: &quot;/newslist/*path&quot;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ionic用的是ui-router，如果参数是一个路径，直接使用：&lt;br&gt;
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="ionic" scheme="https://itibbers.com/tags/ionic/"/>
+    
+      <category term="angularjs" scheme="https://itibbers.com/tags/angularjs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ionic使用iframe可能遇到的问题 </title>
+    <link href="https://itibbers.com/frontend/ionic%E4%BD%BF%E7%94%A8iframe%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://itibbers.com/frontend/ionic使用iframe可能遇到的问题/</id>
+    <published>2016-03-21T03:36:31.000Z</published>
+    <updated>2017-08-21T06:38:03.128Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="无法访问外部url的问题–两个步骤解决："><a href="#无法访问外部url的问题–两个步骤解决：" class="headerlink" title="无法访问外部url的问题–两个步骤解决："></a>无法访问外部url的问题–两个步骤解决：</h2><p>1.iframe的src属性用ng-src属性替代，并指明绑定对象：ng-src=”“<br>2.在controller里，调用$sce: $scope.targetUrl = $sce.trustAsResourceUrl(url)</p><h2 id="高度无法最大化的问题–两个步骤："><a href="#高度无法最大化的问题–两个步骤：" class="headerlink" title="高度无法最大化的问题–两个步骤："></a>高度无法最大化的问题–两个步骤：</h2><p>1.ion-content 属性里添加 scroll=”true” overflow-scroll=”true”<br>2.iframe的style里添加 min-height: 100%</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;无法访问外部url的问题–两个步骤解决：&quot;&gt;&lt;a href=&quot;#无法访问外部url的问题–两个步骤解决：&quot; class=&quot;headerlink&quot; title=&quot;无法访问外部url的问题–两个步骤解决：&quot;&gt;&lt;/a&gt;无法访问外部ur
+      
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="ionic" scheme="https://itibbers.com/tags/ionic/"/>
+    
+      <category term="iframe" scheme="https://itibbers.com/tags/iframe/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Composer安装时openssl missing</title>
+    <link href="https://itibbers.com/php/Composer%E5%AE%89%E8%A3%85%E6%97%B6openssl-missing/"/>
+    <id>https://itibbers.com/php/Composer安装时openssl-missing/</id>
+    <published>2016-03-15T07:26:19.000Z</published>
+    <updated>2017-08-19T13:03:17.073Z</updated>
+    
+    <content type="html"><![CDATA[<p>问题描述：“The openssl extension is missing, which means that secure HTTPS transfers are impossible.”</p><p>确保php.ini中extension=php_openssl.dll打开。</p><p>php.ini文件在apache和php目录下都有，建议都打开。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;问题描述：“The openssl extension is missing, which means that secure HTTPS transfers are impossible.”&lt;/p&gt;
+&lt;p&gt;确保php.ini中extension=php_openssl.d
+      
+    
+    </summary>
+    
+      <category term="php" scheme="https://itibbers.com/categories/php/"/>
+    
+    
+      <category term="php" scheme="https://itibbers.com/tags/php/"/>
+    
+      <category term="composer" scheme="https://itibbers.com/tags/composer/"/>
+    
+      <category term="error" scheme="https://itibbers.com/tags/error/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python - RuntimeError: maximum recursion depth exceeded</title>
+    <link href="https://itibbers.com/python/python-RuntimeError-maximum-recursion-depth-exceeded/"/>
+    <id>https://itibbers.com/python/python-RuntimeError-maximum-recursion-depth-exceeded/</id>
+    <published>2015-09-27T13:55:42.000Z</published>
+    <updated>2017-08-19T12:57:44.974Z</updated>
+    
+    <content type="html"><![CDATA[<p>用Python写了一个爬虫脚本，在抓取页面采用广度优先遍历抓取。但是当遍历到900多时就会出现莫名其妙的错误，通过pdb调试发现是：</p><p><code>RuntimeError: maximum recursion depth exceeded</code></p><p>在网上查了，发现python默认的递归深度是很有限的，大概是900多的样子，当递归深度超过这个值的时候，就会引发这样的一个异常。</p><p>解决的方式是手工设置递归调用深度，方式为</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.setrecursionlimit(<span class="number">1000000</span>) <span class="comment"># 例如这里设置为一百万</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;用Python写了一个爬虫脚本，在抓取页面采用广度优先遍历抓取。但是当遍历到900多时就会出现莫名其妙的错误，通过pdb调试发现是：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RuntimeError: maximum recursion depth exceeded&lt;/code&gt;&lt;/p&gt;
+      
+    
+    </summary>
+    
+      <category term="python" scheme="https://itibbers.com/categories/python/"/>
+    
+    
+      <category term="error" scheme="https://itibbers.com/tags/error/"/>
+    
+      <category term="runtime" scheme="https://itibbers.com/tags/runtime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>程序员</title>
+    <link href="https://itibbers.com/daily/%E7%A8%8B%E5%BA%8F%E5%91%98/"/>
+    <id>https://itibbers.com/daily/程序员/</id>
+    <published>2015-08-17T02:01:23.000Z</published>
+    <updated>2017-08-19T12:54:33.963Z</updated>
+    
+    <content type="html"><![CDATA[<p>程序员比较烦的是半瓶子醋的技术领导，或自以为懂了点技术的产品经理。关于商业模式，关于产品，关于用户体验，每个人都可以头头是道的说两句，比如我曾经看到无数的用户要为锤子手机、App、云服务、官网、电商提各种建议，还有一些创业失败的年轻人觉得锤科最大的问题是战略和商业模式，愿意免费为老罗提供战略咨询，等等。这都可以理解，但是谈到技术，懂就是懂，不懂就是不懂，界线是很明显的。</p><p>有些产品经理与技术人员打交道多年，多少也了解了一些技术架构和实现思路，这时候与程序员们聊天就要非常小心了。如果你顺嘴溜达出一些开源技术和架构名词，程序员们就会围上来笑嘻嘻的说「哇，你很懂技术嘛」，这时你要赶紧装作一脸无知的样子说「我懂个屁啊，也就知道个概念，我特么连 Hello World 都不会写」，然后程序员们就会放下手里的板砖，安心去编程了。</p><p>和程序员交流的正确方式是什么？当一个程序遇到瓶颈的时候，大部分程序员会非常无辜的说，「现在就是最好的解决方案，没有其他办法了」。这时候别着急，拍拍他的肩膀温和地说，「没事儿，你再想想，肯定有更好的解决办法」。如果你本身就是做技术的，也可以提供一些实现思路供他参考。一般情况下。过一阵他就会 <del>屁颠屁颠</del> <strong>美滋滋</strong>的告诉你，I have a better idea！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;程序员比较烦的是半瓶子醋的技术领导，或自以为懂了点技术的产品经理。关于商业模式，关于产品，关于用户体验，每个人都可以头头是道的说两句，比如我曾经看到无数的用户要为锤子手机、App、云服务、官网、电商提各种建议，还有一些创业失败的年轻人觉得锤科最大的问题是战略和商业模式，愿意
+      
+    
+    </summary>
+    
+      <category term="daily" scheme="https://itibbers.com/categories/daily/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>65279</title>
+    <link href="https://itibbers.com/backend/65279/"/>
+    <id>https://itibbers.com/backend/65279/</id>
+    <published>2015-08-13T02:44:00.000Z</published>
+    <updated>2017-08-19T13:32:11.103Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/images/65279.png" alt="65279"></p><p>如果你在修改文件后，发现网页上多了一个空行，不管怎么修改<code>margin</code>,<code>padding</code>都无法消除，但是审查元素的时候，发现多出一行<code>&quot;&amp;#65279&quot;</code>。<br><a id="more"></a><br>注：IE下是无法看到<code>65279</code>字样的，Firebug和Chrome才可以看到。</p><p>这是由于文件保存的时候，在前面加入了BOM字符。<br>UTF-8不需要BOM来表明字节顺序，但可以用BOM来表明编码方式。字符<code>ZERO WIDTH NO-BREAK SPACE</code>的编码是<code>EF BB BF</code>，如果接受者收到了三个不可见的字符（0xEF 0xBB 0xBF，即BOM）开头的字节流，就知道这是UTF-8编码了。</p><p>WINDOWS就是用BOM来标记文本文件的编码方式的。</p><p>现在几乎所有的文本编辑软件都可以显示并编辑UTF-8编码的文件。但是很遗憾，其中很多软件的表现并不理想。</p><p>对于一般的文件，这样并不会产生什么麻烦。但对于PHP来说，BOM是个大麻烦。</p><p>PHP并不会忽略BOM，所以在读取、包含或者引用这些文件时，会把BOM作为该文件开头正文的一部分。根据嵌入式语言的特点，这串字符将被直接执行（显示）出来。由此造成即使页面的<code>padding-top</code>设置为0，也无法让整个网页紧贴浏览器顶部，因为在html一开头有这3个字符呢！</p><p>最大的麻烦还不是这个。受COOKIE送出机制的限制，在这些文件开头已经有BOM的文件中，COOKIE无法送出（因为在COOKIE送出前PHP已经送出了文件头），所以登入和登出功能失效。一切依赖COOKIE、SESSION实现的功能全部无效。<br>因此，在编辑、更改任何文本文件时，请务必使用不会乱加BOM的编辑器。Linux下的编辑器应该都没有这个问题。WINDOWS下，请勿使用记事本等编辑器。推荐的编辑器是：Sublime Text；Editplus 2.12版本以上； EmEditor； UltraEdit（需要取消‘添加BOM’的相关选项）； Dreamweaver（需要取消‘添加BOM’的相关选项）等。<br>对于已经添加了BOM的文件，要取消的话，可以用以上编辑器另存一次。（Editplus需要先另存为gb，再另存为UTF-8）</p><p><strong>2015/08/13 18:11 补充：</strong><br>在前端显示，不光会占用一个空行，而且还会造成<code>&lt;/head&gt;&lt;body&gt;</code>标签的位移，让<code>&lt;meta&gt;</code>部分移动到<code>body</code>里面。原因未知。只能拿自己博客测试了 T.T 效果如图。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/images/65279.png&quot; alt=&quot;65279&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如果你在修改文件后，发现网页上多了一个空行，不管怎么修改&lt;code&gt;margin&lt;/code&gt;,&lt;code&gt;padding&lt;/code&gt;都无法消除，但是审查元素的时候，发现多出一行&lt;code&gt;&amp;quot;&amp;amp;#65279&amp;quot;&lt;/code&gt;。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="backend" scheme="https://itibbers.com/categories/backend/"/>
+    
+    
+      <category term="dom" scheme="https://itibbers.com/tags/dom/"/>
+    
+      <category term="php" scheme="https://itibbers.com/tags/php/"/>
+    
+      <category term="utf8-bom" scheme="https://itibbers.com/tags/utf8-bom/"/>
+    
+  </entry>
+  
+</feed>
