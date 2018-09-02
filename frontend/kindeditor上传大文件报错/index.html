@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>kindeditor上传大文件报错 · iTibbers</title><meta name="description" content="kindeditor上传大文件报错 - Ive"><meta name="keywords" content="kindeditor上传大文件报错,iTibbers,难难,难难不爱写代码,前端,FE,技术分享"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/i.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="iTibbers"><script async src="https://www.googletagmanager.com/gtag/js?id=UA-104632485-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());gtag('config', 'UA-104632485-1');</script></head><body><header class="header"><nav class="nav"><ul class="nav-menu"><li class="nav-item"><a href="/" class="nav-link"><span></span></a></li><li class="nav-item"><a href="/archives" class="nav-link"><span>Archives</span></a></li><li class="nav-item"><a href="/friends" class="nav-link"><span>Friends</span></a></li><li class="nav-item"><a href="/about" class="nav-link"><span>About</span></a></li><li class="nav-item"><a href="https://github.com/itibbers" target="_blank" class="nav-link"><img src="/images/github.svg" class="icon"></a></li></ul></nav></header><main class="main"><div class="container"><div class="post"><article class="post-block"><h1 class="post-title">kindeditor上传大文件报错</h1><div class="post-info">Jan 11, 2017<a href="/categories/frontend" class="post-cate"><i class="icon-cate"></i> frontend</a><a href="/tags/error" class="post-tag"><i class="icon-tag"></i> error</a><a href="/tags/kindeditor" class="post-tag"><i class="icon-tag"></i> kindeditor</a></div><div class="post-content"><h1 id="框架本身文件大小限制"><a href="#框架本身文件大小限制" class="headerlink" title="框架本身文件大小限制"></a>框架本身文件大小限制</h1><h2 id="框架JS文件"><a href="#框架JS文件" class="headerlink" title="框架JS文件"></a>框架JS文件</h2><p>方法一：配置参数</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;kindeditor/themes/default/default.css&quot; /&gt;
+&lt;script charset=&quot;utf-8&quot; src=&quot;kindeditor/kindeditor-all.js&quot;&gt;&lt;/script&gt;
+&lt;script charset=&quot;utf-8&quot; src=&quot;kindeditor/lang/zh-CN.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+KindEditor.ready(function(K) {
+    K.create(&apos;#content&apos;,{
+    imageSizeLimit : &apos;10MB&apos;, //批量上传图片单张最大容量
+    imageUploadLimit : 100 //批量上传图片同时上传最多个数
+    });
+});
+&lt;/script&gt;
+&lt;textarea id=&quot;content&quot; name=&quot;content&quot; style=&quot; width: 99%; height: 500px; visibility: hidden; display: block; &quot;&gt;&lt;/textarea&gt;
+</code></pre><p>方法二：修改框架kindeditor-all.js文件<br>imgPath = self.pluginsPath + ‘multiimage/images/‘, //默认上传目录<br>imageSizeLimit = K.undef(self.imageSizeLimit, ‘1MB’), //默认上传单个文件大小<br>imageFileTypes = K.undef(self.imageFileTypes, ‘<em>.jpg;</em>.gif;*.png’), //默认上传类型<br>imageUploadLimit = K.undef(self.imageUploadLimit, 20), //默认一次性批量上传图片的个数</p>
+<h2 id="框架php文件"><a href="#框架php文件" class="headerlink" title="框架php文件"></a>框架php文件</h2><p>kindeditor/php/upload_json.php<br>//最大文件大小<br>$max_size = 1000000;</p>
+<h1 id="php-ini"><a href="#php-ini" class="headerlink" title="php.ini"></a>php.ini</h1><ol>
+<li>post_max_size = 50M ; Maximum size of POST data that PHP will accept.</li>
+<li>; Its value may be 0 to disable the limit. It is ignored if POST data reading</li>
+<li>; is disabled through enable_post_data_reading.</li>
+<li>upload_max_filesize = 50M ; Maximum allowed size for uploaded files.</li>
+</ol>
+<p>技巧：注意查看php错误日志</p>
+</div></article></div></div><div id="disqus_thread"></div><script>var disqus_shortname = 'itibbers';
+var disqus_identifier = 'frontend/kindeditor上传大文件报错/';
+var disqus_title = 'kindeditor上传大文件报错';
+var disqus_url = 'https://itibbers.com/frontend/kindeditor上传大文件报错/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//itibbers.disqus.com/count.js" async></script></main><footer class="footer"><div class="paginator"><a href="/linux/一句话解压目录下所有gz文件/" class="btn prev">PREV</a><a href="/frontend/An-invalid-form-control-with-name-xxx-is-not-focusable/" class="btn next">NEXT</a></div><div class="copyright"><p>Copyright © 2015 - 2018 <a href="https://itibbers.com">Ive</a>. Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.</p><p><a target="_blank"></a></p></div></footer></body></html>
