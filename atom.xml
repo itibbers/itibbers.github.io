@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2018-08-27T07:05:20.094Z</updated>
+  <updated>2018-10-26T10:53:41.670Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>shell命令行的操作及命令的搜索</title>
+    <link href="https://itibbers.com/2018/10/26/shell%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E6%93%8D%E4%BD%9C%E5%8F%8A%E5%91%BD%E4%BB%A4%E7%9A%84%E6%90%9C%E7%B4%A2/"/>
+    <id>https://itibbers.com/2018/10/26/shell命令行的操作及命令的搜索/</id>
+    <published>2018-10-26T10:51:46.000Z</published>
+    <updated>2018-10-26T10:53:41.670Z</updated>
+    
+    <content type="html"><![CDATA[<p>经常会使用shell对文件进行一些操作。但是命令行的操作不熟悉也是特别影响效率的，如何快速度的返回上一次目录，如何编辑当前命令行的内容对于提高效率是非常有帮助的。<br>你是否经常连续按“backSpace”键来删除当前的命令，是否为了返回上次目录而不断的“cd”,而又或者不断的按方向键去修改其中写错的某个单词…..这些土鳖的方向必须抛弃。<br><a id="more"></a></p><h2 id="回到上一次操作的目录"><a href="#回到上一次操作的目录" class="headerlink" title="回到上一次操作的目录"></a>回到上一次操作的目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd -</span><br></pre></td></tr></table></figure><h2 id="历史命令快捷键"><a href="#历史命令快捷键" class="headerlink" title="历史命令快捷键"></a>历史命令快捷键</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Ctrl+r], [Ctrl+p], [Ctrl+n]</span><br></pre></td></tr></table></figure><p>[Ctrl+r] 是搜索历史命令的，当使用这个组合键后，会出现个输入框，你每按一个字符都会自动从历史命令中匹配出相关结果，选择你要的按回车即可,该命令可以快速定位到你之前使用的任何命令，比如cd过哪个很长的目录。<br>[Ctrl+p]和[Ctrl+n]主要功能是翻阅历史命令，上一条和下一条。此命令一般在最近使用过的命令比较方便。</p><h2 id="命令行内快速操作键"><a href="#命令行内快速操作键" class="headerlink" title="命令行内快速操作键"></a>命令行内快速操作键</h2><ol><li>移动操作快捷键<br>Ctrl + f– 向右移动一个字符，当然多数人用→<br>Ctrl + b– 向左移动一个字符， 多数人用←<br>ESC + f– 向右移动一个单词，MAC下建议用ALT + →<br>ESC + b– 向左移动一个单词，MAC下建议用ALT + ←<br>Ctrl + a– 跳到行首<br>Ctrl + e– 跳到行尾</li><li>删除操作快捷键<br>Ctrl + d– 向右删除一个字符<br>Ctrl + h– 向左删除一个字符<br>Ctrl + u– 删除当前位置字符至行首（输入密码错误的时候多用下这个）<br>Ctrl + k– 删除当前位置字符至行尾<br>Ctrl + w– 删除从光标到当前单词开头</li><li>其他操作快捷键<br>Ctrl + y– 插入最近删除的单词<br>Ctrl + c– 终止操作<br>Ctrl + d– 当前操作转到后台<br>Ctrl + l– 清屏 （有时候为了好看）</li></ol><p>使用了这些快捷后，立马感觉神清气爽~。over.</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;经常会使用shell对文件进行一些操作。但是命令行的操作不熟悉也是特别影响效率的，如何快速度的返回上一次目录，如何编辑当前命令行的内容对于提高效率是非常有帮助的。&lt;br&gt;你是否经常连续按“backSpace”键来删除当前的命令，是否为了返回上次目录而不断的“cd”,而又或者不断的按方向键去修改其中写错的某个单词…..这些土鳖的方向必须抛弃。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="cate" scheme="https://itibbers.com/categories/cate/"/>
+    
+    
+      <category term="tag" scheme="https://itibbers.com/tags/tag/"/>
+    
+  </entry>
   
   <entry>
     <title>浏览器及HTTP缓存机制</title>
@@ -518,33 +540,6 @@
     
       <category term="daily" scheme="https://itibbers.com/categories/daily/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>65279</title>
-    <link href="https://itibbers.com/2015/08/13/65279/"/>
-    <id>https://itibbers.com/2015/08/13/65279/</id>
-    <published>2015-08-13T02:44:00.000Z</published>
-    <updated>2017-08-19T13:32:11.103Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/images/65279.png" alt="65279"></p><p>如果你在修改文件后，发现网页上多了一个空行，不管怎么修改<code>margin</code>,<code>padding</code>都无法消除，但是审查元素的时候，发现多出一行<code>&quot;&amp;#65279&quot;</code>。<br><a id="more"></a><br>注：IE下是无法看到<code>65279</code>字样的，Firebug和Chrome才可以看到。</p><p>这是由于文件保存的时候，在前面加入了BOM字符。<br>UTF-8不需要BOM来表明字节顺序，但可以用BOM来表明编码方式。字符<code>ZERO WIDTH NO-BREAK SPACE</code>的编码是<code>EF BB BF</code>，如果接受者收到了三个不可见的字符（0xEF 0xBB 0xBF，即BOM）开头的字节流，就知道这是UTF-8编码了。</p><p>WINDOWS就是用BOM来标记文本文件的编码方式的。</p><p>现在几乎所有的文本编辑软件都可以显示并编辑UTF-8编码的文件。但是很遗憾，其中很多软件的表现并不理想。</p><p>对于一般的文件，这样并不会产生什么麻烦。但对于PHP来说，BOM是个大麻烦。</p><p>PHP并不会忽略BOM，所以在读取、包含或者引用这些文件时，会把BOM作为该文件开头正文的一部分。根据嵌入式语言的特点，这串字符将被直接执行（显示）出来。由此造成即使页面的<code>padding-top</code>设置为0，也无法让整个网页紧贴浏览器顶部，因为在html一开头有这3个字符呢！</p><p>最大的麻烦还不是这个。受COOKIE送出机制的限制，在这些文件开头已经有BOM的文件中，COOKIE无法送出（因为在COOKIE送出前PHP已经送出了文件头），所以登入和登出功能失效。一切依赖COOKIE、SESSION实现的功能全部无效。<br>因此，在编辑、更改任何文本文件时，请务必使用不会乱加BOM的编辑器。Linux下的编辑器应该都没有这个问题。WINDOWS下，请勿使用记事本等编辑器。推荐的编辑器是：Sublime Text；Editplus 2.12版本以上； EmEditor； UltraEdit（需要取消‘添加BOM’的相关选项）； Dreamweaver（需要取消‘添加BOM’的相关选项）等。<br>对于已经添加了BOM的文件，要取消的话，可以用以上编辑器另存一次。（Editplus需要先另存为gb，再另存为UTF-8）</p><p><strong>2015/08/13 18:11 补充：</strong><br>在前端显示，不光会占用一个空行，而且还会造成<code>&lt;/head&gt;&lt;body&gt;</code>标签的位移，让<code>&lt;meta&gt;</code>部分移动到<code>body</code>里面。原因未知。只能拿自己博客测试了 T.T 效果如图。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/images/65279.png&quot; alt=&quot;65279&quot;&gt;&lt;/p&gt;
-&lt;p&gt;如果你在修改文件后，发现网页上多了一个空行，不管怎么修改&lt;code&gt;margin&lt;/code&gt;,&lt;code&gt;padding&lt;/code&gt;都无法消除，但是审查元素的时候，发现多出一行&lt;code&gt;&amp;quot;&amp;amp;#65279&amp;quot;&lt;/code&gt;。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="backend" scheme="https://itibbers.com/categories/backend/"/>
-    
-    
-      <category term="php" scheme="https://itibbers.com/tags/php/"/>
-    
-      <category term="dom" scheme="https://itibbers.com/tags/dom/"/>
-    
-      <category term="utf8-bom" scheme="https://itibbers.com/tags/utf8-bom/"/>
     
   </entry>
   
