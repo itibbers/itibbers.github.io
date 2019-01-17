@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2018-10-26T10:56:25.902Z</updated>
+  <updated>2019-01-17T10:14:54.142Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-1</title>
+    <link href="https://itibbers.com/2019/01/17/leetcode-1/"/>
+    <id>https://itibbers.com/2019/01/17/leetcode-1/</id>
+    <published>2019-01-17T10:06:07.000Z</published>
+    <updated>2019-01-17T10:14:54.142Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">https://leetcode.com/problems/two-sum/</a></p><a id="more"></a><p>第一遍提交本来判断两个数字相加小于target，数字应该比target小，忽略了负数导致wr</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; target</span></span><br><span class="line"><span class="comment"> * @return &#123;number[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> twoSum = <span class="function">(<span class="params">nums, target</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> len = nums.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] &lt;= target) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[j] &lt;= target &amp;&amp; nums[i] + nums[j] === target) &#123;</span><br><span class="line">                    <span class="keyword">return</span> [i, j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>第二遍ac，brute force</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; target</span></span><br><span class="line"><span class="comment"> * @return &#123;number[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> twoSum = <span class="function">(<span class="params">nums, target</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> len = nums.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] + nums[j] === target) &#123;</span><br><span class="line">                <span class="keyword">return</span> [i, j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>大佬答案：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> twoSum = <span class="function">(<span class="params">nums, target</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> map = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> val = target - nums[i];</span><br><span class="line">        <span class="keyword">if</span> (map[val] !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> [map[val], i];</span><br><span class="line">        &#125;</span><br><span class="line">        map[nums[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p><p>在判断数大小的时候最好用减法，两个数字相加可能超出数字范围，get.</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/two-sum/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/two-sum/&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>shell命令行的操作及命令的搜索</title>
@@ -519,29 +541,6 @@
       <category term="error" scheme="https://itibbers.com/tags/error/"/>
     
       <category term="runtime" scheme="https://itibbers.com/tags/runtime/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>程序员</title>
-    <link href="https://itibbers.com/2015/08/17/%E7%A8%8B%E5%BA%8F%E5%91%98/"/>
-    <id>https://itibbers.com/2015/08/17/程序员/</id>
-    <published>2015-08-17T02:01:23.000Z</published>
-    <updated>2017-08-19T12:54:33.963Z</updated>
-    
-    <content type="html"><![CDATA[<p>程序员比较烦的是半瓶子醋的技术领导，或自以为懂了点技术的产品经理。关于商业模式，关于产品，关于用户体验，每个人都可以头头是道的说两句，比如我曾经看到无数的用户要为锤子手机、App、云服务、官网、电商提各种建议，还有一些创业失败的年轻人觉得锤科最大的问题是战略和商业模式，愿意免费为老罗提供战略咨询，等等。这都可以理解，但是谈到技术，懂就是懂，不懂就是不懂，界线是很明显的。</p><p>有些产品经理与技术人员打交道多年，多少也了解了一些技术架构和实现思路，这时候与程序员们聊天就要非常小心了。如果你顺嘴溜达出一些开源技术和架构名词，程序员们就会围上来笑嘻嘻的说「哇，你很懂技术嘛」，这时你要赶紧装作一脸无知的样子说「我懂个屁啊，也就知道个概念，我特么连 Hello World 都不会写」，然后程序员们就会放下手里的板砖，安心去编程了。</p><p>和程序员交流的正确方式是什么？当一个程序遇到瓶颈的时候，大部分程序员会非常无辜的说，「现在就是最好的解决方案，没有其他办法了」。这时候别着急，拍拍他的肩膀温和地说，「没事儿，你再想想，肯定有更好的解决办法」。如果你本身就是做技术的，也可以提供一些实现思路供他参考。一般情况下。过一阵他就会 <del>屁颠屁颠</del> <strong>美滋滋</strong>的告诉你，I have a better idea！</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;程序员比较烦的是半瓶子醋的技术领导，或自以为懂了点技术的产品经理。关于商业模式，关于产品，关于用户体验，每个人都可以头头是道的说两句，比如我曾经看到无数的用户要为锤子手机、App、云服务、官网、电商提各种建议，还有一些创业失败的年轻人觉得锤科最大的问题是战略和商业模式，愿意
-      
-    
-    </summary>
-    
-      <category term="daily" scheme="https://itibbers.com/categories/daily/"/>
-    
     
   </entry>
   
