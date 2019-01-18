@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-01-17T10:14:54.142Z</updated>
+  <updated>2019-01-18T03:37:49.781Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-2</title>
+    <link href="https://itibbers.com/2019/01/18/leetcode-2/"/>
+    <id>https://itibbers.com/2019/01/18/leetcode-2/</id>
+    <published>2019-01-18T02:47:43.000Z</published>
+    <updated>2019-01-18T03:37:49.781Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/add-two-numbers/" target="_blank" rel="noopener">https://leetcode.com/problems/add-two-numbers/</a><br><a id="more"></a></p><p>Keep track of the carry using a variable and simulate digits-by-digits sum starting from the head of list, which contains the least-significant digit.</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;ListNode&#125; l1</span></span><br><span class="line"><span class="comment"> * @param &#123;ListNode&#125; l2</span></span><br><span class="line"><span class="comment"> * @return &#123;ListNode&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> addTwoNumbers = <span class="function">(<span class="params">l1, l2</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">let</span> current = dummy;</span><br><span class="line">    <span class="keyword">let</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> p = l1;</span><br><span class="line">    <span class="keyword">let</span> q = l2;</span><br><span class="line">    <span class="keyword">while</span>(p || q || carry) &#123;</span><br><span class="line">        <span class="keyword">let</span> x = p ? p.val : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> y = q ? q.val : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> sum = x + y + carry;</span><br><span class="line">        carry = ~~(sum / <span class="number">10</span>);</span><br><span class="line">        current.next = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">        current = current.next;</span><br><span class="line">        p = p &amp;&amp; p.next;</span><br><span class="line">        q = q &amp;&amp; q.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummy.next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/add-two-numbers/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/add-two-numbers/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-1</title>
@@ -213,9 +235,9 @@
     
       <category term="linux" scheme="https://itibbers.com/tags/linux/"/>
     
-      <category term="gz" scheme="https://itibbers.com/tags/gz/"/>
-    
       <category term="shell" scheme="https://itibbers.com/tags/shell/"/>
+    
+      <category term="gz" scheme="https://itibbers.com/tags/gz/"/>
     
   </entry>
   
@@ -513,34 +535,6 @@
       <category term="composer" scheme="https://itibbers.com/tags/composer/"/>
     
       <category term="error" scheme="https://itibbers.com/tags/error/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python - RuntimeError: maximum recursion depth exceeded</title>
-    <link href="https://itibbers.com/2015/09/27/python-RuntimeError-maximum-recursion-depth-exceeded/"/>
-    <id>https://itibbers.com/2015/09/27/python-RuntimeError-maximum-recursion-depth-exceeded/</id>
-    <published>2015-09-27T13:55:42.000Z</published>
-    <updated>2017-08-19T12:57:44.974Z</updated>
-    
-    <content type="html"><![CDATA[<p>用Python写了一个爬虫脚本，在抓取页面采用广度优先遍历抓取。但是当遍历到900多时就会出现莫名其妙的错误，通过pdb调试发现是：</p><p><code>RuntimeError: maximum recursion depth exceeded</code></p><p>在网上查了，发现python默认的递归深度是很有限的，大概是900多的样子，当递归深度超过这个值的时候，就会引发这样的一个异常。</p><p>解决的方式是手工设置递归调用深度，方式为</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.setrecursionlimit(<span class="number">1000000</span>) <span class="comment"># 例如这里设置为一百万</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;用Python写了一个爬虫脚本，在抓取页面采用广度优先遍历抓取。但是当遍历到900多时就会出现莫名其妙的错误，通过pdb调试发现是：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;RuntimeError: maximum recursion depth exceeded&lt;/code&gt;&lt;/p&gt;
-      
-    
-    </summary>
-    
-      <category term="python" scheme="https://itibbers.com/categories/python/"/>
-    
-    
-      <category term="error" scheme="https://itibbers.com/tags/error/"/>
-    
-      <category term="runtime" scheme="https://itibbers.com/tags/runtime/"/>
     
   </entry>
   
