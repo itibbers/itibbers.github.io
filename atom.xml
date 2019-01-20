@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-01-18T03:37:49.781Z</updated>
+  <updated>2019-01-18T07:52:28.425Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-7</title>
+    <link href="https://itibbers.com/2019/01/18/leetcode-7/"/>
+    <id>https://itibbers.com/2019/01/18/leetcode-7/</id>
+    <published>2019-01-18T07:50:28.000Z</published>
+    <updated>2019-01-18T07:52:28.425Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/reverse-integer/" target="_blank" rel="noopener">https://leetcode.com/problems/reverse-integer/</a></p><a id="more"></a><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; x</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> reverse = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    x = <span class="string">''</span> + x;</span><br><span class="line">    <span class="keyword">let</span> res = x[<span class="number">0</span>] === <span class="string">'-'</span></span><br><span class="line">        ? <span class="string">'-'</span> + x.substr(<span class="number">1</span>).split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">        : x.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">    res = <span class="built_in">parseInt</span>(res, <span class="number">10</span>);</span><br><span class="line">    <span class="comment">// Math.pow(2, 31) - 1</span></span><br><span class="line">    <span class="keyword">return</span> (res &lt; <span class="number">-2147483648</span> || res &gt; <span class="number">2147483647</span>) ? <span class="number">0</span> : res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>推荐阅读：<a href="https://segmentfault.com/a/1190000002608050" target="_blank" rel="noopener">JS大数整型</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/reverse-integer/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/reverse-integer/&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-2</title>
@@ -235,9 +257,9 @@
     
       <category term="linux" scheme="https://itibbers.com/tags/linux/"/>
     
-      <category term="shell" scheme="https://itibbers.com/tags/shell/"/>
-    
       <category term="gz" scheme="https://itibbers.com/tags/gz/"/>
+    
+      <category term="shell" scheme="https://itibbers.com/tags/shell/"/>
     
   </entry>
   
@@ -505,36 +527,6 @@
       <category term="ionic" scheme="https://itibbers.com/tags/ionic/"/>
     
       <category term="iframe" scheme="https://itibbers.com/tags/iframe/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Composer安装时openssl missing</title>
-    <link href="https://itibbers.com/2016/03/15/Composer%E5%AE%89%E8%A3%85%E6%97%B6openssl-missing/"/>
-    <id>https://itibbers.com/2016/03/15/Composer安装时openssl-missing/</id>
-    <published>2016-03-15T07:26:19.000Z</published>
-    <updated>2017-08-19T13:03:17.073Z</updated>
-    
-    <content type="html"><![CDATA[<p>问题描述：“The openssl extension is missing, which means that secure HTTPS transfers are impossible.”</p><p>确保php.ini中extension=php_openssl.dll打开。</p><p>php.ini文件在apache和php目录下都有，建议都打开。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;问题描述：“The openssl extension is missing, which means that secure HTTPS transfers are impossible.”&lt;/p&gt;
-&lt;p&gt;确保php.ini中extension=php_openssl.d
-      
-    
-    </summary>
-    
-      <category term="php" scheme="https://itibbers.com/categories/php/"/>
-    
-    
-      <category term="php" scheme="https://itibbers.com/tags/php/"/>
-    
-      <category term="composer" scheme="https://itibbers.com/tags/composer/"/>
-    
-      <category term="error" scheme="https://itibbers.com/tags/error/"/>
     
   </entry>
   
