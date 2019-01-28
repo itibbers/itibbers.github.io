@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-01-25T10:37:16.540Z</updated>
+  <updated>2019-01-28T08:04:01.782Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,76 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-14</title>
+    <link href="https://itibbers.com/2019/01/28/leetcode-14-1/"/>
+    <id>https://itibbers.com/2019/01/28/leetcode-14-1/</id>
+    <published>2019-01-28T08:04:01.000Z</published>
+    <updated>2019-01-28T08:04:01.782Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+
+      
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-14</title>
+    <link href="https://itibbers.com/2019/01/28/leetcode-14/"/>
+    <id>https://itibbers.com/2019/01/28/leetcode-14/</id>
+    <published>2019-01-28T04:22:51.000Z</published>
+    <updated>2019-01-28T08:04:26.696Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/longest-common-prefix/" target="_blank" rel="noopener">https://leetcode.com/problems/longest-common-prefix/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string[]&#125; strs</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> longestCommonPrefix = <span class="function"><span class="keyword">function</span>(<span class="params">strs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (strs.length &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> strs[<span class="number">0</span>] || <span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> res = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; ; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; strs.length - <span class="number">1</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!strs[j][i] || !strs[j + <span class="number">1</span>][i] || strs[j][i] !== strs[j + <span class="number">1</span>][i]) &#123;</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res += strs[<span class="number">0</span>][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-common-prefix/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/longest-common-prefix/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-13</title>
+    <link href="https://itibbers.com/2019/01/25/leetcode-13/"/>
+    <id>https://itibbers.com/2019/01/25/leetcode-13/</id>
+    <published>2019-01-25T10:39:13.000Z</published>
+    <updated>2019-01-28T06:01:30.316Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/roman-to-integer/" target="_blank" rel="noopener">https://leetcode.com/problems/roman-to-integer/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> romanToInt = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'IV'</span>)) &#123; sum -= <span class="number">2</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'IX'</span>)) &#123; sum -= <span class="number">2</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'XL'</span>)) &#123; sum -= <span class="number">20</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'XC'</span>)) &#123; sum -= <span class="number">20</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'CD'</span>)) &#123; sum -= <span class="number">200</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'CM'</span>)) &#123; sum -= <span class="number">200</span>; &#125;</span><br><span class="line">    <span class="keyword">let</span> map = &#123;</span><br><span class="line">        I: <span class="number">1</span>,</span><br><span class="line">        V: <span class="number">5</span>,</span><br><span class="line">        X: <span class="number">10</span>,</span><br><span class="line">        L: <span class="number">50</span>,</span><br><span class="line">        C: <span class="number">100</span>,</span><br><span class="line">        D: <span class="number">500</span>,</span><br><span class="line">        M: <span class="number">1000</span></span><br><span class="line">    &#125;;</span><br><span class="line">    s.split(<span class="string">''</span>).forEach(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">       sum += map[e];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/roman-to-integer/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/roman-to-integer/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-12</title>
@@ -389,9 +459,9 @@
     
       <category term="linux" scheme="https://itibbers.com/tags/linux/"/>
     
-      <category term="gz" scheme="https://itibbers.com/tags/gz/"/>
-    
       <category term="shell" scheme="https://itibbers.com/tags/shell/"/>
+    
+      <category term="gz" scheme="https://itibbers.com/tags/gz/"/>
     
   </entry>
   
@@ -419,92 +489,6 @@
       <category term="error" scheme="https://itibbers.com/tags/error/"/>
     
       <category term="kindeditor" scheme="https://itibbers.com/tags/kindeditor/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>An invalid form control with name=&#39;xxx&#39; is not focusable.</title>
-    <link href="https://itibbers.com/2016/11/22/An-invalid-form-control-with-name-xxx-is-not-focusable/"/>
-    <id>https://itibbers.com/2016/11/22/An-invalid-form-control-with-name-xxx-is-not-focusable/</id>
-    <published>2016-11-22T05:43:18.000Z</published>
-    <updated>2017-08-19T13:18:25.622Z</updated>
-    
-    <content type="html"><![CDATA[<p>表单提交的时候，如果控件是display:none;并且所填项可以为空，则必须删除required，否则在chrome浏览器下会报错。</p><p>Chrome浏览器要重点控制是必需的，但仍然是空的，所以，它可以弹出消息“请在此输入”。但是，如果该控件隐藏在Chrome浏览器要弹出消息，那就是在表单提交的时间，Chrome浏览器无法集中控制，因为它是隐藏的，因此表格后，提交。<br>因此，要解决这个问题，通过javascript隐藏控件时，我们也必须删除’required’的属性，控制。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;表单提交的时候，如果控件是display:none;并且所填项可以为空，则必须删除required，否则在chrome浏览器下会报错。&lt;/p&gt;
-&lt;p&gt;Chrome浏览器要重点控制是必需的，但仍然是空的，所以，它可以弹出消息“请在此输入”。但是，如果该控件隐藏在Chrome浏
-      
-    
-    </summary>
-    
-      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
-    
-    
-      <category term="js" scheme="https://itibbers.com/tags/js/"/>
-    
-      <category term="form" scheme="https://itibbers.com/tags/form/"/>
-    
-      <category term="css" scheme="https://itibbers.com/tags/css/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>set autocommit=0与start transaction区别</title>
-    <link href="https://itibbers.com/2016/11/17/set-autocommit-0%E4%B8%8Estart-transaction%E5%8C%BA%E5%88%AB/"/>
-    <id>https://itibbers.com/2016/11/17/set-autocommit-0与start-transaction区别/</id>
-    <published>2016-11-17T06:32:49.000Z</published>
-    <updated>2017-08-19T13:15:57.907Z</updated>
-    
-    <content type="html"><![CDATA[<p>set autocommit=0,<br>当前session禁用自动提交事物，自此句执行以后，每个SQL语句或者语句块所在的事务都需要显示”commit”才能提交事务。</p><p>start transaction</p><p>指的是启动一个新事务。</p><p>在默认的情况下，MySQL从自动提交（autocommit）模式运行，这种模式会在每条语句执行完毕后把它作出的修改立刻提交给数据库并使之永久化。事实上，这相当于把每一条语句都隐含地当做一个事务来执行。如果你想明确地执行事务，需要禁用自动提交模式并告诉MySQL你想让它在何时提交或回滚有关的修改。<br>执行事务的常用办法是发出一条START TRANSACTION（或BEGIN）语句挂起自动提交模式，然后执行构成本次事务的各条语句，最后用一条 COMMIT语句结束事务并把它们作出的修改永久性地记入数据库。万一在事务过程中发生错误，用一条ROLLBACK语句撤销事务并把数据库恢复到事务开 始之前的状态。</p><p>START TRANSACTION语句”挂起”自动提交模式的含义是：在事务被提交或回滚之后，该模式将恢复到开始本次事务的 START TRANSACTION语句被执行之前的状态。（如果自动提交模式原来是激活的，结束事务将让你回到自动提交模式；如果它原来是禁用的，结束 当前事务将开始下一个事务。）</p><p>如果是autocommit模式  ，autocommit的值应该为 1 ，不autocommit 的值是 0 ；请在试验前 确定autocommit 的模式是否开启</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;set autocommit=0,&lt;br&gt;当前session禁用自动提交事物，自此句执行以后，每个SQL语句或者语句块所在的事务都需要显示”commit”才能提交事务。&lt;/p&gt;
-&lt;p&gt;start transaction&lt;/p&gt;
-&lt;p&gt;指的是启动一个新事务。&lt;/p&gt;
-&lt;p&gt;在
-      
-    
-    </summary>
-    
-      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
-    
-    
-      <category term="mysql" scheme="https://itibbers.com/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JS线程和异步</title>
-    <link href="https://itibbers.com/2016/07/14/JS%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%BC%82%E6%AD%A5/"/>
-    <id>https://itibbers.com/2016/07/14/JS线程和异步/</id>
-    <published>2016-07-14T02:20:21.000Z</published>
-    <updated>2017-08-19T13:13:46.288Z</updated>
-    
-    <content type="html"><![CDATA[<p>重新认识javascript的settimeout和异步</p><p>今晚看到QLeelulu的一道JavaScript面试题（setTimeout），稍微想了一下，好不容易连猜带蒙，凑巧说对了答案。但是原因到底是什么呢？自己一时也说不太清楚，反正感觉就是一个死循环造成的。然后看了一下文章下面的评论，发现5楼和6楼的回答很有道理,主要意思就是说javascript引擎是单线程执行的，while循环那里执行的时候，settimeout里面的函数根本没有执行的机会，这样while那里永远为真，造成死循环。但是单纯看还是不怎么踏实，最后发挥实践精神，自己动手做了两个实验：</p><p>1、简单的settimeout</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function () &#123; while (true) &#123; &#125; &#125;, 1000);</span><br><span class="line">setTimeout(function () &#123; alert(&apos;end 2&apos;); &#125;, 2000);</span><br><span class="line">setTimeout(function () &#123; alert(&apos;end 1&apos;); &#125;, 100);</span><br><span class="line">alert(&apos;end&apos;);</span><br></pre></td></tr></table></figure><p>执行的结果是弹出‘end’‘end 1’，然后浏览器假死，就是不弹出‘end 2’。也就是说第一个settimeout里执行的时候是一个死循环，这个直接导致了理论上比它晚一秒执行的第二个settimeout里的函数被阻塞，这个和我们平时所理解的异步函数多线程互不干扰是不符的。</p><p>2、ajax请求回调</p><p>接着我们来测试一下通过xmlhttprequest实现ajax异步请求调用，主要代码如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var xmlReq = createXMLHTTP();//创建一个xmlhttprequest对象</span><br><span class="line">function testAsynRequest() &#123;</span><br><span class="line">    var url = &quot;/AsyncHandler.ashx?action=ajax&quot;;</span><br><span class="line">    xmlReq.open(&quot;post&quot;, url, true);</span><br><span class="line">    xmlReq.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">    xmlReq.onreadystatechange = function () &#123;</span><br><span class="line">        if (xmlReq.readyState == 4) &#123;</span><br><span class="line">            if (xmlReq.status == 200) &#123;</span><br><span class="line">                var jsonData = eval(&apos;(&apos; + xmlReq.responseText + &apos;)&apos;);</span><br><span class="line">                alert(jsonData.message);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (xmlReq.status == 404) &#123;</span><br><span class="line">                alert(&quot;Requested URL is not found.&quot;);</span><br><span class="line">            &#125; else if (xmlReq.status == 403) &#123;</span><br><span class="line">                alert(&quot;Access denied.&quot;);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                alert(&quot;status is &quot; + xmlReq.status);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    xmlReq.send(null);</span><br><span class="line">&#125;</span><br><span class="line">testAsynRequest();//1秒后调用回调函数</span><br><span class="line"></span><br><span class="line">while (true) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在服务端实现简单的输出：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">private void ProcessAjaxRequest(HttpContext context)</span><br><span class="line">&#123;</span><br><span class="line">    string action = context.Request[&quot;ajax&quot;];</span><br><span class="line">    Thread.Sleep(1000);//等1秒</span><br><span class="line">    string jsonObject = &quot;&#123;\&quot;message\&quot;:\&quot;&quot; + action + &quot;\&quot;&#125;&quot;;</span><br><span class="line">    context.Response.Write(jsonObject);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>理论上，如果ajax异步请求，它的异步回调函数是在单独一个线程中，那么回调函数必然不被其他线程”阻挠“而顺利执行，也就是1秒后，它回调执行弹出‘ajax’，可是实际情况并非如此，回调函数无法执行，因为浏览器再次因为死循环假死。</p><p>结论：根据实践结果，可以得出，javascript引擎确实是单线程处理它的任务队列（能理解成就是普通函数和回调函数构成的队列吗？）的。在javascript里实现异步编程很大程度上就是一种障眼法，单线程的引擎实现多线程的编程，如果要实现一些资源同步互斥之类的操作（一如C#、Java等语言的多线程），我感觉真正实现起来根本无法轻易得到保证。</p><p>补充：如何实现javascript的sleep呢？在stackoverflow上找到一篇javascript sleep，试了一下，效果是有了，但是执行的时候cpu很高，真还不如直接settimeout呢。</p><p>////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</p><p><a href="http://www.cnblogs.com/QLeelulu/archive/2011/06/13/2079965.html" target="_blank" rel="noopener">http://www.cnblogs.com/QLeelulu/archive/2011/06/13/2079965.html</a><br>一道JavaScript面试题（setTimeout）</p><p>下面的代码，多久之后会弹出’end’？ 为什么？</p><p>var t = true;</p><p>setTimeout(function(){ t = false; }, 1000);</p><p>while(t){ }</p><p>alert(‘end’);</p><p>这是以前在想有没办法实现阻塞javascript线程的时候（即实现sleep方法），想过的一种实现。<br>很简单，是吧？<br>是吗？</p><p> timeout 回调 是要等退出全部 execution context stack 后,才去计时的.<br>典型的死循环……js是单线程执行的，while里面死掉的时候setTimeout里面的函数是没机会执行的。</p><p>///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</p><p><a href="http://www.jb51.net/article/70971.htm" target="_blank" rel="noopener">http://www.jb51.net/article/70971.htm</a></p><p>虽然有越来越多的网站在应用AJAX技术进行开发，但是构建一个复杂的AJAX应用仍然是一个难题。</p><p>造成这些困难的主要原因是什么呢？是与服务器的异步通信问题？还是GUI程序设计问题呢？通常这两项工作都是由桌面程序来完成的，那究竟为何开发一个可以实现同样功能的AJAX应用就这么困难呢？</p><p>大家都知道javascript是单线程执行的，但是又可以通过setTimeout或者setInterval定时执行一个方法，通过Ajax可以在向服务器端发送请求没有收到回应可以继续执行主逻辑。这些是如何做到的呢，下面就来探讨下。</p><p>先看如下一段代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">  &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    function printHello()</span><br><span class="line">    &#123;</span><br><span class="line">      console.time(&quot;hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    function printHello1()</span><br><span class="line">    &#123;</span><br><span class="line">      console.timeEnd(&quot;hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    setTimeout(printHello,1000);</span><br><span class="line">    setTimeout(printHello1,5000);</span><br><span class="line">    function wait(time)</span><br><span class="line">    &#123;</span><br><span class="line">      var now = Date.now();</span><br><span class="line">      while(Date.now() - now &lt; time)</span><br><span class="line">      &#123;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    wait(5000);</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><p>以上代码得执行结果为</p><p>1</p><p>hello: 0.124ms</p><p>从代码可以看出，printHello 与printHello1几乎是同时执行的。如果对于多线程模型，应该执行间隔是4000ms。</p><p>以上的原因是setTimeout只是将事件到时间点压入队列，而不是立即执行。具体何时执行还要看浏览器的空闲程度。</p><p>其实虽然javascript是单线程的，但是浏览器是多线程的，典型的浏览器有如下线程：</p><p>javascript引擎线程<br>界面渲染线程<br>浏览器事件触发线程<br>Http请求线程</p><p>javascript单线程指的是javascript引擎线程单线程处理它的事件队列，而浏览器是事件驱动的，很多事件都是异步的，比如鼠标点击事件，setTimeout，Ajax回调事件，当这些事件发生时，浏览器会将这些事件放入执行队列，待浏览器空闲时再执行。</p><p>另外，值得一提的是，ajax调用确实是异步的，浏览器会启动一个新线程来想服务端发送请求，如果设置了回调事件，会根据服务端返回状态将回调事件放入事件队列。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> function printHello()</span><br><span class="line">&#123;</span><br><span class="line">  console.time(&quot;hello&quot;);</span><br><span class="line">&#125;</span><br><span class="line">function printHello1()</span><br><span class="line">&#123;</span><br><span class="line">  console.timeEnd(&quot;hello&quot;);</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(printHello,1000);</span><br><span class="line"></span><br><span class="line">setTimeout(printHello1,5000);</span><br></pre></td></tr></table></figure></p><p>如果执行这段代码，得到的却是接近4000ms的结果，验证了<br>setTimeout只是将事件到时间点压入队列，而不是立即执行。具体何时执行还要看浏览器的空闲程度。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;重新认识javascript的settimeout和异步&lt;/p&gt;
-&lt;p&gt;今晚看到QLeelulu的一道JavaScript面试题（setTimeout），稍微想了一下，好不容易连猜带蒙，凑巧说对了答案。但是原因到底是什么呢？自己一时也说不太清楚，反正感觉就是一个死循环造成的
-      
-    
-    </summary>
-    
-      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
-    
-    
-      <category term="js" scheme="https://itibbers.com/tags/js/"/>
-    
-      <category term="thread" scheme="https://itibbers.com/tags/thread/"/>
     
   </entry>
   
