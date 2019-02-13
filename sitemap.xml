@@ -2,93 +2,100 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://itibbers.com/2019/02/13/leetcode-19/</loc>
-    
-    <lastmod>2019-02-13T11:46:04.100Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://itibbers.com/2019/01/30/leetcode-17/</loc>
-    
-    <lastmod>2019-02-13T09:11:42.800Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://itibbers.com/2019/01/28/leetcode-14/</loc>
-    
-    <lastmod>2019-01-28T08:04:26.696Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://itibbers.com/2019/01/25/leetcode-13/</loc>
-    
-    <lastmod>2019-01-28T06:01:30.316Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://itibbers.com/2019/01/25/leetcode-12/</loc>
-    
-    <lastmod>2019-01-25T10:37:16.540Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://itibbers.com/2019/01/24/leetcode-11/</loc>
-    
-    <lastmod>2019-01-24T06:18:44.618Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://itibbers.com/2019/01/22/leetcode-9/</loc>
     
-    <lastmod>2019-01-22T06:12:31.259Z</lastmod>
+    <lastmod>2019-02-13T12:07:53.928Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://itibbers.com/2019/01/22/leetcode-8/</loc>
     
-    <lastmod>2019-01-22T04:21:07.218Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://itibbers.com/2019/01/21/leetcode-4/</loc>
-    
-    <lastmod>2019-01-21T12:30:18.003Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://itibbers.com/2019/01/20/leetcode-3/</loc>
-    
-    <lastmod>2019-01-21T10:42:55.954Z</lastmod>
+    <lastmod>2019-02-13T12:07:43.190Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://itibbers.com/2019/01/18/leetcode-7/</loc>
     
-    <lastmod>2019-01-18T07:52:28.425Z</lastmod>
+    <lastmod>2019-02-13T12:07:33.344Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/01/21/leetcode-4/</loc>
+    
+    <lastmod>2019-02-13T12:07:17.589Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/01/20/leetcode-3/</loc>
+    
+    <lastmod>2019-02-13T12:07:11.109Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://itibbers.com/2019/01/18/leetcode-2/</loc>
     
-    <lastmod>2019-01-18T03:37:49.781Z</lastmod>
+    <lastmod>2019-02-13T12:06:58.510Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/02/13/leetcode-19/</loc>
+    
+    <lastmod>2019-02-13T12:06:05.429Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/01/30/leetcode-17/</loc>
+    
+    <lastmod>2019-02-13T12:04:46.530Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/01/28/leetcode-14/</loc>
+    
+    <lastmod>2019-02-13T12:03:24.221Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/01/25/leetcode-13/</loc>
+    
+    <lastmod>2019-02-13T12:03:12.738Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://itibbers.com/2019/01/17/leetcode-1/</loc>
     
-    <lastmod>2019-01-17T10:14:54.142Z</lastmod>
+    <lastmod>2019-02-13T12:03:01.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/01/24/leetcode-11/</loc>
+    
+    <lastmod>2019-02-13T12:02:55.184Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/01/25/leetcode-12/</loc>
+    
+    <lastmod>2019-02-13T12:02:45.671Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itibbers.com/2019/02/13/leetcode-20/</loc>
+    
+    <lastmod>2019-02-13T12:01:08.771Z</lastmod>
     
   </url>
   
