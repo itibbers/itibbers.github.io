@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-02-13T09:11:42.800Z</updated>
+  <updated>2019-02-13T09:50:48.697Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-19</title>
+    <link href="https://itibbers.com/2019/02/13/leetcode-19/"/>
+    <id>https://itibbers.com/2019/02/13/leetcode-19/</id>
+    <published>2019-02-13T09:47:12.000Z</published>
+    <updated>2019-02-13T09:50:48.697Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener">https://leetcode.com/problems/remove-nth-node-from-end-of-list/</a><br><a id="more"></a><br>★☆☆☆☆<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;ListNode&#125; head</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;ListNode&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> removeNthFromEnd = <span class="function"><span class="keyword">function</span>(<span class="params">head, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!head.next &amp;&amp; n === <span class="number">1</span>) &#123;</span><br><span class="line">        head = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">return</span> head</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> p = head</span><br><span class="line">    <span class="keyword">let</span> l = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> (p.next) &#123;</span><br><span class="line">        l++</span><br><span class="line">        p = p.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (l === n) &#123;</span><br><span class="line">        head = head.next</span><br><span class="line">        <span class="keyword">return</span> head</span><br><span class="line">    &#125;</span><br><span class="line">    p = head</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> (p.next) &#123;</span><br><span class="line">        <span class="keyword">if</span> (l - n === i) &#123;</span><br><span class="line">            p.next = p.next.next</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        i++</span><br><span class="line">        p = p.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>★★★☆☆☆<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    dummy.next = head;</span><br><span class="line">    <span class="keyword">int</span> length  = <span class="number">0</span>;</span><br><span class="line">    ListNode first = head;</span><br><span class="line">    <span class="keyword">while</span> (first != <span class="keyword">null</span>) &#123;</span><br><span class="line">        length++;</span><br><span class="line">        first = first.next;</span><br><span class="line">    &#125;</span><br><span class="line">    length -= n;</span><br><span class="line">    first = dummy;</span><br><span class="line">    <span class="keyword">while</span> (length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        length--;</span><br><span class="line">        first = first.next;</span><br><span class="line">    &#125;</span><br><span class="line">    first.next = first.next.next;</span><br><span class="line">    <span class="keyword">return</span> dummy.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>★★★★★<br>这个操作太秀了<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    dummy.next = head;</span><br><span class="line">    ListNode first = dummy;</span><br><span class="line">    ListNode second = dummy;</span><br><span class="line">    <span class="comment">// Advances first pointer so that the gap between first and second is n nodes apart</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n + <span class="number">1</span>; i++) &#123;</span><br><span class="line">        first = first.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Move first to the end, maintaining the gap</span></span><br><span class="line">    <span class="keyword">while</span> (first != <span class="keyword">null</span>) &#123;</span><br><span class="line">        first = first.next;</span><br><span class="line">        second = second.next;</span><br><span class="line">    &#125;</span><br><span class="line">    second.next = second.next.next;</span><br><span class="line">    <span class="keyword">return</span> dummy.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/remove-nth-node-from-end-of-list/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/remove-nth-node-from-end-of-list/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-17</title>
@@ -455,36 +477,9 @@
     
       <category term="linux" scheme="https://itibbers.com/tags/linux/"/>
     
-      <category term="shell" scheme="https://itibbers.com/tags/shell/"/>
-    
       <category term="gz" scheme="https://itibbers.com/tags/gz/"/>
     
-  </entry>
-  
-  <entry>
-    <title>kindeditor上传大文件报错</title>
-    <link href="https://itibbers.com/2017/01/11/kindeditor%E4%B8%8A%E4%BC%A0%E5%A4%A7%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99/"/>
-    <id>https://itibbers.com/2017/01/11/kindeditor上传大文件报错/</id>
-    <published>2017-01-11T09:56:20.000Z</published>
-    <updated>2017-08-19T13:20:41.681Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="框架本身文件大小限制"><a href="#框架本身文件大小限制" class="headerlink" title="框架本身文件大小限制"></a>框架本身文件大小限制</h1><h2 id="框架JS文件"><a href="#框架JS文件" class="headerlink" title="框架JS文件"></a>框架JS文件</h2><p>方法一：配置参数</p><pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;kindeditor/themes/default/default.css&quot; /&gt;&lt;script charset=&quot;utf-8&quot; src=&quot;kindeditor/kindeditor-all.js&quot;&gt;&lt;/script&gt;&lt;script charset=&quot;utf-8&quot; src=&quot;kindeditor/lang/zh-CN.js&quot;&gt;&lt;/script&gt;&lt;script&gt;KindEditor.ready(function(K) {    K.create(&apos;#content&apos;,{    imageSizeLimit : &apos;10MB&apos;, //批量上传图片单张最大容量    imageUploadLimit : 100 //批量上传图片同时上传最多个数    });});&lt;/script&gt;&lt;textarea id=&quot;content&quot; name=&quot;content&quot; style=&quot; width: 99%; height: 500px; visibility: hidden; display: block; &quot;&gt;&lt;/textarea&gt;</code></pre><p>方法二：修改框架kindeditor-all.js文件<br>imgPath = self.pluginsPath + ‘multiimage/images/‘, //默认上传目录<br>imageSizeLimit = K.undef(self.imageSizeLimit, ‘1MB’), //默认上传单个文件大小<br>imageFileTypes = K.undef(self.imageFileTypes, ‘<em>.jpg;</em>.gif;*.png’), //默认上传类型<br>imageUploadLimit = K.undef(self.imageUploadLimit, 20), //默认一次性批量上传图片的个数</p><h2 id="框架php文件"><a href="#框架php文件" class="headerlink" title="框架php文件"></a>框架php文件</h2><p>kindeditor/php/upload_json.php<br>//最大文件大小<br>$max_size = 1000000;</p><h1 id="php-ini"><a href="#php-ini" class="headerlink" title="php.ini"></a>php.ini</h1><ol><li>post_max_size = 50M ; Maximum size of POST data that PHP will accept.</li><li>; Its value may be 0 to disable the limit. It is ignored if POST data reading</li><li>; is disabled through enable_post_data_reading.</li><li>upload_max_filesize = 50M ; Maximum allowed size for uploaded files.</li></ol><p>技巧：注意查看php错误日志</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;框架本身文件大小限制&quot;&gt;&lt;a href=&quot;#框架本身文件大小限制&quot; class=&quot;headerlink&quot; title=&quot;框架本身文件大小限制&quot;&gt;&lt;/a&gt;框架本身文件大小限制&lt;/h1&gt;&lt;h2 id=&quot;框架JS文件&quot;&gt;&lt;a href=&quot;#框架JS文件&quot; class=&quot;
-      
-    
-    </summary>
-    
-      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
-    
-    
-      <category term="error" scheme="https://itibbers.com/tags/error/"/>
-    
-      <category term="kindeditor" scheme="https://itibbers.com/tags/kindeditor/"/>
+      <category term="shell" scheme="https://itibbers.com/tags/shell/"/>
     
   </entry>
   
