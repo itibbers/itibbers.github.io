@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-02-17T17:08:48.619Z</updated>
+  <updated>2019-02-19T11:24:07.844Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>爬楼梯问题</title>
+    <link href="https://itibbers.com/2019/02/19/%E7%88%AC%E6%A5%BC%E6%A2%AF%E9%97%AE%E9%A2%98/"/>
+    <id>https://itibbers.com/2019/02/19/爬楼梯问题/</id>
+    <published>2019-02-19T10:50:19.000Z</published>
+    <updated>2019-02-19T11:24:07.844Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在脉脉上看到有个段子手HR说：<br>今天沟通了一位候选人，他给我出了个题，说答对了就把简历给我[笑哭][笑哭]各位大佬帮帮忙[抱拳][抱拳]<br>一个人爬楼梯，每次只能爬1个或2个台阶，假设有10个台阶，那么这个人有多少种不同的爬楼梯方法？<br>我只想在楼梯顶端等你，不想知道是怎么爬的[流泪][流泪]</p><a id="more"></a><p>一个有趣的问题，试着解一下。<br>因为最后只有迈一步或两步，所以n阶台阶，最后解为 f(n) = f(n - 1) + f(n - 2)<br>原来是斐波那契数列，用递归解一下所有可能的爬楼方法。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> ret = []</span><br><span class="line"><span class="keyword">const</span> backtrack = <span class="function">(<span class="params">n, str = <span class="string">''</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">0</span>) &#123;</span><br><span class="line">      ret.push(str)</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) &#123;</span><br><span class="line">      str += <span class="string">'1'</span></span><br><span class="line">      ret.push(str)</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  backtrack(n - <span class="number">1</span>, str + <span class="string">'1'</span>)</span><br><span class="line">  backtrack(n - <span class="number">2</span>, str + <span class="string">'2'</span>)</span><br><span class="line">&#125;</span><br><span class="line">backtrack(<span class="number">10</span>)</span><br><span class="line"><span class="built_in">console</span>.log(ret)</span><br><span class="line"><span class="built_in">console</span>.log(ret.length)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天在脉脉上看到有个段子手HR说：&lt;br&gt;今天沟通了一位候选人，他给我出了个题，说答对了就把简历给我[笑哭][笑哭]各位大佬帮帮忙[抱拳][抱拳]&lt;br&gt;一个人爬楼梯，每次只能爬1个或2个台阶，假设有10个台阶，那么这个人有多少种不同的爬楼梯方法？&lt;br&gt;我只想在楼梯顶端等你，不想知道是怎么爬的[流泪][流泪]&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="backtrack" scheme="https://itibbers.com/tags/backtrack/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-22</title>
@@ -479,30 +503,6 @@
       <category term="npm" scheme="https://itibbers.com/tags/npm/"/>
     
       <category term="发微博" scheme="https://itibbers.com/tags/%E5%8F%91%E5%BE%AE%E5%8D%9A/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo图片快捷插入</title>
-    <link href="https://itibbers.com/2018/01/30/hexo%E5%9B%BE%E7%89%87%E5%BF%AB%E6%8D%B7%E6%8F%92%E5%85%A5/"/>
-    <id>https://itibbers.com/2018/01/30/hexo图片快捷插入/</id>
-    <published>2018-01-30T06:00:29.000Z</published>
-    <updated>2018-01-31T02:45:02.752Z</updated>
-    
-    <content type="html"><![CDATA[<p>博客使用hexo搭建，托管于Github，vim编辑文章，生成发布，但是图片插入一直是个头疼的问题，有各种依赖于微博图床的插件/app，可以方便发布，像是iPic，但是好担心微博啥时候不干了，图片存多了，总有一种不安全感，也没法批量管理。于是写了一个shell，本来想写vim插件的，看了看略麻烦。(这种方式shell也不是很麻烦嘛 hahhh)<br><img src="/images/1517292548.png" alt=""><br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hexoimg () &#123;</span><br><span class="line">    CURRENTDATE=`date +%s`</span><br><span class="line">    imgname=&quot;$1&quot;</span><br><span class="line">    extension=&quot;$&#123;imgname##*.&#125;&quot;</span><br><span class="line">    fname=&quot;$CURRENTDATE.$extension&quot;</span><br><span class="line">    cp $1 ~/www/itibbers/source/images/$fname</span><br><span class="line">    echo \!\[\]\(/images/$fname\) | pbcopy</span><br><span class="line">    echo \!\[\]\(/images/$fname\) Copied to Clipboard :\)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>拖动图片到terminal是图片绝对地址，这样就可以在vim运行bash，实现拖动上传图片并返回markdown格式化后的img url，返回后粘贴就可以，相当方便了。见图</p><p><img src="/images/1517294274.png" alt=""></p><p><img src="/images/1517293146.png" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;博客使用hexo搭建，托管于Github，vim编辑文章，生成发布，但是图片插入一直是个头疼的问题，有各种依赖于微博图床的插件/app，可以方便发布，像是iPic，但是好担心微博啥时候不干了，图片存多了，总有一种不安全感，也没法批量管理。于是写了一个shell，本来想写vim插件的，看了看略麻烦。(这种方式shell也不是很麻烦嘛 hahhh)&lt;br&gt;&lt;img src=&quot;/images/1517292548.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
-    
-    
-      <category term="hexo" scheme="https://itibbers.com/tags/hexo/"/>
-    
-      <category term="plugin" scheme="https://itibbers.com/tags/plugin/"/>
     
   </entry>
   
