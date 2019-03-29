@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-03-29T11:30:39.439Z</updated>
+  <updated>2019-03-29T11:35:52.871Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-46</title>
+    <link href="https://itibbers.com/2019/03/29/leetcode-46/"/>
+    <id>https://itibbers.com/2019/03/29/leetcode-46/</id>
+    <published>2019-03-29T11:35:31.000Z</published>
+    <updated>2019-03-29T11:35:52.871Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/permutations/" target="_blank" rel="noopener">https://leetcode.com/problems/permutations/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> permute = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">nums, tmp = []</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (tmp.length === nums.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> res.push([...tmp])</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (~tmp.indexOf(nums[i])) <span class="keyword">continue</span></span><br><span class="line">            tmp.push(nums[i])</span><br><span class="line">            backtrack(nums, tmp)</span><br><span class="line">            tmp.pop()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack(nums)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/permutations/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/permutations/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="backtrack" scheme="https://itibbers.com/tags/backtrack/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-40</title>
@@ -460,30 +484,6 @@
     <summary type="html">
     
       &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/string-to-integer-atoi/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/string-to-integer-atoi/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="string" scheme="https://itibbers.com/tags/string/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-4</title>
-    <link href="https://itibbers.com/2019/01/21/leetcode-4/"/>
-    <id>https://itibbers.com/2019/01/21/leetcode-4/</id>
-    <published>2019-01-21T11:04:15.000Z</published>
-    <updated>2019-02-13T12:07:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/longest-palindromic-substring/solution/" target="_blank" rel="noopener">https://leetcode.com/problems/longest-palindromic-substring/solution/</a><br><a id="more"></a></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> longestPalindrome = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> ans = <span class="number">0</span>,</span><br><span class="line">        ml = <span class="number">0</span>,</span><br><span class="line">        mr = <span class="number">0</span>,</span><br><span class="line">        len = s.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> l = <span class="number">0</span>; l &lt; len; l++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> r = l + <span class="number">1</span>; r &lt;= len; r++) &#123;</span><br><span class="line">            <span class="keyword">let</span> t = s.substring(l, r);</span><br><span class="line">            <span class="keyword">if</span> (t.split(<span class="string">''</span>).reverse(<span class="string">''</span>).join(<span class="string">''</span>) === t) &#123;</span><br><span class="line">                <span class="keyword">if</span> (r - l &gt; ans) &#123;</span><br><span class="line">                    ans = r - l;</span><br><span class="line">                    ml = l;</span><br><span class="line">                    mr = r;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s.substring(ml, mr);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>O(n2) 果然超时了<br>改进后：<br>这个方法跟Sliding Window方法类似，只是window的变化改为以s[i]为中心扩展伸缩。<br>Runtime: 100 ms, faster than 88.83% of JavaScript online submissions for Longest Palindromic Substring.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> expandAroundCenter = <span class="function">(<span class="params">s, l, r</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (l &gt;=<span class="number">0</span> &amp;&amp; r &lt; s.length &amp;&amp; s[l] === s[r]) &#123;</span><br><span class="line">        l--;</span><br><span class="line">        r++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r - l - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> longestPalindrome = <span class="function">(<span class="params">s</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (s.length &lt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> start = <span class="number">0</span>,</span><br><span class="line">        end = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.length; i++) &#123;</span><br><span class="line">        <span class="comment">// console.log(s);</span></span><br><span class="line">        <span class="keyword">let</span> len1 = expandAroundCenter(s, i, i);</span><br><span class="line">        <span class="keyword">let</span> len2 = expandAroundCenter(s, i, i + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">let</span> len = <span class="built_in">Math</span>.max(len1, len2);</span><br><span class="line">        <span class="keyword">if</span> (len &gt; end - start) &#123;</span><br><span class="line">            <span class="comment">// console.log(i, len);</span></span><br><span class="line">            start = i - <span class="built_in">Math</span>.floor((len - <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">            end = i + len / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s.substring(start, end + <span class="number">1</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-palindromic-substring/solution/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/longest-palindromic-substring/solution/&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
