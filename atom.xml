@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-04-03T06:34:33.870Z</updated>
+  <updated>2019-04-03T06:48:01.491Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-50</title>
+    <link href="https://itibbers.com/2019/04/03/leetcode-50/"/>
+    <id>https://itibbers.com/2019/04/03/leetcode-50/</id>
+    <published>2019-04-03T06:43:55.000Z</published>
+    <updated>2019-04-03T06:48:01.491Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/powx-n/" target="_blank" rel="noopener">https://leetcode.com/problems/powx-n/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; x</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> myPow = <span class="function"><span class="keyword">function</span>(<span class="params">x, n</span>) </span>&#123;</span><br><span class="line">    n = <span class="built_in">Math</span>.floor(n)</span><br><span class="line">    <span class="keyword">if</span> (n === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        n = -n</span><br><span class="line">        x = <span class="number">1</span> / x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n % <span class="number">2</span> === <span class="number">0</span> ? myPow(x * x, n / <span class="number">2</span>) : x * myPow(x * x, n / <span class="number">2</span>)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/powx-n/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/powx-n/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="math" scheme="https://itibbers.com/tags/math/"/>
+    
+      <category term="binary search" scheme="https://itibbers.com/tags/binary-search/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-49</title>
@@ -36,9 +62,9 @@
     
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
-      <category term="string" scheme="https://itibbers.com/tags/string/"/>
-    
       <category term="hash" scheme="https://itibbers.com/tags/hash/"/>
+    
+      <category term="string" scheme="https://itibbers.com/tags/string/"/>
     
   </entry>
   
@@ -473,30 +499,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="string" scheme="https://itibbers.com/tags/string/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-13</title>
-    <link href="https://itibbers.com/2019/01/25/leetcode-13/"/>
-    <id>https://itibbers.com/2019/01/25/leetcode-13/</id>
-    <published>2019-01-25T10:39:13.000Z</published>
-    <updated>2019-02-13T12:03:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/roman-to-integer/" target="_blank" rel="noopener">https://leetcode.com/problems/roman-to-integer/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> romanToInt = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'IV'</span>)) &#123; sum -= <span class="number">2</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'IX'</span>)) &#123; sum -= <span class="number">2</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'XL'</span>)) &#123; sum -= <span class="number">20</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'XC'</span>)) &#123; sum -= <span class="number">20</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'CD'</span>)) &#123; sum -= <span class="number">200</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (~s.indexOf(<span class="string">'CM'</span>)) &#123; sum -= <span class="number">200</span>; &#125;</span><br><span class="line">    <span class="keyword">let</span> map = &#123;</span><br><span class="line">        I: <span class="number">1</span>,</span><br><span class="line">        V: <span class="number">5</span>,</span><br><span class="line">        X: <span class="number">10</span>,</span><br><span class="line">        L: <span class="number">50</span>,</span><br><span class="line">        C: <span class="number">100</span>,</span><br><span class="line">        D: <span class="number">500</span>,</span><br><span class="line">        M: <span class="number">1000</span></span><br><span class="line">    &#125;;</span><br><span class="line">    s.split(<span class="string">''</span>).forEach(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">       sum += map[e];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/roman-to-integer/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/roman-to-integer/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="hash" scheme="https://itibbers.com/tags/hash/"/>
     
   </entry>
   
