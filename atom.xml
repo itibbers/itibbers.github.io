@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-04-02T10:38:46.452Z</updated>
+  <updated>2019-04-03T06:34:33.870Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-49</title>
+    <link href="https://itibbers.com/2019/04/03/leetcode-49/"/>
+    <id>https://itibbers.com/2019/04/03/leetcode-49/</id>
+    <published>2019-04-03T06:33:35.000Z</published>
+    <updated>2019-04-03T06:34:33.870Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/group-anagrams/" target="_blank" rel="noopener">https://leetcode.com/problems/group-anagrams/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string[]&#125; strs</span></span><br><span class="line"><span class="comment"> * @return &#123;string[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> groupAnagrams = <span class="function"><span class="keyword">function</span>(<span class="params">strs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; strs.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> str = strs[i].split(<span class="string">''</span>).sort().join(<span class="string">''</span>)</span><br><span class="line">        <span class="keyword">if</span> (!res[str]) &#123;</span><br><span class="line">            res[str] = []</span><br><span class="line">        &#125;</span><br><span class="line">        res[str].push(strs[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.values(res)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/group-anagrams/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/group-anagrams/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="string" scheme="https://itibbers.com/tags/string/"/>
+    
+      <category term="hash" scheme="https://itibbers.com/tags/hash/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-48</title>
@@ -462,30 +488,6 @@
     <summary type="html">
     
       &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/roman-to-integer/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/roman-to-integer/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="hash" scheme="https://itibbers.com/tags/hash/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-12</title>
-    <link href="https://itibbers.com/2019/01/25/leetcode-12/"/>
-    <id>https://itibbers.com/2019/01/25/leetcode-12/</id>
-    <published>2019-01-25T10:30:40.000Z</published>
-    <updated>2019-02-13T12:02:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/integer-to-roman/" target="_blank" rel="noopener">https://leetcode.com/problems/integer-to-roman/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; num</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> intToRoman = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">let</span> nums = [<span class="string">'1000'</span>, <span class="string">'900'</span>, <span class="string">'500'</span>, <span class="string">'400'</span>, <span class="string">'100'</span>, <span class="string">'90'</span>, <span class="string">'50'</span>, <span class="string">'40'</span>, <span class="string">'10'</span>, <span class="string">'9'</span>, <span class="string">'5'</span>, <span class="string">'4'</span>, <span class="string">'1'</span>];</span><br><span class="line">    <span class="keyword">let</span> map = &#123;</span><br><span class="line">        <span class="number">1</span>: <span class="string">'I'</span>,</span><br><span class="line">        <span class="number">4</span>: <span class="string">'IV'</span>,</span><br><span class="line">        <span class="number">5</span>: <span class="string">'V'</span>,</span><br><span class="line">        <span class="number">9</span>: <span class="string">'IX'</span>,</span><br><span class="line">        <span class="number">10</span>: <span class="string">'X'</span>,</span><br><span class="line">        <span class="number">40</span>: <span class="string">'XL'</span>,</span><br><span class="line">        <span class="number">50</span>: <span class="string">'L'</span>,</span><br><span class="line">        <span class="number">90</span>: <span class="string">'XC'</span>,</span><br><span class="line">        <span class="number">100</span>: <span class="string">'C'</span>,</span><br><span class="line">        <span class="number">400</span>: <span class="string">'CD'</span>,</span><br><span class="line">        <span class="number">500</span>: <span class="string">'D'</span>,</span><br><span class="line">        <span class="number">900</span>: <span class="string">'CM'</span>,</span><br><span class="line">        <span class="number">1000</span>: <span class="string">'M'</span></span><br><span class="line">    &#125;;</span><br><span class="line">    nums.forEach(<span class="function"><span class="params">n</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> t = <span class="built_in">Math</span>.floor(num / n);</span><br><span class="line">        num -= n * t;</span><br><span class="line">        res += map[n].repeat(t);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/integer-to-roman/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/integer-to-roman/&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
