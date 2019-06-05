@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-06-05T04:33:23.491Z</updated>
+  <updated>2019-06-05T08:06:35.783Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-70</title>
+    <link href="https://itibbers.com/2019/06/05/leetcode-70/"/>
+    <id>https://itibbers.com/2019/06/05/leetcode-70/</id>
+    <published>2019-06-05T08:06:21.000Z</published>
+    <updated>2019-06-05T08:06:35.783Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener">https://leetcode.com/problems/climbing-stairs/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> climbStairs = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> dp = [<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/climbing-stairs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/climbing-stairs/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-69</title>
@@ -473,30 +495,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="array" scheme="https://itibbers.com/tags/array/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-24</title>
-    <link href="https://itibbers.com/2019/02/22/leetcode-24/"/>
-    <id>https://itibbers.com/2019/02/22/leetcode-24/</id>
-    <published>2019-02-22T13:36:15.000Z</published>
-    <updated>2019-04-03T06:51:19.885Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/swap-nodes-in-pairs/" target="_blank" rel="noopener">https://leetcode.com/problems/swap-nodes-in-pairs/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;ListNode&#125; head</span></span><br><span class="line"><span class="comment"> * @return &#123;ListNode&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> swapPairs = <span class="function"><span class="params">head</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> dummy = <span class="keyword">new</span> ListNode()</span><br><span class="line">    dummy.next = head</span><br><span class="line">    <span class="keyword">let</span> p = dummy</span><br><span class="line">    <span class="keyword">while</span>(p.next &amp;&amp; p.next.next) &#123;</span><br><span class="line">        <span class="keyword">let</span> x = p.next</span><br><span class="line">        <span class="keyword">let</span> y = p.next.next</span><br><span class="line">        x.next = y.next</span><br><span class="line">        y.next = x</span><br><span class="line">        p.next = y</span><br><span class="line">        p = p.next.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummy.next</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/swap-nodes-in-pairs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/swap-nodes-in-pairs/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="linked list" scheme="https://itibbers.com/tags/linked-list/"/>
     
   </entry>
   
