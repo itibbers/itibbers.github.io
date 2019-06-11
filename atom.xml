@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-06-11T12:24:34.402Z</updated>
+  <updated>2019-06-11T13:04:20.546Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-75</title>
+    <link href="https://itibbers.com/2019/06/11/leetcode-75/"/>
+    <id>https://itibbers.com/2019/06/11/leetcode-75/</id>
+    <published>2019-06-11T12:58:29.000Z</published>
+    <updated>2019-06-11T13:04:20.546Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/sort-colors/" target="_blank" rel="noopener">https://leetcode.com/problems/sort-colors/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;void&#125; Do not return anything, modify nums in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> sortColors = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> second = nums.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> zero = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= second; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(nums[i] === <span class="number">2</span> &amp;&amp; i &lt; second) &#123;</span><br><span class="line">            [nums[i], nums[second]] = [nums[second], nums[i]]</span><br><span class="line">            second--</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(nums[i] === <span class="number">0</span> &amp;&amp; i &gt; zero) &#123;</span><br><span class="line">            [nums[i], nums[zero]] = [nums[zero], nums[i]]</span><br><span class="line">            zero++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/sort-colors/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/sort-colors/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="array" scheme="https://itibbers.com/tags/array/"/>
+    
+      <category term="sort" scheme="https://itibbers.com/tags/sort/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-73</title>
@@ -471,30 +497,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="string" scheme="https://itibbers.com/tags/string/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-27</title>
-    <link href="https://itibbers.com/2019/02/23/leetcode-27/"/>
-    <id>https://itibbers.com/2019/02/23/leetcode-27/</id>
-    <published>2019-02-23T04:06:45.000Z</published>
-    <updated>2019-02-23T04:07:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/remove-element/" target="_blank" rel="noopener">https://leetcode.com/problems/remove-element/</a><br><a id="more"></a></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; val</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> removeElement = <span class="function"><span class="keyword">function</span>(<span class="params">nums, val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = nums.length; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] === val) &#123;</span><br><span class="line">            nums.splice(i, <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/remove-element/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/remove-element/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="array" scheme="https://itibbers.com/tags/array/"/>
     
   </entry>
   
