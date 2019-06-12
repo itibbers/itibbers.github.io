@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-06-11T13:04:20.546Z</updated>
+  <updated>2019-06-12T10:31:51.598Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-58</title>
+    <link href="https://itibbers.com/2019/06/12/leetcode-58/"/>
+    <id>https://itibbers.com/2019/06/12/leetcode-58/</id>
+    <published>2019-06-12T10:31:06.000Z</published>
+    <updated>2019-06-12T10:31:51.598Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/length-of-last-word/" target="_blank" rel="noopener">https://leetcode.com/problems/length-of-last-word/</a><br>😭做点简单题<br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> lengthOfLastWord = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> tail = s.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> (tail &gt;= <span class="number">0</span> &amp;&amp; s[tail] === <span class="string">' '</span>) &#123;</span><br><span class="line">        tail--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (tail &gt;= <span class="number">0</span> &amp;&amp; s[tail] !== <span class="string">' '</span>) &#123;</span><br><span class="line">        len++</span><br><span class="line">        tail--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/length-of-last-word/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/length-of-last-word/&lt;/a&gt;&lt;br&gt;😭做点简单题&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-75</title>
@@ -473,30 +495,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="array" scheme="https://itibbers.com/tags/array/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-28</title>
-    <link href="https://itibbers.com/2019/02/23/leetcode-28/"/>
-    <id>https://itibbers.com/2019/02/23/leetcode-28/</id>
-    <published>2019-02-23T07:12:21.000Z</published>
-    <updated>2019-02-23T07:12:41.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/implement-strstr/" target="_blank" rel="noopener">https://leetcode.com/problems/implement-strstr/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; haystack</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; needle</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> strStr = <span class="function">(<span class="params">haystack, needle</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; ; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j =<span class="number">0</span>; ; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j === needle.length) &#123;</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i + j === haystack.length) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (haystack[i + j] !== needle[j]) &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/implement-strstr/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/implement-strstr/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="string" scheme="https://itibbers.com/tags/string/"/>
     
   </entry>
   
