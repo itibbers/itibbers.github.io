@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-06-12T10:31:51.598Z</updated>
+  <updated>2019-06-18T09:34:58.714Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-67</title>
+    <link href="https://itibbers.com/2019/06/18/leetcode-67/"/>
+    <id>https://itibbers.com/2019/06/18/leetcode-67/</id>
+    <published>2019-06-18T09:34:20.000Z</published>
+    <updated>2019-06-18T09:34:58.714Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/add-binary/" target="_blank" rel="noopener">https://leetcode.com/problems/add-binary/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; a</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; b</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> addBinary = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = a.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> j = b.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> carry = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> res = <span class="string">''</span></span><br><span class="line">    <span class="keyword">while</span> (i &gt;= <span class="number">0</span> || j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> sum = carry</span><br><span class="line">        <span class="keyword">if</span> (i &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            sum += +a[i--]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            sum += +b[j--]</span><br><span class="line">        &#125;</span><br><span class="line">        res = sum % <span class="number">2</span> + res</span><br><span class="line">        carry = ~~(sum / <span class="number">2</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (carry) &#123;</span><br><span class="line">        res = carry + res</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/add-binary/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/add-binary/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="math" scheme="https://itibbers.com/tags/math/"/>
+    
+      <category term="string" scheme="https://itibbers.com/tags/string/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-58</title>
@@ -471,30 +497,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="backtrack" scheme="https://itibbers.com/tags/backtrack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-36</title>
-    <link href="https://itibbers.com/2019/03/28/leetcode-36/"/>
-    <id>https://itibbers.com/2019/03/28/leetcode-36/</id>
-    <published>2019-03-28T12:28:10.000Z</published>
-    <updated>2019-03-28T12:29:37.955Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/valid-sudoku/" target="_blank" rel="noopener">https://leetcode.com/problems/valid-sudoku/</a><br><a id="more"></a></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;character[][]&#125; board</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> checkArr = <span class="function"><span class="keyword">function</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    arr = arr.filter(<span class="function"><span class="params">v</span> =&gt;</span> v !== <span class="string">'.'</span>)</span><br><span class="line">    <span class="keyword">return</span> arr.length === [...new <span class="built_in">Set</span>(arr)].length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> isValidSudoku = <span class="function"><span class="keyword">function</span>(<span class="params">board</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> col = [[], [], [], [], [], [], [], [], []]</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++) &#123;</span><br><span class="line">        <span class="comment">// check row</span></span><br><span class="line">        <span class="keyword">if</span>(!checkArr(board[i])) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++) &#123;</span><br><span class="line">            col[j].push(board[i][j])</span><br><span class="line">            <span class="comment">// check sub box</span></span><br><span class="line">            <span class="keyword">if</span> (i % <span class="number">3</span> === <span class="number">0</span> &amp;&amp; j % <span class="number">3</span> === <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">let</span> box = []</span><br><span class="line">                box.push(board[i][j])</span><br><span class="line">                box.push(board[i][j + <span class="number">1</span>])</span><br><span class="line">                box.push(board[i][j + <span class="number">2</span>])</span><br><span class="line">                box.push(board[i + <span class="number">1</span>][j])</span><br><span class="line">                box.push(board[i + <span class="number">1</span>][j + <span class="number">1</span>])</span><br><span class="line">                box.push(board[i + <span class="number">1</span>][j + <span class="number">2</span>])</span><br><span class="line">                box.push(board[i + <span class="number">2</span>][j])</span><br><span class="line">                box.push(board[i + <span class="number">2</span>][j + <span class="number">1</span>])</span><br><span class="line">                box.push(board[i + <span class="number">2</span>][j + <span class="number">2</span>])</span><br><span class="line">                <span class="keyword">if</span>(!checkArr(box)) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// check column</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; col.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!checkArr(col[i])) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/valid-sudoku/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/valid-sudoku/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="array" scheme="https://itibbers.com/tags/array/"/>
     
   </entry>
   
