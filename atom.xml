@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-06-18T09:34:58.714Z</updated>
+  <updated>2019-06-19T10:09:29.501Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-4</title>
+    <link href="https://itibbers.com/2019/06/18/leetcode-4/"/>
+    <id>https://itibbers.com/2019/06/18/leetcode-4/</id>
+    <published>2019-06-18T09:53:44.000Z</published>
+    <updated>2019-06-19T10:09:29.501Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">https://leetcode.com/problems/median-of-two-sorted-arrays/</a><br><a id="more"></a></p><h2 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums1</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums2</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> findMedianSortedArrays = <span class="function"><span class="keyword">function</span>(<span class="params">nums1, nums2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr = nums1.concat(nums2)</span><br><span class="line">    arr.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line">    <span class="keyword">let</span> res</span><br><span class="line">    <span class="keyword">if</span> (arr.length % <span class="number">2</span>) &#123;</span><br><span class="line">        res = arr[~~(arr.length / <span class="number">2</span>)]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> mid = ~~(arr.length / <span class="number">2</span>)</span><br><span class="line">        res = (arr[mid - <span class="number">1</span>] + arr[mid]) / <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><blockquote><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort" target="_blank" rel="noopener">Array.prototype.sort()</a><br>sort() 方法用原地算法对数组的元素进行排序，并返回数组。排序算法现在是稳定的。<br>由于它取决于具体实现，因此无法保证排序的时间和空间复杂性。<br>默认排序顺序是根据<strong>字符串Unicode码点</strong>。<br>所以以下例子的排序结果为：<code>[-1, -2, 3]</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[3]</span><br><span class="line">[-2,-1]</span><br></pre></td></tr></table></figure></p></blockquote><h2 id="A2"><a href="#A2" class="headerlink" title="A2"></a>A2</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums1</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums2</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> findMedianSortedArrays = <span class="function"><span class="keyword">function</span>(<span class="params">nums1, nums2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len = nums1.length + nums2.length</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> cur</span><br><span class="line">    <span class="keyword">let</span> pre</span><br><span class="line">    <span class="keyword">while</span> ((i + j) &lt;= len / <span class="number">2</span>) &#123;</span><br><span class="line">        pre = cur</span><br><span class="line">        <span class="keyword">if</span> (nums1[i] === <span class="literal">undefined</span> || nums1[i] &gt; nums2[j]) &#123;</span><br><span class="line">            cur = nums2[j++]</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums2[j] === <span class="literal">undefined</span> || nums1[i] &lt;= nums2[j]) &#123;</span><br><span class="line">            cur = nums1[i++]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(pre, cur)</span><br><span class="line">    <span class="keyword">return</span> len % <span class="number">2</span> ? cur : (pre + cur) / <span class="number">2</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/median-of-two-sorted-arrays/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/median-of-two-sorted-arrays/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="array" scheme="https://itibbers.com/tags/array/"/>
+    
+      <category term="binary search" scheme="https://itibbers.com/tags/binary-search/"/>
+    
+      <category term="divide and conquer" scheme="https://itibbers.com/tags/divide-and-conquer/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-67</title>
@@ -464,30 +492,6 @@
     <summary type="html">
     
       &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/combination-sum-ii/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/combination-sum-ii/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="backtrack" scheme="https://itibbers.com/tags/backtrack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-39</title>
-    <link href="https://itibbers.com/2019/03/29/leetcode-39/"/>
-    <id>https://itibbers.com/2019/03/29/leetcode-39/</id>
-    <published>2019-03-29T09:22:49.000Z</published>
-    <updated>2019-03-29T09:24:08.397Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/combination-sum/" target="_blank" rel="noopener">https://leetcode.com/problems/combination-sum/</a><br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; candidates</span><br><span class="line"> * @param &#123;number&#125; target</span><br><span class="line"> * @return &#123;number[][]&#125;</span><br><span class="line"> */</span><br><span class="line">const combinationSum = function(candidates, target) &#123;</span><br><span class="line">    candidates.sort()</span><br><span class="line">    let res = []</span><br><span class="line">    const backtrack = function(nums, remain, tmp = [], i = 0) &#123;</span><br><span class="line">        if (remain &lt; 0) &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        if (remain === 0) &#123;</span><br><span class="line">            return res.push([...tmp]) // Notice: [...tmp] is important</span><br><span class="line">        &#125;</span><br><span class="line">        for (let len = nums.length; i &lt; len; i++) &#123;</span><br><span class="line">            tmp.push(nums[i])</span><br><span class="line">            backtrack(nums, remain - nums[i], tmp, i)</span><br><span class="line">            tmp.pop()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack(candidates, target)</span><br><span class="line">    return res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/combination-sum/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/combination-sum/&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
