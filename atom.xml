@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-06-19T10:09:29.501Z</updated>
+  <updated>2019-06-20T02:22:17.342Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-15</title>
+    <link href="https://itibbers.com/2019/06/20/leetcode-15/"/>
+    <id>https://itibbers.com/2019/06/20/leetcode-15/</id>
+    <published>2019-06-20T02:21:15.000Z</published>
+    <updated>2019-06-20T02:22:17.342Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/3sum/" target="_blank" rel="noopener">https://leetcode.com/problems/3sum/</a><br><a id="more"></a><br>大事化小，小事化了<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> threeSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line">    nums.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line">    <span class="keyword">if</span> (nums.length &lt; <span class="number">3</span> || nums[<span class="number">0</span>] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length - <span class="number">2</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] === nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>, k = nums.length - <span class="number">1</span>; j &lt; k;) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] + nums[j] + nums[k] === <span class="number">0</span>) &#123;</span><br><span class="line">                res.push([nums[i], nums[j], nums[k]])</span><br><span class="line">                j++</span><br><span class="line">                k--</span><br><span class="line">                <span class="keyword">while</span> (j &lt; k &amp;&amp; nums[j] === nums[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    j++</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span> (j &lt; k &amp;&amp; nums[k] === nums[k + <span class="number">1</span>]) &#123;</span><br><span class="line">                    k--</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] + nums[j] + nums[k] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                k--</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] + nums[j] + nums[k] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                j++</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/3sum/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/3sum/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="array" scheme="https://itibbers.com/tags/array/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-4</title>
@@ -468,30 +492,6 @@
     <summary type="html">
     
       &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/permutations/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/permutations/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="backtrack" scheme="https://itibbers.com/tags/backtrack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-40</title>
-    <link href="https://itibbers.com/2019/03/29/leetcode-40/"/>
-    <id>https://itibbers.com/2019/03/29/leetcode-40/</id>
-    <published>2019-03-29T11:28:25.000Z</published>
-    <updated>2019-03-29T11:30:39.439Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/combination-sum-ii/" target="_blank" rel="noopener">https://leetcode.com/problems/combination-sum-ii/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; candidates</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; target</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> combinationSum2 = <span class="function"><span class="keyword">function</span>(<span class="params">candidates, target</span>) </span>&#123;</span><br><span class="line">    candidates.sort()</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">nums, remain, tmp = [], i = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (remain &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (remain === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> res.push([...tmp])</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (; i &lt; nums.length; i++) &#123;</span><br><span class="line">            tmp.push(nums[i])</span><br><span class="line">            backtrack(nums, remain - nums[i], tmp, i + <span class="number">1</span>) <span class="comment">// next item</span></span><br><span class="line">            tmp.pop()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack(candidates, target)</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* unique object array */</span></span><br><span class="line">    res = [...new <span class="built_in">Set</span>(res.map(<span class="function"><span class="params">v</span> =&gt;</span> <span class="built_in">JSON</span>.stringify(v)))].map(<span class="function"><span class="params">v</span> =&gt;</span> <span class="built_in">JSON</span>.parse(v))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/combination-sum-ii/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/combination-sum-ii/&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
