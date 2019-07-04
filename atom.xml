@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-06-20T02:22:17.342Z</updated>
+  <updated>2019-07-04T06:36:45.629Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hanoi</title>
+    <link href="https://itibbers.com/2019/07/04/hanoi/"/>
+    <id>https://itibbers.com/2019/07/04/hanoi/</id>
+    <published>2019-07-04T06:36:20.000Z</published>
+    <updated>2019-07-04T06:36:45.629Z</updated>
+    
+    <content type="html"><![CDATA[<p>汉诺塔<br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hanoi</span>(<span class="params">n, from, via, to</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    hanoi(n - <span class="number">1</span>, <span class="keyword">from</span>, via, to);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Move <span class="subst">$&#123;n&#125;</span> from <span class="subst">$&#123;<span class="keyword">from</span>&#125;</span> to <span class="subst">$&#123;to&#125;</span>`</span>)</span><br><span class="line">    hanoi(n - <span class="number">1</span>, via, to, <span class="keyword">from</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hanoi(<span class="number">3</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>)</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;汉诺塔&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-15</title>
@@ -468,30 +490,6 @@
     <summary type="html">
     
       &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/permutations-ii/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/permutations-ii/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="backtrack" scheme="https://itibbers.com/tags/backtrack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-46</title>
-    <link href="https://itibbers.com/2019/03/29/leetcode-46/"/>
-    <id>https://itibbers.com/2019/03/29/leetcode-46/</id>
-    <published>2019-03-29T11:35:31.000Z</published>
-    <updated>2019-03-29T11:35:52.871Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/permutations/" target="_blank" rel="noopener">https://leetcode.com/problems/permutations/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> permute = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">nums, tmp = []</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (tmp.length === nums.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> res.push([...tmp])</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (~tmp.indexOf(nums[i])) <span class="keyword">continue</span></span><br><span class="line">            tmp.push(nums[i])</span><br><span class="line">            backtrack(nums, tmp)</span><br><span class="line">            tmp.pop()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack(nums)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/permutations/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/permutations/&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
