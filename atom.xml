@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-08-05T10:23:20.587Z</updated>
+  <updated>2019-08-05T10:24:58.387Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>leetcode-88</title>
+    <link href="https://itibbers.com/2019/08/05/leetcode-88/"/>
+    <id>https://itibbers.com/2019/08/05/leetcode-88/</id>
+    <published>2019-08-05T10:24:20.000Z</published>
+    <updated>2019-08-05T10:24:58.387Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank" rel="noopener">https://leetcode.com/problems/merge-sorted-array/</a><br><a id="more"></a><br>反向操作</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums1</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; m</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums2</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;void&#125; Do not return anything, modify nums1 in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> merge = <span class="function"><span class="keyword">function</span>(<span class="params">A, m, B, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = m - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> j = n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> k = m + n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span>(i &gt;= <span class="number">0</span> &amp;&amp; j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (A[i] &gt; B[j]) &#123;</span><br><span class="line">            A[k--] = A[i--]</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            A[k--] = B[j--]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        A[k--] = B[j--]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/merge-sorted-array/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/merge-sorted-array/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="array" scheme="https://itibbers.com/tags/array/"/>
+    
+  </entry>
+  
+  <entry>
     <title>leetcode-83</title>
-    <link href="https://itibbers.com/2019/08/05/leetcode-83/"/>
-    <id>https://itibbers.com/2019/08/05/leetcode-83/</id>
-    <published>2019-08-05T10:22:19.000Z</published>
-    <updated>2019-08-05T10:23:20.587Z</updated>
+    <link href="https://itibbers.com/2019/08/01/leetcode-83/"/>
+    <id>https://itibbers.com/2019/08/01/leetcode-83/</id>
+    <published>2019-08-01T10:11:24.000Z</published>
+    <updated>2019-08-05T10:25:56.524Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list/" target="_blank" rel="noopener">https://leetcode.com/problems/remove-duplicates-from-sorted-list/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;ListNode&#125; head</span></span><br><span class="line"><span class="comment"> * @return &#123;ListNode&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> deleteDuplicates = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> p = head</span><br><span class="line">    <span class="keyword">while</span>(p) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p.next &amp;&amp; p.val === p.next.val) &#123;</span><br><span class="line">            p.next = p.next.next</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            p = p.next</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
     
@@ -473,32 +497,6 @@
       <category term="hash" scheme="https://itibbers.com/tags/hash/"/>
     
       <category term="string" scheme="https://itibbers.com/tags/string/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-48</title>
-    <link href="https://itibbers.com/2019/04/02/leetcode-48/"/>
-    <id>https://itibbers.com/2019/04/02/leetcode-48/</id>
-    <published>2019-04-02T10:37:41.000Z</published>
-    <updated>2019-04-02T10:38:46.452Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/rotate-image/" target="_blank" rel="noopener">https://leetcode.com/problems/rotate-image/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[][]&#125; matrix</span></span><br><span class="line"><span class="comment"> * @return &#123;void&#125; Do not return anything, modify matrix in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> rotate = <span class="function"><span class="keyword">function</span>(<span class="params">matrix</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; matrix.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; matrix[i].length; j++) &#123;</span><br><span class="line">            <span class="keyword">let</span> t = matrix[i][j]</span><br><span class="line">            matrix[i][j] = matrix[j][i]</span><br><span class="line">            matrix[j][i] = t</span><br><span class="line">        &#125;</span><br><span class="line">        matrix[i].reverse()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/rotate-image/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/rotate-image/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="math" scheme="https://itibbers.com/tags/math/"/>
-    
-      <category term="matrix" scheme="https://itibbers.com/tags/matrix/"/>
     
   </entry>
   
