@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-08-05T10:24:58.387Z</updated>
+  <updated>2019-08-06T08:27:29.096Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,78 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode-107</title>
+    <link href="https://itibbers.com/2019/08/05/leetcode-107/"/>
+    <id>https://itibbers.com/2019/08/05/leetcode-107/</id>
+    <published>2019-08-05T13:13:20.000Z</published>
+    <updated>2019-08-06T08:27:29.096Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/binary-tree-level-order-traversal-ii/" target="_blank" rel="noopener">https://leetcode.com/problems/binary-tree-level-order-traversal-ii/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.left = this.right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> levelOrderBottom = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line">    bfs(root, res, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> res.reverse()</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bfs = <span class="function">(<span class="params">root, res, level</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    bfs(root.left, res, level + <span class="number">1</span>)</span><br><span class="line">    bfs(root.right, res, level + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> (!res[level]) &#123;</span><br><span class="line">        res[level] = [root.val]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res[level].push(root.val)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/binary-tree-level-order-traversal-ii/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/binary-tree-level-order-traversal-ii/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="tree" scheme="https://itibbers.com/tags/tree/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-104</title>
+    <link href="https://itibbers.com/2019/08/05/leetcode-104/"/>
+    <id>https://itibbers.com/2019/08/05/leetcode-104/</id>
+    <published>2019-08-05T12:26:45.000Z</published>
+    <updated>2019-08-06T08:27:09.562Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener">https://leetcode.com/problems/maximum-depth-of-binary-tree/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.left = this.right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxDepth = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">Math</span>.max(maxDepth(root.left), maxDepth(root.right))</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/maximum-depth-of-binary-tree/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/maximum-depth-of-binary-tree/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="tree" scheme="https://itibbers.com/tags/tree/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-101</title>
+    <link href="https://itibbers.com/2019/08/05/leetcode-101/"/>
+    <id>https://itibbers.com/2019/08/05/leetcode-101/</id>
+    <published>2019-08-05T12:16:32.000Z</published>
+    <updated>2019-08-06T08:26:50.438Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/symmetric-tree/" target="_blank" rel="noopener">https://leetcode.com/problems/symmetric-tree/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.left = this.right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> isSymmetric = <span class="function">(<span class="params">root</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !root || judgeSymmetric(root.left, root.right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> judgeSymmetric = <span class="function">(<span class="params">left, right</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!left &amp;&amp; !right) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!left || !right) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left.val === right.val &amp;&amp; judgeSymmetric(left.left, right.right) &amp;&amp; judgeSymmetric(left.right, right.left)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/symmetric-tree/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/symmetric-tree/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="tree" scheme="https://itibbers.com/tags/tree/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-88</title>
@@ -421,82 +493,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="backtrack" scheme="https://itibbers.com/tags/backtrack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-51</title>
-    <link href="https://itibbers.com/2019/04/08/leetcode-51/"/>
-    <id>https://itibbers.com/2019/04/08/leetcode-51/</id>
-    <published>2019-04-08T12:29:45.000Z</published>
-    <updated>2019-04-08T12:32:01.763Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/n-queens/" target="_blank" rel="noopener">https://leetcode.com/problems/n-queens/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;string[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> solveNQueens = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line">    <span class="keyword">let</span> board = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        board.push(<span class="string">'.'</span>.repeat(n))</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack(n, res, board)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">n, res, board = [], row = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (row === n) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.push([...board]) <span class="comment">// attention</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> col = <span class="number">0</span>; col &lt; n; col++) &#123; <span class="comment">// attention</span></span><br><span class="line">        <span class="keyword">if</span> (isValid(board, row, col, n)) &#123;</span><br><span class="line">            board[row] = board[row].substr(<span class="number">0</span>, col) + <span class="string">'Q'</span> + board[row].substr(col + <span class="number">1</span>)</span><br><span class="line">            backtrack(n, res, board, row + <span class="number">1</span>)</span><br><span class="line">            board[row] = board[row].substr(<span class="number">0</span>, col) + <span class="string">'.'</span> + board[row].substr(col + <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">board, r, c, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; r; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (board[i][c] === <span class="string">'Q'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = r - <span class="number">1</span>, j = c - <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; j &gt;= <span class="number">0</span>; i--, j--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (board[i][j] === <span class="string">'Q'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = r - <span class="number">1</span>, j = c + <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; j &lt; n; i--, j++) &#123; <span class="comment">// attention</span></span><br><span class="line">        <span class="keyword">if</span> (board[i][j] === <span class="string">'Q'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/n-queens/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/n-queens/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="backtrack" scheme="https://itibbers.com/tags/backtrack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-50</title>
-    <link href="https://itibbers.com/2019/04/03/leetcode-50/"/>
-    <id>https://itibbers.com/2019/04/03/leetcode-50/</id>
-    <published>2019-04-03T06:43:55.000Z</published>
-    <updated>2019-04-03T06:48:01.491Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/powx-n/" target="_blank" rel="noopener">https://leetcode.com/problems/powx-n/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; x</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> myPow = <span class="function"><span class="keyword">function</span>(<span class="params">x, n</span>) </span>&#123;</span><br><span class="line">    n = <span class="built_in">Math</span>.floor(n)</span><br><span class="line">    <span class="keyword">if</span> (n === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        n = -n</span><br><span class="line">        x = <span class="number">1</span> / x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n % <span class="number">2</span> === <span class="number">0</span> ? myPow(x * x, n / <span class="number">2</span>) : x * myPow(x * x, n / <span class="number">2</span>)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/powx-n/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/powx-n/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="math" scheme="https://itibbers.com/tags/math/"/>
-    
-      <category term="binary search" scheme="https://itibbers.com/tags/binary-search/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-49</title>
-    <link href="https://itibbers.com/2019/04/03/leetcode-49/"/>
-    <id>https://itibbers.com/2019/04/03/leetcode-49/</id>
-    <published>2019-04-03T06:33:35.000Z</published>
-    <updated>2019-04-03T06:34:33.870Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/group-anagrams/" target="_blank" rel="noopener">https://leetcode.com/problems/group-anagrams/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string[]&#125; strs</span></span><br><span class="line"><span class="comment"> * @return &#123;string[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> groupAnagrams = <span class="function"><span class="keyword">function</span>(<span class="params">strs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; strs.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> str = strs[i].split(<span class="string">''</span>).sort().join(<span class="string">''</span>)</span><br><span class="line">        <span class="keyword">if</span> (!res[str]) &#123;</span><br><span class="line">            res[str] = []</span><br><span class="line">        &#125;</span><br><span class="line">        res[str].push(strs[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.values(res)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/group-anagrams/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/group-anagrams/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="hash" scheme="https://itibbers.com/tags/hash/"/>
-    
-      <category term="string" scheme="https://itibbers.com/tags/string/"/>
     
   </entry>
   
