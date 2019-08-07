@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><title>浏览器及HTTP缓存机制 · iTibbers</title><meta name="description" content="浏览器及HTTP缓存机制 - Ive"><meta name="keywords" content="浏览器及HTTP缓存机制,iTibbers,难难,难难不爱写代码,前端,FE,技术分享"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="/"><link rel="stylesheet" href="/css/i.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="iTibbers"><script async src="https://www.googletagmanager.com/gtag/js?id=UA-104632485-1"></script><script>window.dataLayer = window.dataLayer || [];
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><title>浏览器及HTTP缓存机制 · iTibbers</title><meta name="description" content="浏览器及HTTP缓存机制 - Ive"><meta name="keywords" content="浏览器及HTTP缓存机制,iTibbers,难难,难难不爱写代码,前端,FE,技术分享"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="/"><link rel="stylesheet" href="/css/i.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="iTibbers"><script async src="https://www.googletagmanager.com/gtag/js?id=UA-104632485-1"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());gtag('config', 'UA-104632485-1');</script></head><body><header class="header"><nav class="nav"><ul class="nav-menu"><li class="nav-item"><a href="/" class="nav-link"><span></span></a></li><li class="nav-item"><a href="/archives" class="nav-link"><span>Archives</span></a></li><li class="nav-item"><a href="/friends" class="nav-link"><span>Friends</span></a></li><li class="nav-item"><a href="/about" class="nav-link"><span>About</span></a></li><li class="nav-item"><a href="https://github.com/itibbers" target="_blank" class="nav-link"><img src="/images/github.svg" class="icon"></a></li></ul></nav></header><main class="main"><div class="container"><div class="post"><article class="post-block"><h1 class="post-title">浏览器及HTTP缓存机制</h1><div class="post-info">Jul 26, 2018<a href="/categories/frontend" class="post-cate"><i class="icon-cate"></i> frontend</a><a href="/tags/浏览器" class="post-tag"><i class="icon-tag"></i> 浏览器</a><a href="/tags/http" class="post-tag"><i class="icon-tag"></i> http</a><a href="/tags/缓存" class="post-tag"><i class="icon-tag"></i> 缓存</a></div><div class="post-content"><p>Web缓存是一种保存Web资源副本并在下次请求时直接使用该副本的技术。缓存=请求资源的副本</p>
 <p>Web缓存可以分为这几种：浏览器缓存、CDN缓存、服务器缓存、数据库数据缓存 。因为可能会直接使用副本免于重新发送请求或者仅仅确认资源没变无需重新传输资源实体，Web缓存具有以下优点：</p>
@@ -10,12 +10,12 @@ gtag('js', new Date());gtag('config', 'UA-104632485-1');</script></head><body><h
 <a id="more"></a>
 <p>[TOC]</p>
 <p>这篇文章主要讨论和前端密切相关的浏览器HTTP缓存机制。浏览器HTTP缓存可以分为强缓存和协商缓存。强缓存和协商缓存最大也是最根本的区别是：强缓存命中的话不会发请求到服务器（比如chrome中的200 from memory cache），协商缓存一定会发请求到服务器，通过资源的请求首部字段验证资源是否命中协商缓存，如果协商缓存命中，服务器会将这个请求返回，但是不会返回这个资源的实体，而是通知客户端可以从缓存中加载这个资源（304 not modified）。简略流程图如下：</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnafr9qk3j30tq0f5400.jpg" alt=""></p>
-<h2 id="1-浏览器HTTP缓存由HTTP报文的首部字段决定"><a href="#1-浏览器HTTP缓存由HTTP报文的首部字段决定" class="headerlink" title="1 浏览器HTTP缓存由HTTP报文的首部字段决定"></a>1 浏览器HTTP缓存由HTTP报文的首部字段决定</h2><p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1ftnagybj4hj30ea08twem.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnafr9qk3j30tq0f5400.jpg" alt></p>
+<h2 id="1-浏览器HTTP缓存由HTTP报文的首部字段决定"><a href="#1-浏览器HTTP缓存由HTTP报文的首部字段决定" class="headerlink" title="1 浏览器HTTP缓存由HTTP报文的首部字段决定"></a>1 浏览器HTTP缓存由HTTP报文的首部字段决定</h2><p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1ftnagybj4hj30ea08twem.jpg" alt></p>
 <ol>
-<li><p>http header中与缓存有关的key<br><img src="https://ws4.sinaimg.cn/large/006tKfTcly1ftnahvfa0kj31420fi77l.jpg" alt=""></p>
+<li><p>http header中与缓存有关的key<br><img src="https://ws4.sinaimg.cn/large/006tKfTcly1ftnahvfa0kj31420fi77l.jpg" alt></p>
 </li>
-<li><p>缓存协商策略用于重新验证缓存资源是否有效，有关的key<br><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnais0iauj314c0fqtbt.jpg" alt=""></p>
+<li><p>缓存协商策略用于重新验证缓存资源是否有效，有关的key<br><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnais0iauj314c0fqtbt.jpg" alt></p>
 </li>
 </ol>
 <h3 id="1-1-控制强缓存的字段按优先级介绍"><a href="#1-1-控制强缓存的字段按优先级介绍" class="headerlink" title="1.1 控制强缓存的字段按优先级介绍"></a>1.1 控制强缓存的字段按优先级介绍</h3><ol>
@@ -27,7 +27,7 @@ gtag('js', new Date());gtag('config', 'UA-104632485-1');</script></head><body><h
 <p>不仅如此, 它还是一个复合规则, 包含多种值, 横跨 存储策略, 过期策略 两种, 同时在请求头和响应头都可设置.</p>
 <p>语法为: “Cache-Control : cache-directive”.</p>
 <p>Cache-directive共有如下12种(其中请求中指令7种, 响应中指令9种):</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1ftnal0pg00j31630elwjq.jpg" alt=""></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1ftnal0pg00j31630elwjq.jpg" alt></p>
 <ul>
 <li><p>max-age（单位为s）设置缓存的存在时间，相对于发送请求的时间。只有响应报文首部设置Cache-Control为非0的max-age才有可能命中强缓存。当满足这个条件，同时响应报文首部中Cache-Control不存在no-cache、no-store且请求报文首部不存在Pragma字段，才会真正命中强缓存。</p>
 </li>
@@ -40,24 +40,24 @@ gtag('js', new Date());gtag('config', 'UA-104632485-1');</script></head><body><h
 <li><p>private 响应只作为私有的缓存，不能被CDN等缓存。如果要求HTTP认证，响应会自动设置为private。</p>
 </li>
 </ul>
-<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnamm7mgfj30gj0got8q.jpg" alt=""><br>图：Cache-Control策略优先级</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnamm7mgfj30gj0got8q.jpg" alt><br>图：Cache-Control策略优先级</p>
 <p>Cache-Control 允许自由组合可选值，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control: max-age=3600, must-revalidate</span><br></pre></td></tr></table></figure></p>
 <p>它意味着该资源是从原服务器上取得的，且其缓存（新鲜度）的有效时间为一小时，在后续一小时内，用户重新访问该资源则无须发送请求。 当然这种组合的方式也会有些限制，比如 no-cache 就不能和 max-age、min-fresh、max-stale 一起搭配使用。</p>
 <p>3.Expires 是HTTP/1.1之前版本遗留的通用首部字段，仅作为于HTTP/1.0的向后兼容而使用。</p>
 <p>即到期时间, 以服务器时间为参考系, 其优先级比 Cache-Control:max-age 低, 两者同时出现在响应头时, Expires将被后者覆盖. 如果Expires, Cache-Control: max-age, 或 Cache-Control:s-maxage 都没有在响应头中出现, 并且也没有其它缓存的设置, 那么浏览器默认会采用一个启发式的算法, 通常会取响应头的Date_value - Last-Modified_value值的10%作为缓存时间.</p>
-<p>如下资源便采取了启发式缓存算法.<br><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnanz8dl3j30m3028wem.jpg" alt=""></p>
+<p>如下资源便采取了启发式缓存算法.<br><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnanz8dl3j30m3028wem.jpg" alt></p>
 <p>其缓存时间为 (Date_value - Last-Modified_value) * 10%, 计算如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const Date_value = new Date(&apos;Thu, 06 Apr 2017 01:30:56 GMT&apos;).getTime();</span><br><span class="line">const LastModified_value = new Date(&apos;Thu, 01 Dec 2016 06:23:23 GMT&apos;).getTime();</span><br><span class="line">const cacheTime = (Date_value - LastModified_value) / 10;</span><br><span class="line">const Expires_timestamp = Date_value + cacheTime;</span><br><span class="line">const Expires_value = new Date(Expires_timestamp);</span><br><span class="line">console.log(&apos;Expires:&apos;, Expires_value); // Expires: Tue Apr 18 2017 23:25:41 GMT+0800 (CST)</span><br></pre></td></tr></table></figure></p>
 <p>可见该资源将于2017年4月18日23点25分41秒过期, 尝试以下两步进行验证:</p>
 <p>1) 试着把本地时间修改为2017年4月18日23点25分40秒, 迅速刷新页面, 发现强缓存依然有效(依旧是200 OK (from disk cache)).</p>
 <p>2) 然后又修改本地时间为2017年4月18日23点26分40秒(即往后拨1分钟), 刷新页面, 发现缓存已过期, 此时浏览器重新向服务器发起了验证, 且命中了304协商缓存, 如下所示.</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnaon5w6vj30lm059js8.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnaon5w6vj30lm059js8.jpg" alt></p>
 <p>3) 将本地时间恢复正常(即 2017-04-06 09:54:19). 刷新页面, 发现Date依然是4月18日, 如下所示.</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnap0d3a4j30nb093tai.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1ftnap0d3a4j30nb093tai.jpg" alt></p>
 <p>从⚠️ Provisional headers are shown 和Date字段可以看出来, 浏览器并未发出请求, 缓存依然有效, 只不过此时Status Code显示为200 OK. (甚至我还专门打开了charles, 也没有发现该资源的任何请求, 可见这个200 OK多少有些误导人的意味)</p>
 <p>可见, 启发式缓存算法采用的缓存时间可长可短, 因此对于常规资源, 建议明确设置缓存时间(如指定max-age 或 expires).</p>
 <h3 id="1-2-控制协商缓存的字段"><a href="#1-2-控制协商缓存的字段" class="headerlink" title="1.2 控制协商缓存的字段"></a>1.2 控制协商缓存的字段</h3><p>上述的首部字段均能让客户端决定是否向服务器发送请求，比如设置的缓存时间未过期，那么自然直接从本地缓存取数据即可（在chrome下表现为200 from cache），若缓存时间过期了或资源不该直接走缓存，则会发请求到服务器去。<br>我们现在要说的问题是，<strong>如果客户端向服务器发了请求，那么是否意味着一定要读取回该资源的整个实体内容呢？</strong><br>我们试着这么想——客户端上某个资源保存的缓存时间过期了，但这时候其实服务器并没有更新过这个资源，如果这个资源数据量很大，客户端要求服务器再把这个东西重新发一遍过来，是否非常浪费带宽和时间呢？<br>答案是肯定的，那么是否有办法让服务器知道客户端现在存有的缓存文件，其实跟自己所有的文件是一致的，然后直接告诉客户端说“这东西你直接用缓存里的就可以了，我这边没更新过呢，就不再传一次过去了”。<br>举例来说：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C：小服，你几岁了？</span><br><span class="line">S：小客，我18岁了。</span><br><span class="line">=================================</span><br><span class="line">C：小服 ，你几岁了？我猜你18岁了。</span><br><span class="line">S：靠，你知道还问我？（304）</span><br><span class="line">=================================</span><br><span class="line">C：小服 ，你几岁了？我猜你18岁了。</span><br><span class="line">S：小客 ，我19岁了。（200）</span><br></pre></td></tr></table></figure></p>
 <p>为了让客户端与服务器之间能实现缓存文件是否更新的验证、提升缓存的复用率，Http1.1新增了几个首部字段来做这件事情。</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnaq12rn7j30dz04imx2.jpg" alt=""></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnaq12rn7j30dz04imx2.jpg" alt></p>
 <ol>
 <li><p>Last-Modified/If-Modified-Since<br>If-Modified-Since是一个请求首部字段，并且只能用在GET或者HEAD请求中。<br>Last-Modified是一个响应首部字段，包含服务器认定的资源作出修改的日期及时间。<br>当带着If-Modified-Since头访问服务器请求资源时，服务器会检查Last-Modified，如果Last-Modified的时间早于或等于If-Modified-Since则会返回一个不带主体的304响应，否则将重新返回资源。<br>If-Modified-Since: , :: GMT Last-Modified: , :: GMT</p>
 </li>
@@ -79,8 +79,8 @@ gtag('js', new Date());gtag('config', 'UA-104632485-1');</script></head><body><h
 <h3 id="2-2-Date"><a href="#2-2-Date" class="headerlink" title="2.2 Date"></a>2.2 Date</h3><p>指的是响应生成的时间. 请求经过代理服务器时, 返回的Date未必是最新的, 通常这个时候, 代理服务器将增加一个Age字段告知该资源已缓存了多久.</p>
 <h3 id="2-3-Vary"><a href="#2-3-Vary" class="headerlink" title="2.3 Vary"></a>2.3 Vary</h3><p>对于服务器而言, 资源文件可能不止一个版本, 比如说压缩和未压缩, 针对不同的客户端, 通常需要返回不同的资源版本. 比如说老式的浏览器可能不支持解压缩, 这个时候, 就需要返回一个未压缩的版本; 对于新的浏览器, 支持压缩, 返回一个压缩的版本, 有利于节省带宽, 提升体验. 那么怎么区分这个版本呢, 这个时候就需要Vary了.<br>服务器通过指定Vary: Accept-Encoding, 告知代理服务器, 对于这个资源, 需要缓存两个版本: 压缩和未压缩. 这样老式浏览器和新的浏览器, 通过代理, 就分别拿到了未压缩和压缩版本的资源, 避免了都拿同一个资源的尴尬.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vary:Accept-Encoding,User-Agent</span><br></pre></td></tr></table></figure></p>
 <p>如上设置, 代理服务器将针对是否压缩和浏览器类型两个维度去缓存资源. 如此一来, 同一个url, 就能针对PC和Mobile返回不同的缓存内容.</p>
-<h2 id="3-缓存头部对比"><a href="#3-缓存头部对比" class="headerlink" title="3 缓存头部对比"></a>3 缓存头部对比</h2><p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1ftnasbu6u5j31dy0xeds0.jpg" alt=""></p>
-<h2 id="4-用户刷新-访问行为"><a href="#4-用户刷新-访问行为" class="headerlink" title="4 用户刷新/访问行为"></a>4 用户刷新/访问行为</h2><p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnau6q6gcj30vy0dcabl.jpg" alt=""></p>
+<h2 id="3-缓存头部对比"><a href="#3-缓存头部对比" class="headerlink" title="3 缓存头部对比"></a>3 缓存头部对比</h2><p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1ftnasbu6u5j31dy0xeds0.jpg" alt></p>
+<h2 id="4-用户刷新-访问行为"><a href="#4-用户刷新-访问行为" class="headerlink" title="4 用户刷新/访问行为"></a>4 用户刷新/访问行为</h2><p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1ftnau6q6gcj30vy0dcabl.jpg" alt></p>
 <h2 id="5-缓存实践"><a href="#5-缓存实践" class="headerlink" title="5 缓存实践"></a>5 缓存实践</h2><p>综上对各种HTTP缓存控制头部的对比以及用户可能出现的浏览器刷新行为的讨论，当我们在一个项目上做http缓存的应用时，我们实际上还是会把上述提及的大多数首部字段均使用上。</p>
 <h3 id="5-1-Expires-Cache-Control"><a href="#5-1-Expires-Cache-Control" class="headerlink" title="5.1 Expires / Cache-Control"></a>5.1 Expires / Cache-Control</h3><p>Expires用时刻来标识失效时间，不免收到时间同步的影响，而Cache-Control使用时间间隔很好的解决了这个问题。 但是 Cache-Control 是 HTTP1.1 才有的，不适用于 HTTP1.0，而 Expires 既适用于 HTTP1.0，也适用于 HTTP1.1，所以说在大多数情况下同时发送这两个头会是一个更好的选择，当客户端两种头都能解析的时候，会优先使用 Cache-Control。</p>
 <h3 id="5-2-Last-Modified-ETag"><a href="#5-2-Last-Modified-ETag" class="headerlink" title="5.2 Last-Modified / ETag"></a>5.2 Last-Modified / ETag</h3><p>二者都是通过某个标识值来请求资源， 如果服务器端的资源没有变化，则自动返回 HTTP 304 （Not Changed）状态码，内容为空，这样就节省了传输数据量。而当资源发生比那话后，返回和第一次请求时类似。从而保证不向客户端重复发出资源，也保证当服务器有变化时，客户端能够得到最新的资源。<br>其中Last-Modified使用文件最后修改作为文件标识值，它无法处理文件一秒内多次修改的情况，而且只要文件修改了哪怕文件实质内容没有修改，也会重新返回资源内容；ETag作为“被请求变量的实体值”，其完全可以解决Last-Modified头部的问题，但是其计算过程需要耗费服务器资源。</p>
