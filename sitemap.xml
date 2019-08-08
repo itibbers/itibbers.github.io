@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://itibbers.com/friends/index.html</loc>
+    
+    <lastmod>2019-08-08T07:05:13.387Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://itibbers.com/2019/08/07/leetcode-108/</loc>
     
     <lastmod>2019-08-07T09:11:01.338Z</lastmod>
@@ -376,13 +383,6 @@
     <loc>https://itibbers.com/2018/10/26/shell%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E6%93%8D%E4%BD%9C%E5%8F%8A%E5%91%BD%E4%BB%A4%E7%9A%84%E6%90%9C%E7%B4%A2/</loc>
     
     <lastmod>2018-10-26T10:56:25.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://itibbers.com/friends/index.html</loc>
-    
-    <lastmod>2018-09-04T07:47:24.000Z</lastmod>
     
   </url>
   
