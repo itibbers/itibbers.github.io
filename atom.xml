@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-08-07T09:11:01.338Z</updated>
+  <updated>2019-08-19T07:14:40.941Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,128 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue组件通信与数据传递</title>
+    <link href="https://itibbers.com/2019/08/19/Vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%E4%B8%8E%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92/"/>
+    <id>https://itibbers.com/2019/08/19/Vue组件通信与数据传递/</id>
+    <published>2019-08-19T07:01:54.000Z</published>
+    <updated>2019-08-19T07:14:40.941Z</updated>
+    
+    <content type="html"><![CDATA[<p>Vue组件通信整理：<br><a id="more"></a><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span># parent &amp; child<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>props[$attrs &amp; $listeners] $emit[.sync]<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>$parent $children/ref<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>eventBus<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Vuex $root<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>slot<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>provide inject<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">parent-child</span> <span class="attr">:name.sync</span>=<span class="string">"name"</span> <span class="attr">ref</span>=<span class="string">"parentChild"</span> @<span class="attr">say</span>=<span class="string">"receive"</span>&gt;</span><span class="tag">&lt;/<span class="name">parent-child</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"childFn"</span>&gt;</span>What's your name, parent-child?<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  Change Name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span># child &amp; child<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>子-&gt;父-&gt;子<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>eventBus<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Vuex $root<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">child-brother</span>&gt;</span><span class="tag">&lt;/<span class="name">child-brother</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">child-sister</span>&gt;</span><span class="tag">&lt;/<span class="name">child-sister</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'parent-child'</span>, &#123;</span><br><span class="line">  <span class="comment">// 数据：父-&gt;子</span></span><br><span class="line">  props: [<span class="string">'name'</span>],</span><br><span class="line">  methods: &#123;</span><br><span class="line">    alertName() &#123;</span><br><span class="line">      alert(<span class="string">'I am '</span> + <span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    say() &#123;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'say'</span>, <span class="string">'I am fine'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    parentFn() &#123;</span><br><span class="line">      <span class="keyword">this</span>.$parent.receive()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;p&gt;Name: &#123;&#123;name&#125;&#125;&lt;/p&gt;</span></span><br><span class="line"><span class="string">      &lt;button @click="say"&gt;Say something&lt;/button&gt;</span></span><br><span class="line"><span class="string">      &lt;button @click="parentFn"&gt;Hello Parent?&lt;/button&gt;</span></span><br><span class="line"><span class="string">      &lt;button @click="$emit('update:name', 'Awesome Jack')"&gt;Change name self&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Vue.component(<span class="string">'child-brother'</span>, &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    sayHello() &#123;</span><br><span class="line">      eventBus.$emit(<span class="string">'talking'</span>, <span class="string">'Hello'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;p&gt;brother&lt;/p&gt;</span></span><br><span class="line"><span class="string">      &lt;button @click="sayHello"&gt;hello my sister&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Vue.component(<span class="string">'child-sister'</span>, &#123;</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    eventBus.$on(<span class="string">'talking'</span>, (words) =&gt; &#123;</span><br><span class="line">      alert(<span class="string">'Received from brother: '</span> + words)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;p&gt;sister waiting brother takling...&lt;/p&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> eventBus = <span class="keyword">new</span> Vue()</span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      name: <span class="string">'Jack'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">// 事件：父-&gt;子</span></span><br><span class="line">    childFn() &#123;</span><br><span class="line">      <span class="comment">// $refs or $children</span></span><br><span class="line">      <span class="keyword">this</span>.$refs.parentChild.alertName()</span><br><span class="line">    &#125;,</span><br><span class="line">    receive(msg) &#123;</span><br><span class="line">      <span class="keyword">if</span> (msg) &#123;</span><br><span class="line">        alert(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> said: <span class="subst">$&#123;msg&#125;</span>`</span>)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        alert(<span class="string">'Received: Nothing'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>运行Demo见：<a href="https://codepen.io/itibbers/pen/yLBJddd" target="_blank" rel="noopener">https://codepen.io/itibbers/pen/yLBJddd</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Vue组件通信整理：&lt;br&gt;
+    
+    </summary>
+    
+      <category term="vue" scheme="https://itibbers.com/categories/vue/"/>
+    
+    
+      <category term="vue" scheme="https://itibbers.com/tags/vue/"/>
+    
+      <category term="components" scheme="https://itibbers.com/tags/components/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-118</title>
+    <link href="https://itibbers.com/2019/08/13/leetcode-118/"/>
+    <id>https://itibbers.com/2019/08/13/leetcode-118/</id>
+    <published>2019-08-13T15:18:45.000Z</published>
+    <updated>2019-08-14T03:17:01.230Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/pascals-triangle/" target="_blank" rel="noopener">https://leetcode.com/problems/pascals-triangle/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; numRows</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> generate = <span class="function"><span class="keyword">function</span>(<span class="params">numRows</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= numRows; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i === <span class="number">1</span>) &#123;</span><br><span class="line">            res.push([<span class="number">1</span>])</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i === <span class="number">2</span>) &#123;</span><br><span class="line">            res.push([<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &gt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> tmp = [<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt;= i - <span class="number">2</span>; j++) &#123;</span><br><span class="line">                tmp.push(res[i - <span class="number">2</span>][j - <span class="number">1</span>] + res[i - <span class="number">2</span>][j])</span><br><span class="line">            &#125;</span><br><span class="line">            tmp.push(<span class="number">1</span>)</span><br><span class="line">            res.push(tmp)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/pascals-triangle/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/pascals-triangle/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="array" scheme="https://itibbers.com/tags/array/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-112</title>
+    <link href="https://itibbers.com/2019/08/13/leetcode-112/"/>
+    <id>https://itibbers.com/2019/08/13/leetcode-112/</id>
+    <published>2019-08-12T16:46:08.000Z</published>
+    <updated>2019-08-13T04:19:15.134Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/path-sum/" target="_blank" rel="noopener">https://leetcode.com/problems/path-sum/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.left = this.right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; sum</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> hasPathSum = <span class="function"><span class="keyword">function</span>(<span class="params">root, sum</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!root.left &amp;&amp; !root.right &amp;&amp; sum === root.val) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/path-sum/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/path-sum/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="tree" scheme="https://itibbers.com/tags/tree/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-111</title>
+    <link href="https://itibbers.com/2019/08/12/leetcode-111/"/>
+    <id>https://itibbers.com/2019/08/12/leetcode-111/</id>
+    <published>2019-08-12T15:46:41.000Z</published>
+    <updated>2019-08-13T04:19:15.134Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener">https://leetcode.com/problems/minimum-depth-of-binary-tree/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.left = this.right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> minDepth = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!root.left || !root.right) &#123;</span><br><span class="line">        <span class="keyword">return</span> minDepth(root.left) + minDepth(root.right) + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.min(minDepth(root.left), minDepth(root.right)) + <span class="number">1</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/minimum-depth-of-binary-tree/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/minimum-depth-of-binary-tree/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="tree" scheme="https://itibbers.com/tags/tree/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-110</title>
+    <link href="https://itibbers.com/2019/08/08/leetcode-110/"/>
+    <id>https://itibbers.com/2019/08/08/leetcode-110/</id>
+    <published>2019-08-08T13:27:46.000Z</published>
+    <updated>2019-08-13T04:19:15.133Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/balanced-binary-tree/" target="_blank" rel="noopener">https://leetcode.com/problems/balanced-binary-tree/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.left = this.right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isBalanced = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> depth = <span class="function">(<span class="params">root</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(depth(root.left), depth(root.right)) + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(depth(root.left) - depth(root.right)) &lt;= <span class="number">1</span></span><br><span class="line">        &amp;&amp; isBalanced(root.left)</span><br><span class="line">        &amp;&amp; isBalanced(root.right)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/balanced-binary-tree/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/balanced-binary-tree/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="tree" scheme="https://itibbers.com/tags/tree/"/>
+    
+      <category term="bst" scheme="https://itibbers.com/tags/bst/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-108</title>
@@ -379,122 +501,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="array" scheme="https://itibbers.com/tags/array/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-70</title>
-    <link href="https://itibbers.com/2019/06/05/leetcode-70/"/>
-    <id>https://itibbers.com/2019/06/05/leetcode-70/</id>
-    <published>2019-06-05T08:06:21.000Z</published>
-    <updated>2019-06-05T08:06:35.783Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener">https://leetcode.com/problems/climbing-stairs/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> climbStairs = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> dp = [<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/climbing-stairs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/climbing-stairs/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-69</title>
-    <link href="https://itibbers.com/2019/06/05/leetcode-69/"/>
-    <id>https://itibbers.com/2019/06/05/leetcode-69/</id>
-    <published>2019-06-05T04:33:06.000Z</published>
-    <updated>2019-06-05T04:33:23.491Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/sqrtx/" target="_blank" rel="noopener">https://leetcode.com/problems/sqrtx/</a><br><a id="more"></a></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; x</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> mySqrt = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> left = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> right = <span class="built_in">Number</span>.MAX_SAFE_INTEGER</span><br><span class="line">    <span class="keyword">let</span> mid</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">        mid = <span class="built_in">Math</span>.floor(left + (right - left) / <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">if</span> (mid &gt; x / mid) &#123;</span><br><span class="line">            right = mid - <span class="number">1</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> ((mid + <span class="number">1</span>) &gt; x / (mid + <span class="number">1</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            &#125;</span><br><span class="line">            left = mid + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/sqrtx/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/sqrtx/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-66</title>
-    <link href="https://itibbers.com/2019/04/15/leetcode-66/"/>
-    <id>https://itibbers.com/2019/04/15/leetcode-66/</id>
-    <published>2019-04-15T10:37:01.000Z</published>
-    <updated>2019-05-20T10:46:50.170Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/plus-one/" target="_blank" rel="noopener">https://leetcode.com/problems/plus-one/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; digits</span></span><br><span class="line"><span class="comment"> * @return &#123;number[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> plusOne = <span class="function"><span class="keyword">function</span>(<span class="params">digits</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> p = digits.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> (p &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> cur = ++digits[p]</span><br><span class="line">        <span class="keyword">if</span> (cur &gt; <span class="number">9</span>) &#123;</span><br><span class="line">            digits[p] %= <span class="number">10</span></span><br><span class="line">            digits = plusOne(digits.slice(<span class="number">0</span>, p)).concat(digits[p])</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> digits</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> [<span class="number">1</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p><p>An awesome answer:</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; digits</span></span><br><span class="line"><span class="comment"> * @return &#123;number[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> plusOne = <span class="function"><span class="keyword">function</span>(<span class="params">digits</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> p = digits.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = p; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (digits[i] &lt; <span class="number">9</span>) &#123;</span><br><span class="line">            digits[i]++</span><br><span class="line">            <span class="keyword">return</span> digits</span><br><span class="line">        &#125;</span><br><span class="line">        digits[i] = <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    digits.unshift(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> digits</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/plus-one/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/plus-one/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="array" scheme="https://itibbers.com/tags/array/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-54</title>
-    <link href="https://itibbers.com/2019/04/10/leetcode-54/"/>
-    <id>https://itibbers.com/2019/04/10/leetcode-54/</id>
-    <published>2019-04-10T11:16:29.000Z</published>
-    <updated>2019-04-10T11:18:45.332Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/spiral-matrix/" target="_blank" rel="noopener">https://leetcode.com/problems/spiral-matrix/</a><br><a id="more"></a></p><p>开始还想用递归来遍历输出，但是需要对数组进行裁剪，处理麻烦而且占用空间。<br>遇到这种map问题可以用变量来标志范围。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[][]&#125; matrix</span></span><br><span class="line"><span class="comment"> * @return &#123;number[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> spiralOrder = <span class="function"><span class="keyword">function</span>(<span class="params">matrix</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> ret = []</span><br><span class="line">    <span class="keyword">if</span> (matrix.length ===<span class="number">0</span>) <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">let</span> rowBegin = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> rowEnd = matrix.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> colBegin = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> colEnd = matrix[<span class="number">0</span>].length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span>(rowBegin &lt;= rowEnd &amp;&amp; colBegin &lt;= colEnd) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = colBegin; i &lt;= colEnd; i++) &#123;</span><br><span class="line">            ret.push(matrix[rowBegin][i])</span><br><span class="line">        &#125;</span><br><span class="line">        rowBegin++</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = rowBegin; i &lt;= rowEnd; i++) &#123;</span><br><span class="line">            ret.push(matrix[i][colEnd])</span><br><span class="line">        &#125;</span><br><span class="line">        colEnd--</span><br><span class="line">        <span class="keyword">if</span> (rowBegin &lt;= rowEnd) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = colEnd; i &gt;= colBegin; i--) &#123;</span><br><span class="line">                ret.push(matrix[rowEnd][i])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        rowEnd--</span><br><span class="line">        <span class="keyword">if</span> (colBegin &lt;= colEnd) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = rowEnd; i &gt;= rowBegin; i--) &#123;</span><br><span class="line">                ret.push(matrix[i][colBegin])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        colBegin++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/spiral-matrix/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/spiral-matrix/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="array" scheme="https://itibbers.com/tags/array/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-62</title>
-    <link href="https://itibbers.com/2019/04/10/leetcode-62/"/>
-    <id>https://itibbers.com/2019/04/10/leetcode-62/</id>
-    <published>2019-04-10T09:31:54.000Z</published>
-    <updated>2019-04-10T09:32:12.920Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/unique-paths/" target="_blank" rel="noopener">https://leetcode.com/problems/unique-paths/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; m</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> uniquePaths = <span class="function"><span class="keyword">function</span>(<span class="params">m, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> dp = <span class="built_in">Array</span>(m).fill().map(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">Array</span>(n).fill(<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            dp[i][j] = dp[i - <span class="number">1</span>][j] + dp[i][j - <span class="number">1</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[m - <span class="number">1</span>][n - <span class="number">1</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/unique-paths/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/unique-paths/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="dp" scheme="https://itibbers.com/tags/dp/"/>
     
   </entry>
   
