@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-08-19T07:14:40.941Z</updated>
+  <updated>2019-08-22T03:18:33.320Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,84 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue methods vs watchers vs computed properties</title>
+    <link href="https://itibbers.com/2019/08/22/vue-watch-computed-method/"/>
+    <id>https://itibbers.com/2019/08/22/vue-watch-computed-method/</id>
+    <published>2019-08-22T03:09:26.000Z</published>
+    <updated>2019-08-22T03:18:33.320Z</updated>
+    
+    <content type="html"><![CDATA[<p>Vue.js provides us <code>watch</code>, <code>computed</code> and <code>methods</code> properties. When to use one vs the other?</p><a id="more"></a><blockquote><p>When to use methods</p></blockquote><ol><li>To react on some event happening in the DOM</li><li>To call a function when something happens in your component. You can call a methods from computed properties or watchers.</li></ol><blockquote><p>When to use computed properties</p></blockquote><ol><li>You need to compose new data from existing data sources</li><li>You have a variable you use in your template that’s built from one or more data properties</li><li>You want to reduce a complicated, nested property name to a more readable and easy to use one, yet update it when the original property changes</li><li>You need to reference a value from the template. In this case, creating a computed property is the best thing because it’s cached.</li><li>You need to listen to changes of more than one data property</li></ol><blockquote><p>When to use watchers</p></blockquote><ol><li>You want to listen when a data property changes, and perform some action</li><li>You want to listen to a prop value change</li><li>You only need to listen to one specific property (you can’t watch multiple properties at the same time)</li><li>You want to watch a data property until it reaches some specific value and then do something</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Vue.js provides us &lt;code&gt;watch&lt;/code&gt;, &lt;code&gt;computed&lt;/code&gt; and &lt;code&gt;methods&lt;/code&gt; properties. When to use one vs the other?&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="vue" scheme="https://itibbers.com/categories/vue/"/>
+    
+    
+      <category term="vue" scheme="https://itibbers.com/tags/vue/"/>
+    
+      <category term="watch" scheme="https://itibbers.com/tags/watch/"/>
+    
+      <category term="computed" scheme="https://itibbers.com/tags/computed/"/>
+    
+      <category term="methods" scheme="https://itibbers.com/tags/methods/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-125</title>
+    <link href="https://itibbers.com/2019/08/21/leetcode-125/"/>
+    <id>https://itibbers.com/2019/08/21/leetcode-125/</id>
+    <published>2019-08-20T16:25:48.000Z</published>
+    <updated>2019-08-21T04:02:49.776Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank" rel="noopener">https://leetcode.com/problems/valid-palindrome/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isPalindrome = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr = <span class="built_in">Array</span>.from(s)</span><br><span class="line">    <span class="keyword">let</span> p = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> q = arr.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> (p &lt;= q) &#123;</span><br><span class="line">        <span class="keyword">let</span> reg = <span class="regexp">/[a-zA-Z0-9]/</span></span><br><span class="line">        <span class="keyword">if</span> (!reg.test(arr[p])) &#123;</span><br><span class="line">            p++</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!reg.test(arr[q])) &#123;</span><br><span class="line">            q--</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[p].toLowerCase() !== arr[q].toLowerCase()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            p++</span><br><span class="line">            q--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/valid-palindrome/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/valid-palindrome/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="string" scheme="https://itibbers.com/tags/string/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode-121</title>
+    <link href="https://itibbers.com/2019/08/20/leetcode-121/"/>
+    <id>https://itibbers.com/2019/08/20/leetcode-121/</id>
+    <published>2019-08-19T16:37:50.000Z</published>
+    <updated>2019-08-20T03:06:59.642Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener">https://leetcode.com/problems/best-time-to-buy-and-sell-stock/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; prices</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// let max = 0</span></span><br><span class="line">    <span class="comment">// for (let i = 0; i &lt; prices.length - 1; i++) &#123;</span></span><br><span class="line">    <span class="comment">//     for (let j = i + 1; j &lt; prices.length; j++) &#123;</span></span><br><span class="line">    <span class="comment">//         max = Math.max(max, prices[j] - prices[i])</span></span><br><span class="line">    <span class="comment">//     &#125;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// return max</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> minPrice = prices[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> maxProfit = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">        <span class="comment">// if (prices[i] &lt; minPrice) &#123;</span></span><br><span class="line">        <span class="comment">//     minPrice = prices[i]</span></span><br><span class="line">        <span class="comment">// &#125; else &#123;</span></span><br><span class="line">        <span class="comment">//     maxProfit = Math.max(prices[i] - minPrice, maxProfit)</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        minPrice = <span class="built_in">Math</span>.min(prices[i], minPrice)</span><br><span class="line">        maxProfit = <span class="built_in">Math</span>.max(prices[i] - minPrice, maxProfit)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxProfit</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/best-time-to-buy-and-sell-stock/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/best-time-to-buy-and-sell-stock/&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+      <category term="array" scheme="https://itibbers.com/tags/array/"/>
+    
+      <category term="dp" scheme="https://itibbers.com/tags/dp/"/>
+    
+  </entry>
   
   <entry>
     <title>Vue组件通信与数据传递</title>
@@ -429,78 +507,6 @@
       <category term="math" scheme="https://itibbers.com/tags/math/"/>
     
       <category term="string" scheme="https://itibbers.com/tags/string/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-58</title>
-    <link href="https://itibbers.com/2019/06/12/leetcode-58/"/>
-    <id>https://itibbers.com/2019/06/12/leetcode-58/</id>
-    <published>2019-06-12T10:31:06.000Z</published>
-    <updated>2019-06-12T10:31:51.598Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/length-of-last-word/" target="_blank" rel="noopener">https://leetcode.com/problems/length-of-last-word/</a><br>😭做点简单题<br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> lengthOfLastWord = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> tail = s.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> (tail &gt;= <span class="number">0</span> &amp;&amp; s[tail] === <span class="string">' '</span>) &#123;</span><br><span class="line">        tail--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (tail &gt;= <span class="number">0</span> &amp;&amp; s[tail] !== <span class="string">' '</span>) &#123;</span><br><span class="line">        len++</span><br><span class="line">        tail--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/length-of-last-word/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/length-of-last-word/&lt;/a&gt;&lt;br&gt;😭做点简单题&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-75</title>
-    <link href="https://itibbers.com/2019/06/11/leetcode-75/"/>
-    <id>https://itibbers.com/2019/06/11/leetcode-75/</id>
-    <published>2019-06-11T12:58:29.000Z</published>
-    <updated>2019-06-11T13:04:20.546Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/sort-colors/" target="_blank" rel="noopener">https://leetcode.com/problems/sort-colors/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;void&#125; Do not return anything, modify nums in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> sortColors = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> second = nums.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> zero = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= second; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(nums[i] === <span class="number">2</span> &amp;&amp; i &lt; second) &#123;</span><br><span class="line">            [nums[i], nums[second]] = [nums[second], nums[i]]</span><br><span class="line">            second--</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(nums[i] === <span class="number">0</span> &amp;&amp; i &gt; zero) &#123;</span><br><span class="line">            [nums[i], nums[zero]] = [nums[zero], nums[i]]</span><br><span class="line">            zero++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/sort-colors/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/sort-colors/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="array" scheme="https://itibbers.com/tags/array/"/>
-    
-      <category term="sort" scheme="https://itibbers.com/tags/sort/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-73</title>
-    <link href="https://itibbers.com/2019/06/11/leetcode-73/"/>
-    <id>https://itibbers.com/2019/06/11/leetcode-73/</id>
-    <published>2019-06-11T12:23:45.000Z</published>
-    <updated>2019-06-11T12:24:34.402Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/set-matrix-zeroes/" target="_blank" rel="noopener">https://leetcode.com/problems/set-matrix-zeroes/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[][]&#125; matrix</span></span><br><span class="line"><span class="comment"> * @return &#123;void&#125; Do not return anything, modify matrix in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> setZeroes = <span class="function"><span class="keyword">function</span>(<span class="params">matrix</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> col0 = <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> rows = matrix.length</span><br><span class="line">    <span class="keyword">let</span> cols = matrix[<span class="number">0</span>].length</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; rows; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix[i][<span class="number">0</span>] === <span class="number">0</span>) &#123;</span><br><span class="line">            col0 = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt; cols; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (matrix[i][j] === <span class="number">0</span>) &#123;</span><br><span class="line">                matrix[i][<span class="number">0</span>] = matrix[<span class="number">0</span>][j] = <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = rows - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = cols - <span class="number">1</span>; j &gt;= <span class="number">1</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (matrix[i][<span class="number">0</span>] === <span class="number">0</span> || matrix[<span class="number">0</span>][j] === <span class="number">0</span>) &#123;</span><br><span class="line">                matrix[i][j] = <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (col0 === <span class="number">0</span>) &#123;</span><br><span class="line">            matrix[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/set-matrix-zeroes/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/set-matrix-zeroes/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="array" scheme="https://itibbers.com/tags/array/"/>
     
   </entry>
   

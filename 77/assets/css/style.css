@@ -1,0 +1,33 @@
+ body {
+   margin: 0;
+   font: 1.8rem "微软雅黑", "黑体";
+   line-height: 2;
+   text-align: center;
+   letter-spacing: 0.2rem;
+   color: #FBFBEA;
+   -webkit-user-select: none;
+   user-select: none;
+ }
+
+ .continer {
+   margin: 80px auto;
+ }
+
+ h1 {
+   font-size: 1.5em;
+ }
+
+ .snowbg {
+   width: 100%;
+   overflow: hidden;
+ }
+
+ .snow {
+   position: fixed;
+   top: 0;
+   color: #fff;
+ }
+
+ #supersized {
+   filter: blur(20px);
+ }
