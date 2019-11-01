@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://itibbers.com/2019/11/01/leetcode-119/</loc>
+    
+    <lastmod>2019-11-01T08:15:35.387Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://itibbers.com/friends/index.html</loc>
     
     <lastmod>2019-09-20T07:10:35.327Z</lastmod>
@@ -58,14 +65,14 @@
   </url>
   
   <url>
-    <loc>https://itibbers.com/2019/08/12/leetcode-111/</loc>
+    <loc>https://itibbers.com/2019/08/13/leetcode-112/</loc>
     
     <lastmod>2019-08-13T04:19:15.134Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://itibbers.com/2019/08/13/leetcode-112/</loc>
+    <loc>https://itibbers.com/2019/08/12/leetcode-111/</loc>
     
     <lastmod>2019-08-13T04:19:15.134Z</lastmod>
     
