@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2019-11-01T08:15:35.387Z</updated>
+  <updated>2020-02-27T05:45:16.214Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NPM和Yarn淘宝镜像</title>
+    <link href="https://itibbers.com/2020/02/27/NPM%E5%92%8CYarn%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F/"/>
+    <id>https://itibbers.com/2020/02/27/NPM和Yarn淘宝镜像/</id>
+    <published>2020-02-27T05:43:41.000Z</published>
+    <updated>2020-02-27T05:45:16.214Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p>查询当前镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm get registry</span><br></pre></td></tr></table></figure></p><p>设置为淘宝镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure></p><p>设置为官方镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npmjs.org/</span><br></pre></td></tr></table></figure></p><h2 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h2><p>查询当前镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn config get registry</span><br></pre></td></tr></table></figure></p><p>设置为淘宝镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn config set registry https://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure></p><p>设置为官方镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn config set registry https://registry.yarnpkg.com</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;NPM&quot;&gt;&lt;a href=&quot;#NPM&quot; class=&quot;headerlink&quot; title=&quot;NPM&quot;&gt;&lt;/a&gt;NPM&lt;/h2&gt;&lt;p&gt;查询当前镜像&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table
+      
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="npm" scheme="https://itibbers.com/tags/npm/"/>
+    
+      <category term="yarn" scheme="https://itibbers.com/tags/yarn/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode-119</title>
@@ -475,28 +503,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="array" scheme="https://itibbers.com/tags/array/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hanoi</title>
-    <link href="https://itibbers.com/2019/07/04/hanoi/"/>
-    <id>https://itibbers.com/2019/07/04/hanoi/</id>
-    <published>2019-07-04T06:36:20.000Z</published>
-    <updated>2019-07-12T06:58:46.241Z</updated>
-    
-    <content type="html"><![CDATA[<p>汉诺塔<br><a id="more"></a></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hanoi = <span class="function"><span class="keyword">function</span>(<span class="params">disc, src, aux, dst</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (disc &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// move src to aux via dst</span></span><br><span class="line">    hanoi(disc - <span class="number">1</span>, src, dst, aux)</span><br><span class="line">    <span class="comment">// move src to dit</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Move disc '</span> + disc +</span><br><span class="line">            <span class="string">' from '</span> + src + <span class="string">' to '</span> + dst)</span><br><span class="line">    <span class="comment">// move aux to dst via src</span></span><br><span class="line">    hanoi(disc - <span class="number">1</span>, aux, src, dst)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hanoi(<span class="number">3</span>, <span class="string">'Src'</span>, <span class="string">'Aux'</span>, <span class="string">'Dst'</span>)</span><br></pre></td></tr></table></figure><p>把大象装进冰箱只需三步：</p><ol><li>打开冰箱门</li><li>把大象装进去</li><li>关闭冰箱门</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;汉诺塔&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
   </entry>
   
