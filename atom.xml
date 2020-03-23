@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2020-03-09T03:28:36.542Z</updated>
+  <updated>2020-03-23T07:20:13.249Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前端价值在哪？</title>
+    <link href="https://itibbers.com/2020/03/23/%E5%89%8D%E7%AB%AF%E4%BB%B7%E5%80%BC%E5%9C%A8%E5%93%AA%EF%BC%9F/"/>
+    <id>https://itibbers.com/2020/03/23/前端价值在哪？/</id>
+    <published>2020-03-23T06:49:04.000Z</published>
+    <updated>2020-03-23T07:20:13.249Z</updated>
+    
+    <content type="html"><![CDATA[<p>日常思考前端价值在哪。<br><a id="more"></a></p><p>一个初创公司，最小单位的人员构成，都需要哪些人呢？</p><p>一个开发，可能是算法，可能是后端，好像最不可能是前端。算法可以搭建一套简单的服务，可以随便写点HTML页面，就可以上线了，后台也可以照样搭建一套。可以不要设计不要产品，现成的设计可以参考下或照搬。只需要一个idea加一个后端向的开发人员。那么前端开发工程师的价值体现在哪里？</p><p>在业务发展后，后端开发人员逐渐增多，也可以有自己的设计和产品，现在需要一个良好的“界面实现人员”。</p><p>如果仅仅是界面实现，在初期，相信所有程序员都或多或少的接触过HTML，可以完成一个像样的web页面，甚至还有很多可视化的工具，比如早期的Dreamwaver。不过随着前端页面越来越多，后端开发逐渐适应不了自己来写数据写界面的开发模式，在社会分工越来越细的趋势下，逐渐有一批人专门来做界面，这批最早的开发叫“切图”。</p><p>随着业务的高速发展，界面变动的需求也逐渐频繁，于是有了“随意变动需求的PM”和“需求又变动了”的吐槽。前端为了适应业务的高速发展，需要掌握更多的技能，来提速自己的开发流程。于是越来越多的切图er，开始“造轮子”，搏一搏单车变摩托，再变小汽车，希望跑的更快，于是就有了fis/webapck/gulp——打包上线，babel——编译兼容拒绝手动适配，vue/react——MVVM数据绑定，MIS——产品运营你们自己配置数据去等由小到大的工具或平台。</p><p>那么前端的价值体验在哪里呢？</p><p>如果说算法是初心的实现，后端是整套服务的保证，前端则是为了整套服务能够高速扩展而存在。这就要求我们必须掌握很多工具、框架、设计原理，还要能够造轮子，适应不同的需求变动。</p><p>自然我们的发展方向不能局限于写写界面，完成html/css/js的开发。而是要思考，怎样设计，才能满足我们当下及未来的需求。有两个能力很关键：</p><ol><li>快速学习能力</li><li>业务抽象、技术选型、设计能力</li></ol><p>大前端环境下，前端工具层出不穷，先于实现写未来代码，快速学习新事务的能力是最基础的。出现的新东西，能不能快速了解用法、特性、适用场景和底层实现，这是后面的基础。<br>对当前及未来可能遇到的业务进行抽象，以自己掌握的技术进行选型，并设计一套合理高效的代码或系统，帮助业务快速试错，这也是我们的价值所在。</p><p>以上近期思考。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;日常思考前端价值在哪。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="frontend" scheme="https://itibbers.com/categories/frontend/"/>
+    
+    
+      <category term="frontend" scheme="https://itibbers.com/tags/frontend/"/>
+    
+  </entry>
   
   <entry>
     <title>实现中文排序、数字英文混合排序</title>
@@ -478,30 +500,6 @@
       <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
     
       <category term="tree" scheme="https://itibbers.com/tags/tree/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-88</title>
-    <link href="https://itibbers.com/2019/08/05/leetcode-88/"/>
-    <id>https://itibbers.com/2019/08/05/leetcode-88/</id>
-    <published>2019-08-05T10:24:20.000Z</published>
-    <updated>2019-08-05T10:24:58.387Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank" rel="noopener">https://leetcode.com/problems/merge-sorted-array/</a><br><a id="more"></a><br>反向操作</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums1</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; m</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums2</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;void&#125; Do not return anything, modify nums1 in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> merge = <span class="function"><span class="keyword">function</span>(<span class="params">A, m, B, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = m - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> j = n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> k = m + n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span>(i &gt;= <span class="number">0</span> &amp;&amp; j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (A[i] &gt; B[j]) &#123;</span><br><span class="line">            A[k--] = A[i--]</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            A[k--] = B[j--]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        A[k--] = B[j--]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/merge-sorted-array/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/merge-sorted-array/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="array" scheme="https://itibbers.com/tags/array/"/>
     
   </entry>
   
