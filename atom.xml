@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itibbers.com/"/>
-  <updated>2020-05-27T08:38:33.915Z</updated>
+  <updated>2020-05-30T07:37:30.919Z</updated>
   <id>https://itibbers.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>二叉树锯齿形层次遍历</title>
+    <link href="https://itibbers.com/2020/05/30/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/"/>
+    <id>https://itibbers.com/2020/05/30/二叉树锯齿形层次遍历/</id>
+    <published>2020-05-30T07:36:38.000Z</published>
+    <updated>2020-05-30T07:37:30.919Z</updated>
+    
+    <content type="html"><![CDATA[<p>BFS增加order。</p><a id="more"></a><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.left = this.right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> zigzagLevelOrder = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> queue = []</span><br><span class="line">    queue.push(root)</span><br><span class="line">    <span class="keyword">let</span> order = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line">    <span class="keyword">while</span> (queue.length) &#123;</span><br><span class="line">        <span class="keyword">let</span> n = queue.length</span><br><span class="line">        <span class="keyword">let</span> arr = []</span><br><span class="line">        <span class="keyword">if</span> (order) &#123;</span><br><span class="line">            <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">                <span class="keyword">let</span> node = queue.shift()</span><br><span class="line">                arr.push(node.val)</span><br><span class="line">                <span class="keyword">if</span> (node.left) queue.push(node.left)</span><br><span class="line">                <span class="keyword">if</span> (node.right) queue.push(node.right)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">                <span class="keyword">let</span> node = queue.pop()</span><br><span class="line">                arr.push(node.val)</span><br><span class="line">                <span class="keyword">if</span> (node.right) queue.unshift(node.right)</span><br><span class="line">                <span class="keyword">if</span> (node.left) queue.unshift(node.left)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.push(arr)</span><br><span class="line">        order = !order</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;BFS增加order。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>11个class选择器可以干掉1个id选择器吗</title>
@@ -463,30 +485,6 @@
     <summary type="html">
     
       &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/same-tree/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/same-tree/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="leetcode" scheme="https://itibbers.com/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://itibbers.com/tags/leetcode/"/>
-    
-      <category term="tree" scheme="https://itibbers.com/tags/tree/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-107</title>
-    <link href="https://itibbers.com/2019/08/05/leetcode-107/"/>
-    <id>https://itibbers.com/2019/08/05/leetcode-107/</id>
-    <published>2019-08-05T13:13:20.000Z</published>
-    <updated>2019-08-06T08:27:29.096Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/binary-tree-level-order-traversal-ii/" target="_blank" rel="noopener">https://leetcode.com/problems/binary-tree-level-order-traversal-ii/</a><br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.left = this.right = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> levelOrderBottom = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line">    bfs(root, res, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> res.reverse()</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bfs = <span class="function">(<span class="params">root, res, level</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    bfs(root.left, res, level + <span class="number">1</span>)</span><br><span class="line">    bfs(root.right, res, level + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> (!res[level]) &#123;</span><br><span class="line">        res[level] = [root.val]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res[level].push(root.val)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/binary-tree-level-order-traversal-ii/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leetcode.com/problems/binary-tree-level-order-traversal-ii/&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
