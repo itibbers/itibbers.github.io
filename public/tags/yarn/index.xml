@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Yarn on itibbers</title>
+    <link>http://localhost:1313/tags/yarn/</link>
+    <description>Recent content in Yarn on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Feb 2020 13:43:41 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/yarn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NPM和Yarn淘宝镜像</title>
+      <link>http://localhost:1313/posts/npm%E5%92%8Cyarn%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F/</link>
+      <pubDate>Thu, 27 Feb 2020 13:43:41 +0000</pubDate>
+      <guid>http://localhost:1313/posts/npm%E5%92%8Cyarn%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="npm">NPM</h2>
+<p>查询当前镜像</p>
+<pre tabindex="0"><code>npm get registry
+</code></pre><p>设置为淘宝镜像</p>
+<pre tabindex="0"><code>npm config set registry https://registry.npm.taobao.org/
+</code></pre><p>设置为官方镜像</p>
+<pre tabindex="0"><code>npm config set registry https://registry.npmjs.org/
+</code></pre><h2 id="yarn">YARN</h2>
+<p>查询当前镜像</p>
+<pre tabindex="0"><code>yarn config get registry
+</code></pre><p>设置为淘宝镜像</p>
+<pre tabindex="0"><code>yarn config set registry https://registry.npm.taobao.org/
+</code></pre><p>设置为官方镜像</p>
+<pre tabindex="0"><code>yarn config set registry https://registry.yarnpkg.com
+</code></pre>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

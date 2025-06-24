@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Iframe on itibbers</title>
+    <link>http://localhost:1313/tags/iframe/</link>
+    <description>Recent content in Iframe on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 21 Mar 2016 11:36:31 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/iframe/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ionic使用iframe可能遇到的问题 </title>
+      <link>http://localhost:1313/posts/ionic%E4%BD%BF%E7%94%A8iframe%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 21 Mar 2016 11:36:31 +0000</pubDate>
+      <guid>http://localhost:1313/posts/ionic%E4%BD%BF%E7%94%A8iframe%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="无法访问外部url的问题两个步骤解决">无法访问外部url的问题–两个步骤解决：</h2>
+<p>1.iframe的src属性用ng-src属性替代，并指明绑定对象：ng-src=&quot;{{targetUrl}}&quot;
+2.在controller里，调用$sce: $scope.targetUrl = $sce.trustAsResourceUrl(url)</p>
+<h2 id="高度无法最大化的问题两个步骤">高度无法最大化的问题–两个步骤：</h2>
+<p>1.ion-content 属性里添加 scroll=&ldquo;true&rdquo; overflow-scroll=&ldquo;true&rdquo;
+2.iframe的style里添加 min-height: 100%</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

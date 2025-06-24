@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Watch on itibbers</title>
+    <link>https://itibbers.com/tags/watch/</link>
+    <description>Recent content in Watch on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 22 Aug 2019 11:09:26 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/tags/watch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue methods vs watchers vs computed properties</title>
+      <link>https://itibbers.com/posts/vue-watch-computed-method/</link>
+      <pubDate>Thu, 22 Aug 2019 11:09:26 +0000</pubDate>
+      <guid>https://itibbers.com/posts/vue-watch-computed-method/</guid>
+      <description>&lt;p&gt;Vue.js provides us &lt;code&gt;watch&lt;/code&gt;, &lt;code&gt;computed&lt;/code&gt; and &lt;code&gt;methods&lt;/code&gt; properties. When to use one vs the other?&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Vue.js provides us <code>watch</code>, <code>computed</code> and <code>methods</code> properties. When to use one vs the other?</p>
+<blockquote>
+<p>When to use methods</p></blockquote>
+<ol>
+<li>To react on some event happening in the DOM</li>
+<li>To call a function when something happens in your component. You can call a methods from computed properties or watchers.</li>
+</ol>
+<blockquote>
+<p>When to use computed properties</p></blockquote>
+<ol>
+<li>You need to compose new data from existing data sources</li>
+<li>You have a variable you use in your template that’s built from one or more data properties</li>
+<li>You want to reduce a complicated, nested property name to a more readable and easy to use one, yet update it when the original property changes</li>
+<li>You need to reference a value from the template. In this case, creating a computed property is the best thing because it’s cached.</li>
+<li>You need to listen to changes of more than one data property</li>
+</ol>
+<blockquote>
+<p>When to use watchers</p></blockquote>
+<ol>
+<li>You want to listen when a data property changes, and perform some action</li>
+<li>You want to listen to a prop value change</li>
+<li>You only need to listen to one specific property (you can’t watch multiple properties at the same time)</li>
+<li>You want to watch a data property until it reaches some specific value and then do something</li>
+</ol>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

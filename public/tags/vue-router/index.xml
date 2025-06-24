@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Vue-Router on itibbers</title>
+    <link>https://itibbers.com/tags/vue-router/</link>
+    <description>Recent content in Vue-Router on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 02 Apr 2019 12:15:02 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/tags/vue-router/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vue-programmatic-navigation-issue</title>
+      <link>https://itibbers.com/posts/vue-programmatic-navigation-issue/</link>
+      <pubDate>Tue, 02 Apr 2019 12:15:02 +0000</pubDate>
+      <guid>https://itibbers.com/posts/vue-programmatic-navigation-issue/</guid>
+      <description>&lt;p&gt;Question: $router.push({query})/replace not updating the URL.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Question: $router.push({query})/replace not updating the URL.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">handleSort</span><span class="p">({</span> <span class="nx">column</span><span class="p">,</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">order</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">query</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$route</span><span class="p">.</span><span class="nx">query</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">query</span><span class="p">[</span><span class="s1">&#39;_order_by&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">prop</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">query</span><span class="p">[</span><span class="s1">&#39;_order_desc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">order</span> <span class="o">===</span> <span class="s1">&#39;descending&#39;</span> <span class="o">?</span> <span class="s1">&#39;asc&#39;</span> <span class="o">:</span> <span class="s1">&#39;desc&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">query</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Perhaps you are reusing the reference to the same array in multiple route objects. Object.assign doesn&rsquo;t do a deep copy. Mutating an array doesn&rsquo;t trigger a route transition and in the subsequent route navigation triggered by <code>router.push</code> / <code>router.replace</code> the check in transitionTo recognizes no change since it compares the array to itself.</p>
+<p>The solution is to work with an array like described here: <a href="https://vincent.billey.me/pure-javascript-immutable-array/">Pure javascript immutable array</a></p>
+<p>But doing a deep copy is a very weird but also reliable way to not have to write your code overly complicated:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$route</span><span class="p">.</span><span class="nx">query</span><span class="p">))</span>
+</span></span></code></pre></div>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

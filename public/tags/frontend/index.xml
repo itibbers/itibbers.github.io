@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Frontend on itibbers</title>
+    <link>https://itibbers.com/tags/frontend/</link>
+    <description>Recent content in Frontend on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 09 Mar 2020 11:25:52 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/tags/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>实现中文排序、数字英文混合排序</title>
+      <link>https://itibbers.com/posts/%E5%AE%9E%E7%8E%B0%E4%B8%AD%E6%96%87%E6%8E%92%E5%BA%8F%E6%95%B0%E5%AD%97%E8%8B%B1%E6%96%87%E6%B7%B7%E5%90%88%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Mon, 09 Mar 2020 11:25:52 +0000</pubDate>
+      <guid>https://itibbers.com/posts/%E5%AE%9E%E7%8E%B0%E4%B8%AD%E6%96%87%E6%8E%92%E5%BA%8F%E6%95%B0%E5%AD%97%E8%8B%B1%E6%96%87%E6%B7%B7%E5%90%88%E6%8E%92%E5%BA%8F/</guid>
+      <description>&lt;p&gt;JS 排序：localeCompare() 方法实现中文排序、sort 方法实现数字英文混合排序&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>JS 排序：localeCompare() 方法实现中文排序、sort 方法实现数字英文混合排序</p>
+<p>定义：用本地特定的顺序来比较两个字符串。</p>
+<p>语法：stringObject.localeCompare(target)</p>
+<p>参数：target——要以本地特定的顺序与 stringObject 进行比较的字符串。</p>
+<p>返回值：说明比较结果的数字。</p>
+<p>（1）如果 stringObject 小于 target，则 localeCompare() 返回小于 0 的数。</p>
+<p>（2）如果 stringObject 大于 target，则该方法返回大于 0 的数。</p>
+<p>（3）如果两个字符串相等，或根据本地排序规则没有区别，该方法返回 0。</p>
+<p>说明：把 &lt; 和 &gt; 运算符应用到字符串时，它们只用字符的 Unicode 编码比较字符串，而不考虑当地的排序规则。以这种方法生成的顺序不一定是正确的。localeCompare() 方法提供的比较字符串的方法，考虑了默认的本地排序规则。ECMAscript 标准并没有规定如何进行本地特定的比较操作，它只规定该函数采用底层操作系统提供的排序规则。</p>
+<p>实例：</p>
+<h2 id="1可以使用-localecompare-方法来实现中文按照拼音排序方法相当简单">1、可以使用 localeCompare() 方法来实现中文按照拼音排序，方法相当简单</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;白鸽&#39;</span><span class="p">,</span> <span class="s1">&#39;麻雀&#39;</span><span class="p">,</span> <span class="s1">&#39;大象&#39;</span><span class="p">,</span> <span class="s1">&#39;狗&#39;</span><span class="p">,</span> <span class="s1">&#39;猫&#39;</span><span class="p">,</span> <span class="s1">&#39;鸡&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">array</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span> <span class="nx">compareFunction</span><span class="p">(</span><span class="nx">item1</span><span class="p">,</span> <span class="nx">item2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">item1</span><span class="p">.</span><span class="nx">localeCompare</span><span class="p">(</span><span class="nx">item2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//[&#34;白鸽&#34;, &#34;大象&#34;, &#34;狗&#34;, &#34;鸡&#34;, &#34;麻雀&#34;, &#34;猫&#34;]
+</span></span></span></code></pre></div><p>而且可以通过如下代码实现中文按照拼音排序，并且可以将中文按照 a,b,c,d……进行区分。代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">pySegSort</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">empty</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">localeCompare</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">letters</span> <span class="o">=</span> <span class="s1">&#39;*abcdefghjklmnopqrstwxyz&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">zh</span> <span class="o">=</span> <span class="s1">&#39;阿八嚓哒妸发旮哈讥咔垃痳拏噢妑七呥扨它穵夕丫帀&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">segs</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">curr</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">letters</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">curr</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="k">this</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[]</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">((</span><span class="o">!</span><span class="nx">zh</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">||</span> <span class="nx">zh</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="nx">localeCompare</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">localeCompare</span><span class="p">(</span><span class="nx">zh</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">curr</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">empty</span> <span class="o">||</span> <span class="nx">curr</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">segs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">curr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">curr</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">localeCompare</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">segs</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">pySegSort</span><span class="p">([</span><span class="s1">&#39;白鸽&#39;</span><span class="p">,</span> <span class="s1">&#39;麻雀&#39;</span><span class="p">,</span> <span class="s1">&#39;黑&#39;</span><span class="p">,</span> <span class="s1">&#39;大象&#39;</span><span class="p">,</span> <span class="s1">&#39;狗&#39;</span><span class="p">,</span> <span class="s1">&#39;猫&#39;</span><span class="p">,</span> <span class="s1">&#39;妈妈&#39;</span><span class="p">,</span> <span class="s1">&#39;马&#39;</span><span class="p">,</span> <span class="s1">&#39;鸡&#39;</span><span class="p">,</span> <span class="s1">&#39;瘦&#39;</span><span class="p">,</span> <span class="s1">&#39;胖&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p>结果显示为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">;[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;白鸽&#39;</span><span class="p">]</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;大象&#39;</span><span class="p">]</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;狗&#39;</span><span class="p">]</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;黑&#39;</span><span class="p">]</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;鸡&#39;</span><span class="p">]</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;妈妈&#39;</span><span class="p">,</span> <span class="s1">&#39;麻雀&#39;</span><span class="p">,</span> <span class="s1">&#39;马&#39;</span><span class="p">,</span> <span class="s1">&#39;猫&#39;</span><span class="p">]</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;胖&#39;</span><span class="p">]</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">letter</span><span class="o">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;瘦&#39;</span><span class="p">]</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>通过这个就可以写一个电话薄，像现在手机上面的，通过人名来进行分组、排序，之后再通过循环和布局就可以实现电话薄的功能。</p>
+<h2 id="2实现字母数字的混合排序">2、实现字母、数字的混合排序：</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">d</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nb">isFinite</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="c1">// 如果 number 是有限数字（或可转换为有限数字），那么返回 true。否则，如果 number 是 NaN（非数字），或者是正、负无穷大的数，则返回 false。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">d</span> <span class="o">=</span> <span class="nb">isFinite</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="nx">c</span> <span class="o">!=</span> <span class="nx">d</span> <span class="o">&amp;&amp;</span> <span class="nx">d</span> <span class="o">-</span> <span class="nx">c</span><span class="p">)</span> <span class="o">||</span> <span class="nx">a</span> <span class="o">&gt;</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//[1, 2, 3, 10, 20, &#34;a&#34;, &#34;b&#34;, &#34;c&#34;, &#34;d&#34;, &#34;k&#34;]
+</span></span></span></code></pre></div><p>isFinite() 判断 a、b 是否是数字。</p>
+<p>return 后面的语句：</p>
+<p>c != d &amp;&amp; c - d 如果 c 和 d 不相等 ，也就是说比较的值不是同一类型。那就比较 c-d 的值是 1 还是-1（中间进行了隐式类型转换）</p>
+<p>如果 c == d 也就是说 c、d 是同一类型的值，c、d 可能都是字母，也可能都是数字。这里就可以直接比较大小了（都是字母的话不能直接做减法）。
+isFinite() 函数用于检查其参数是否是无穷大。如果 number 是有限数字（或可转换为有限数字），那么返回 true。否则，如果 number 是 NaN（非数字），或者是正、负无穷大的数，则返回 false。</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

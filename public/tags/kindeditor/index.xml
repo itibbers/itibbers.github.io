@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Kindeditor on itibbers</title>
+    <link>http://localhost:1313/tags/kindeditor/</link>
+    <description>Recent content in Kindeditor on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 11 Jan 2017 17:56:20 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/kindeditor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kindeditor上传大文件报错</title>
+      <link>http://localhost:1313/posts/kindeditor%E4%B8%8A%E4%BC%A0%E5%A4%A7%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99/</link>
+      <pubDate>Wed, 11 Jan 2017 17:56:20 +0000</pubDate>
+      <guid>http://localhost:1313/posts/kindeditor%E4%B8%8A%E4%BC%A0%E5%A4%A7%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99/</guid>
+      <description>&lt;h1 id=&#34;框架本身文件大小限制&#34;&gt;框架本身文件大小限制&lt;/h1&gt;
+&lt;h2 id=&#34;框架js文件&#34;&gt;框架JS文件&lt;/h2&gt;
+&lt;p&gt;方法一：配置参数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;kindeditor/themes/default/default.css&amp;quot; /&amp;gt;
+&amp;lt;script charset=&amp;quot;utf-8&amp;quot; src=&amp;quot;kindeditor/kindeditor-all.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script charset=&amp;quot;utf-8&amp;quot; src=&amp;quot;kindeditor/lang/zh-CN.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+KindEditor.ready(function(K) {
+    K.create(&#39;#content&#39;,{
+    imageSizeLimit : &#39;10MB&#39;, //批量上传图片单张最大容量
+    imageUploadLimit : 100 //批量上传图片同时上传最多个数
+    });
+});
+&amp;lt;/script&amp;gt;
+&amp;lt;textarea id=&amp;quot;content&amp;quot; name=&amp;quot;content&amp;quot; style=&amp;quot; width: 99%; height: 500px; visibility: hidden; display: block; &amp;quot;&amp;gt;&amp;lt;/textarea&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;方法二：修改框架kindeditor-all.js文件
+imgPath = self.pluginsPath + &amp;lsquo;multiimage/images/&amp;rsquo;, //默认上传目录
+imageSizeLimit = K.undef(self.imageSizeLimit, &amp;lsquo;1MB&amp;rsquo;), //默认上传单个文件大小
+imageFileTypes = K.undef(self.imageFileTypes, &amp;lsquo;&lt;em&gt;.jpg;&lt;/em&gt;.gif;*.png&amp;rsquo;), //默认上传类型
+imageUploadLimit = K.undef(self.imageUploadLimit, 20), //默认一次性批量上传图片的个数&lt;/p&gt;
+&lt;h2 id=&#34;框架php文件&#34;&gt;框架php文件&lt;/h2&gt;
+&lt;p&gt;kindeditor/php/upload_json.php
+//最大文件大小
+$max_size = 1000000;&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h1 id="框架本身文件大小限制">框架本身文件大小限制</h1>
+<h2 id="框架js文件">框架JS文件</h2>
+<p>方法一：配置参数</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;kindeditor/themes/default/default.css&quot; /&gt;
+&lt;script charset=&quot;utf-8&quot; src=&quot;kindeditor/kindeditor-all.js&quot;&gt;&lt;/script&gt;
+&lt;script charset=&quot;utf-8&quot; src=&quot;kindeditor/lang/zh-CN.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+KindEditor.ready(function(K) {
+    K.create('#content',{
+    imageSizeLimit : '10MB', //批量上传图片单张最大容量
+    imageUploadLimit : 100 //批量上传图片同时上传最多个数
+    });
+});
+&lt;/script&gt;
+&lt;textarea id=&quot;content&quot; name=&quot;content&quot; style=&quot; width: 99%; height: 500px; visibility: hidden; display: block; &quot;&gt;&lt;/textarea&gt;
+</code></pre>
+<p>方法二：修改框架kindeditor-all.js文件
+imgPath = self.pluginsPath + &lsquo;multiimage/images/&rsquo;, //默认上传目录
+imageSizeLimit = K.undef(self.imageSizeLimit, &lsquo;1MB&rsquo;), //默认上传单个文件大小
+imageFileTypes = K.undef(self.imageFileTypes, &lsquo;<em>.jpg;</em>.gif;*.png&rsquo;), //默认上传类型
+imageUploadLimit = K.undef(self.imageUploadLimit, 20), //默认一次性批量上传图片的个数</p>
+<h2 id="框架php文件">框架php文件</h2>
+<p>kindeditor/php/upload_json.php
+//最大文件大小
+$max_size = 1000000;</p>
+<h1 id="phpini">php.ini</h1>
+<ol>
+<li>post_max_size = 50M ; Maximum size of POST data that PHP will accept.</li>
+<li>; Its value may be 0 to disable the limit. It is ignored if POST data reading</li>
+<li>; is disabled through enable_post_data_reading.</li>
+<li>upload_max_filesize = 50M ; Maximum allowed size for uploaded files.</li>
+</ol>
+<p>技巧：注意查看php错误日志</p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

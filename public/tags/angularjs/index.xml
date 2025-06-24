@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Angularjs on itibbers</title>
+    <link>http://localhost:1313/tags/angularjs/</link>
+    <description>Recent content in Angularjs on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 21 Mar 2016 14:38:49 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/angularjs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ionic &amp; AngularJS传递url类型的参数</title>
+      <link>http://localhost:1313/posts/ionic-angularjs%E4%BC%A0%E9%80%92url%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Mon, 21 Mar 2016 14:38:49 +0000</pubDate>
+      <guid>http://localhost:1313/posts/ionic-angularjs%E4%BC%A0%E9%80%92url%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0/</guid>
+      <description>&lt;p&gt;ionic用的是ui-router，如果参数是一个路径，直接使用：&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>ionic用的是ui-router，如果参数是一个路径，直接使用：</p>
+<pre tabindex="0"><code>url: &#34;/newslist/:url&#34;,
+</code></pre><p>就会出现问题，比如当传递的时候：<code>href=&quot;#/tab/{{u}}&quot;，假如u的值为</code><a href="http://isunday.top">http://isunday.top</a>`，那么拼接起来就会变成：</p>
+<pre tabindex="0"><code>#/tab/http://isunday.top
+</code></pre><p>造成错误, so，定义path类型的路由应该如下：</p>
+<pre tabindex="0"><code>url: &#34;/newslist/{path:.*}&#34;
+</code></pre><p>或者：</p>
+<pre tabindex="0"><code>url: &#34;/newslist/*path&#34;
+</code></pre>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

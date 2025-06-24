@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Backtrack on itibbers</title>
+    <link>https://itibbers.com/tags/backtrack/</link>
+    <description>Recent content in Backtrack on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 19 Feb 2019 18:50:19 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/tags/backtrack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>爬楼梯问题</title>
+      <link>https://itibbers.com/posts/%E7%88%AC%E6%A5%BC%E6%A2%AF%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 19 Feb 2019 18:50:19 +0000</pubDate>
+      <guid>https://itibbers.com/posts/%E7%88%AC%E6%A5%BC%E6%A2%AF%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;p&gt;今天在脉脉上看到有个段子手 HR 说：
+今天沟通了一位候选人，他给我出了个题，说答对了就把简历给我[笑哭][笑哭]各位大佬帮帮忙[抱拳][抱拳]
+一个人爬楼梯，每次只能爬 1 个或 2 个台阶，假设有 10 个台阶，那么这个人有多少种不同的爬楼梯方法？
+我只想在楼梯顶端等你，不想知道是怎么爬的[流泪][流泪]&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>今天在脉脉上看到有个段子手 HR 说：
+今天沟通了一位候选人，他给我出了个题，说答对了就把简历给我[笑哭][笑哭]各位大佬帮帮忙[抱拳][抱拳]
+一个人爬楼梯，每次只能爬 1 个或 2 个台阶，假设有 10 个台阶，那么这个人有多少种不同的爬楼梯方法？
+我只想在楼梯顶端等你，不想知道是怎么爬的[流泪][流泪]</p>
+<p>一个有趣的问题，试着解一下。
+因为最后只有迈一步或两步，所以 n 阶台阶，最后解为 f(n) = f(n - 1) + f(n - 2)
+原来是斐波那契数列，用递归解一下所有可能的爬楼方法。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">ret</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">backtrack</span> <span class="o">=</span> <span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ret</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">str</span> <span class="o">+=</span> <span class="s1">&#39;1&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ret</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">backtrack</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">str</span> <span class="o">+</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">backtrack</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">str</span> <span class="o">+</span> <span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">backtrack</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ret</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+</span></span></code></pre></div>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

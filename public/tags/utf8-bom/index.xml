@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Utf8-Bom on itibbers</title>
+    <link>https://itibbers.com/tags/utf8-bom/</link>
+    <description>Recent content in Utf8-Bom on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 13 Aug 2015 10:44:00 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/tags/utf8-bom/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>65279</title>
+      <link>https://itibbers.com/posts/65279/</link>
+      <pubDate>Thu, 13 Aug 2015 10:44:00 +0000</pubDate>
+      <guid>https://itibbers.com/posts/65279/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;65279&#34; loading=&#34;lazy&#34; src=&#34;https://itibbers.com/images/65279.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如果你在修改文件后，发现网页上多了一个空行，不管怎么修改&lt;code&gt;margin&lt;/code&gt;,&lt;code&gt;padding&lt;/code&gt;都无法消除，但是审查元素的时候，发现多出一行&lt;code&gt;&amp;quot;&amp;amp;#65279&amp;quot;&lt;/code&gt;。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p><img alt="65279" loading="lazy" src="/images/65279.png"></p>
+<p>如果你在修改文件后，发现网页上多了一个空行，不管怎么修改<code>margin</code>,<code>padding</code>都无法消除，但是审查元素的时候，发现多出一行<code>&quot;&amp;#65279&quot;</code>。</p>
+<p>注：IE 下是无法看到<code>65279</code>字样的，Firebug 和 Chrome 才可以看到。</p>
+<p>这是由于文件保存的时候，在前面加入了 BOM 字符。
+UTF-8 不需要 BOM 来表明字节顺序，但可以用 BOM 来表明编码方式。字符<code>ZERO WIDTH NO-BREAK SPACE</code>的编码是<code>EF BB BF</code>，如果接受者收到了三个不可见的字符（0xEF 0xBB 0xBF，即 BOM）开头的字节流，就知道这是 UTF-8 编码了。</p>
+<p>WINDOWS 就是用 BOM 来标记文本文件的编码方式的。</p>
+<p>现在几乎所有的文本编辑软件都可以显示并编辑 UTF-8 编码的文件。但是很遗憾，其中很多软件的表现并不理想。</p>
+<p>对于一般的文件，这样并不会产生什么麻烦。但对于 PHP 来说，BOM 是个大麻烦。</p>
+<p>PHP 并不会忽略 BOM，所以在读取、包含或者引用这些文件时，会把 BOM 作为该文件开头正文的一部分。根据嵌入式语言的特点，这串字符将被直接执行（显示）出来。由此造成即使页面的<code>padding-top</code>设置为 0，也无法让整个网页紧贴浏览器顶部，因为在 html 一开头有这 3 个字符呢！</p>
+<p>最大的麻烦还不是这个。受 COOKIE 送出机制的限制，在这些文件开头已经有 BOM 的文件中，COOKIE 无法送出（因为在 COOKIE 送出前 PHP 已经送出了文件头），所以登入和登出功能失效。一切依赖 COOKIE、SESSION 实现的功能全部无效。
+因此，在编辑、更改任何文本文件时，请务必使用不会乱加 BOM 的编辑器。Linux 下的编辑器应该都没有这个问题。WINDOWS 下，请勿使用记事本等编辑器。推荐的编辑器是：Sublime Text；Editplus 2.12 版本以上； EmEditor； UltraEdit（需要取消‘添加 BOM’的相关选项）； Dreamweaver（需要取消‘添加 BOM’的相关选项）等。
+对于已经添加了 BOM 的文件，要取消的话，可以用以上编辑器另存一次。（Editplus 需要先另存为 gb，再另存为 UTF-8）</p>
+<p><strong>2015/08/13 18:11 补充：</strong>
+在前端显示，不光会占用一个空行，而且还会造成<code>&lt;/head&gt;&lt;body&gt;</code>标签的位移，让<code>&lt;meta&gt;</code>部分移动到<code>body</code>里面。原因未知。只能拿自己博客测试了 T.T 效果如图。</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

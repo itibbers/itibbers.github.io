@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blog on itibbers</title>
+    <link>http://localhost:1313/categories/blog/</link>
+    <description>Recent content in Blog on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 15 Jan 2024 11:30:03 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Post</title>
+      <link>http://localhost:1313/posts/my-first-post/</link>
+      <pubDate>Mon, 15 Jan 2024 11:30:03 +0000</pubDate>
+      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <description>Desc Text.</description>
+      <content:encoded><![CDATA[<h1 id="welcome-to-my-blog">Welcome to my blog!</h1>
+<p>This is my first post using the <strong>PaperMod</strong> theme for Hugo.</p>
+<h2 id="features">Features</h2>
+<p>PaperMod includes many great features:</p>
+<ul>
+<li>🌙 Dark/Light mode toggle</li>
+<li>📱 Mobile responsive design</li>
+<li>🔍 Search functionality</li>
+<li>📖 Archive page</li>
+<li>🏷️ Tags and categories</li>
+<li>💬 Comment system support</li>
+<li>📊 Reading time and word count</li>
+<li>🧭 Breadcrumbs navigation</li>
+</ul>
+<h2 id="code-example">Code Example</h2>
+<p>Here&rsquo;s a simple code example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">hello_world</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Hello, PaperMod!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">hello_world</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="whats-next">What&rsquo;s Next?</h2>
+<p>Start writing your amazing content! You can:</p>
+<ol>
+<li>Customize the theme settings in <code>hugo.toml</code></li>
+<li>Add your social media links</li>
+<li>Create more posts in the <code>content/posts/</code> directory</li>
+<li>Deploy your site to GitHub Pages or any hosting platform</li>
+</ol>
+<p>Happy blogging! 🎉</p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

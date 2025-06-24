@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Node.js on itibbers</title>
+    <link>https://itibbers.com/categories/node.js/</link>
+    <description>Recent content in Node.js on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Feb 2018 13:42:07 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/categories/node.js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node.js模拟请求发微博</title>
+      <link>https://itibbers.com/posts/node-js%E6%A8%A1%E6%8B%9F%E8%AF%B7%E6%B1%82%E5%8F%91%E5%BE%AE%E5%8D%9A/</link>
+      <pubDate>Fri, 16 Feb 2018 13:42:07 +0000</pubDate>
+      <guid>https://itibbers.com/posts/node-js%E6%A8%A1%E6%8B%9F%E8%AF%B7%E6%B1%82%E5%8F%91%E5%BE%AE%E5%8D%9A/</guid>
+      <description>&lt;p&gt;新浪微博 SDK 需要申请 App key，极其不方便，通过 Node.js 模拟请求发送微博。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>新浪微博 SDK 需要申请 App key，极其不方便，通过 Node.js 模拟请求发送微博。</p>
+<h1 id="weibo-post"><a href="https://github.com/itibbers/weibo-post">weibo-post</a></h1>
+<p>Post weibo text from https based on node.</p>
+<h2 id="usage">Usage</h2>
+<p>Using npm:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ npm i --save-dev weibo-post
+</span></span></code></pre></div><p>In Node.js:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">weiboPost</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;weibo-post&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">weiboPost</span><span class="p">.</span><span class="nx">setCookie</span><span class="p">(</span><span class="s1">&#39;your weibo login cookie&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">weiboPost</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;your post content&#39;</span><span class="p">)</span>
+</span></span></code></pre></div>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

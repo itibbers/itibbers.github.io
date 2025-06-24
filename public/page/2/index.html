@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.147.9"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>itibbers</title>
+<meta name="keywords" content="技术博客, 编程, 开发, 前端, 生活, 思考, itibbers">
+<meta name="description" content="itibbers - 分享技术、生活和思考的个人博客">
+<meta name="author" content="itibbers">
+<link rel="canonical" href="https://itibbers.com/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://itibbers.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://itibbers.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://itibbers.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://itibbers.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://itibbers.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://itibbers.com/index.xml">
+<link rel="alternate" hreflang="en" href="https://itibbers.com/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://itibbers.com/">
+  <meta property="og:site_name" content="itibbers">
+  <meta property="og:title" content="itibbers">
+  <meta property="og:description" content="itibbers - 分享技术、生活和思考的个人博客">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+      <meta property="og:image" content="https://itibbers.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://itibbers.com/og-image.png">
+<meta name="twitter:title" content="itibbers">
+<meta name="twitter:description" content="itibbers - 分享技术、生活和思考的个人博客">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "itibbers",
+  "url": "https://itibbers.com/",
+  "description": "itibbers - 分享技术、生活和思考的个人博客",
+  "logo": "https://itibbers.com/favicon.ico",
+  "sameAs": [
+      "https://twitter.com/", "https://github.com/"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://itibbers.com/" accesskey="h" title="itibbers (Alt + H)">
+                <img src="https://itibbers.com/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="35">itibbers</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://itibbers.com/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://itibbers.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://itibbers.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">浏览器及HTTP缓存机制
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Web 缓存是一种保存 Web 资源副本并在下次请求时直接使用该副本的技术。缓存=请求资源的副本
+Web 缓存可以分为这几种：浏览器缓存、CDN 缓存、服务器缓存、数据库数据缓存 。因为可能会直接使用副本免于重新发送请求或者仅仅确认资源没变无需重新传输资源实体，Web 缓存具有以下优点：
+可以减少延迟加快网页打开速度 重复利用资源减少网络带宽消耗 降低请求次数或者减少传输内容从而减轻服务器压力。 ...</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-07-26 15:02:32 +0000 UTC'>July 26, 2018</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;724 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to 浏览器及HTTP缓存机制" href="https://itibbers.com/posts/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%8Ahttp%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Node.js模拟请求发微博
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>新浪微博 SDK 需要申请 App key，极其不方便，通过 Node.js 模拟请求发送微博。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-02-16 13:42:07 +0000 UTC'>February 16, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;37 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to Node.js模拟请求发微博" href="https://itibbers.com/posts/node-js%E6%A8%A1%E6%8B%9F%E8%AF%B7%E6%B1%82%E5%8F%91%E5%BE%AE%E5%8D%9A/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Android Broadcast/EventBus优缺点
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>关于 Android 中本地广播和 EventBus 选择的问题： 本地广播是相对消耗时间、空间最多的一种方式，但是大家都知道，广播是四大组件之一，许多系统级的事件都是通过广播来通知的，比如说网络的变化、电量的变化，短信发送和接收的状态，所以，如果与 android 系统进行相关的通知，还是要选择本地广播；在 BroadcastReceiver 的 onReceive 方法中，可以获得 Context 、intent 参数，这两个参数可以调用许多的 sdk 中的方法，而 EventBus 获得这两个参数相对比较困难；
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-01-24 16:59:09 +0000 UTC'>January 24, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;77 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to Android Broadcast/EventBus优缺点" href="https://itibbers.com/posts/broadcast-eventbus%E4%BC%98%E7%BC%BA%E7%82%B9/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">An invalid form control with name=&#39;xxx&#39; is not focusable.
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在表单提交时，如果某个控件被设置为 display: none 且该字段可以为空，则必须移除 required 属性，否则在 Chrome 浏览器中会出现错误。
+Chrome 浏览器要求必填字段不能为空，因此会弹出&#34;请在此输入&#34;的提示消息。但是，如果该控件被隐藏，Chrome 浏览器在表单提交时无法聚焦到该控件，因为它是不可见的，从而导致表单提交失败。
+要解决这个问题，当通过 JavaScript 隐藏控件时，我们也必须同时移除该控件的 required 属性。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-11-22 13:43:18 +0000 UTC'>November 22, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;16 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to An invalid form control with name=&#39;xxx&#39; is not focusable." href="https://itibbers.com/posts/an-invalid-form-control-with-name-xxx-is-not-focusable/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">set autocommit=0与start transaction区别
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>set autocommit=0, 当前 session 禁用自动提交事物，自此句执行以后，每个 SQL 语句或者语句块所在的事务都需要显示&#34;commit&#34;才能提交事务。
+start transaction
+指的是启动一个新事务。
+在默认的情况下，MySQL 从自动提交（autocommit）模式运行，这种模式会在每条语句执行完毕后把它作出的修改立刻提交给数据库并使之永久化。事实上，这相当于把每一条语句都隐含地当做一个事务来执行。如果你想明确地执行事务，需要禁用自动提交模式并告诉 MySQL 你想让它在何时提交或回滚有关的修改。 执行事务的常用办法是发出一条 START TRANSACTION（或 BEGIN）语句挂起自动提交模式，然后执行构成本次事务的各条语句，最后用一条 COMMIT 语句结束事务并把它们作出的修改永久性地记入数据库。万一在事务过程中发生错误，用一条 ROLLBACK 语句撤销事务并把数据库恢复到事务开 始之前的状态。
+START TRANSACTION 语句&#34;挂起&#34;自动提交模式的含义是：在事务被提交或回滚之后，该模式将恢复到开始本次事务的 START TRANSACTION 语句被执行之前的状态。（如果自动提交模式原来是激活的，结束事务将让你回到自动提交模式；如果它原来是禁用的，结束 当前事务将开始下一个事务。）
+如果是 autocommit 模式 ，autocommit 的值应该为 1 ，不 autocommit 的值是 0 ；请在试验前 确定 autocommit 的模式是否开启
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-11-17 14:32:49 +0000 UTC'>November 17, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;44 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to set autocommit=0与start transaction区别" href="https://itibbers.com/posts/set-autocommit-0%E4%B8%8Estart-transaction%E5%8C%BA%E5%88%AB/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">快速幂 快速幂取模
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>快速幂 求 x^m 一般方法是 xm = x * xm-1，这样需要做 m 次乘法，未免过慢。
+加速方法有两种。
+1.基于当 m 为偶数时， xm = (x2)^(m/2) ；当 m 为奇数时， xm = x * xm-1。显然当 m 为偶数时 m 会减半，当 m 为奇数时，下次就是偶数。m 可以很快收敛到 0.（^表示幂）
+2.将 m 看成二进制串 mkmk-1…m1m0，那么 xm = xm02^0 &#43; m12^1 &#43; … &#43; mk2^k = xm02^0 * xm1*2^1 _ … _ xmk*2^k. mi 为 0 或 1，假设平均有一半 mi 为 1，即 k 个，那么总共才只需要做（k&#43;(k/2)）次乘法。
+下面给出代码。第一个方法是加速方法 1，第二个方法是加速方法 1 的迭代形式，第三个方法是加速方法 2。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-06-22 09:24:34 +0000 UTC'>June 22, 2016</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;289 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to 快速幂 快速幂取模" href="https://itibbers.com/posts/%E5%BF%AB%E9%80%9F%E5%B9%82-%E5%BF%AB%E9%80%9F%E5%B9%82%E5%8F%96%E6%A8%A1/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">类 unix 系统下字符编码转换方法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>用 windows 的时候，如果把 gbk 转换为 utf8，有几个方法，一是记事本另存为，但是存在 BOM 的问题，另一种方法是通过不产生 BOM 的软件，如 vim，sublime 来 code 或保存，太过麻烦。
+今天无意中发现了 Mac 系统下，有个 iconv 的命令，可以非常方便的转换字符编码。
+iconv -f gbk -t utf-8 gbk.cpp &gt; utf8.cpp 配合管道输出，简直不能更方便。
+不光 Mac 系统有，所有类 unix 系统都有这个命令。
+NAME iconv - character set conversion SYNOPSIS iconv [OPTION...] [-f encoding] [-t encoding] [inputfile ...] iconv -l </p>
+  </div>
+  <footer class="entry-footer"><span title='2016-06-22 09:09:40 +0000 UTC'>June 22, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;50 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to 类 unix 系统下字符编码转换方法" href="https://itibbers.com/posts/nix%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go-Pholcus抓人民网新闻规则
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Go 语言下有个爬虫软件 pholcus，写了个爬虫的规则，抓的是人民网的最新新闻和 IJGUC 所有期刊。 pholcus 开源软件做的还是挺棒的，但是觉得 go 语言不太好玩。 规则放到了Github
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-04-21 11:44:03 +0000 UTC'>April 21, 2016</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;662 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to Go-Pholcus抓人民网新闻规则" href="https://itibbers.com/posts/go-pholcus%E7%88%AC%E8%99%AB%E8%A7%84%E5%88%99/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Composer安装时openssl missing
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>问题描述：“The openssl extension is missing, which means that secure HTTPS transfers are impossible.”
+确保 php.ini 中 extension=php_openssl.dll 打开。
+php.ini 文件在 apache 和 php 目录下都有，建议都打开。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-03-15 15:26:19 +0000 UTC'>March 15, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;24 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to Composer安装时openssl missing" href="https://itibbers.com/posts/composer%E5%AE%89%E8%A3%85%E6%97%B6openssl-missing/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">python - RuntimeError: maximum recursion depth exceeded
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>用 Python 写了一个爬虫脚本，在抓取页面采用广度优先遍历抓取。但是当遍历到 900 多时就会出现莫名其妙的错误，通过 pdb 调试发现是：
+RuntimeError: maximum recursion depth exceeded
+在网上查了，发现 python 默认的递归深度是很有限的，大概是 900 多的样子，当递归深度超过这个值的时候，就会引发这样的一个异常。
+解决的方式是手工设置递归调用深度，方式为
+import sys sys.setrecursionlimit(1000000) # 例如这里设置为一百万 </p>
+  </div>
+  <footer class="entry-footer"><span title='2015-09-27 21:55:42 +0000 UTC'>September 27, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;23 words&nbsp;·&nbsp;itibbers</footer>
+  <a class="entry-link" aria-label="post link to python - RuntimeError: maximum recursion depth exceeded" href="https://itibbers.com/posts/python-runtimeerror-maximum-recursion-depth-exceeded/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://itibbers.com/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="https://itibbers.com/page/3/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://itibbers.com/">itibbers</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

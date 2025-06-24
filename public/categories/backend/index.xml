@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Backend on itibbers</title>
+    <link>https://itibbers.com/categories/backend/</link>
+    <description>Recent content in Backend on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 22 Jun 2016 09:24:34 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/categories/backend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>快速幂 快速幂取模</title>
+      <link>https://itibbers.com/posts/%E5%BF%AB%E9%80%9F%E5%B9%82-%E5%BF%AB%E9%80%9F%E5%B9%82%E5%8F%96%E6%A8%A1/</link>
+      <pubDate>Wed, 22 Jun 2016 09:24:34 +0000</pubDate>
+      <guid>https://itibbers.com/posts/%E5%BF%AB%E9%80%9F%E5%B9%82-%E5%BF%AB%E9%80%9F%E5%B9%82%E5%8F%96%E6%A8%A1/</guid>
+      <description>&lt;h2 id=&#34;快速幂&#34;&gt;快速幂&lt;/h2&gt;
+&lt;p&gt;求 x^m 一般方法是 xm = x * xm-1，这样需要做 m 次乘法，未免过慢。&lt;/p&gt;
+&lt;p&gt;加速方法有两种。&lt;/p&gt;
+&lt;p&gt;1.基于当 m 为偶数时， xm = (x2)^(m/2) ；当 m 为奇数时， xm = x * xm-1。显然当 m 为偶数时 m 会减半，当 m 为奇数时，下次就是偶数。m 可以很快收敛到 0.（^表示幂）&lt;/p&gt;
+&lt;p&gt;2.将 m 看成二进制串 mkmk-1&amp;hellip;m1m0，那么 xm = xm0&lt;em&gt;2^0 + m1&lt;/em&gt;2^1 + &amp;hellip; + mk&lt;em&gt;2^k = xm0&lt;/em&gt;2^0 * xm1*2^1 _ &amp;hellip; _ xmk*2^k. mi 为 0 或 1，假设平均有一半 mi 为 1，即 k 个，那么总共才只需要做（k+(k/2)）次乘法。&lt;/p&gt;
+&lt;p&gt;下面给出代码。第一个方法是加速方法 1，第二个方法是加速方法 1 的迭代形式，第三个方法是加速方法 2。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="快速幂">快速幂</h2>
+<p>求 x^m 一般方法是 xm = x * xm-1，这样需要做 m 次乘法，未免过慢。</p>
+<p>加速方法有两种。</p>
+<p>1.基于当 m 为偶数时， xm = (x2)^(m/2) ；当 m 为奇数时， xm = x * xm-1。显然当 m 为偶数时 m 会减半，当 m 为奇数时，下次就是偶数。m 可以很快收敛到 0.（^表示幂）</p>
+<p>2.将 m 看成二进制串 mkmk-1&hellip;m1m0，那么 xm = xm0<em>2^0 + m1</em>2^1 + &hellip; + mk<em>2^k = xm0</em>2^0 * xm1*2^1 _ &hellip; _ xmk*2^k. mi 为 0 或 1，假设平均有一半 mi 为 1，即 k 个，那么总共才只需要做（k+(k/2)）次乘法。</p>
+<p>下面给出代码。第一个方法是加速方法 1，第二个方法是加速方法 1 的迭代形式，第三个方法是加速方法 2。</p>
+<p>在网上看到有人将 *2 或 /2，改为移位运算，就说效率更高。这其实是扯谈。连我们都知道移位运算效率高，*2 和 /2 就是一个相当于移位运算的操作，做编译器的人会不知道？即使你写成 *2 或 /2，编译器也会帮你优化为移位运算。不相信的同学可以用 C 语言测试一下，只需将代码编译成汇编代码看看是否一样。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">pow</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">fastExp</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="k">return</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//x^m = (x^2)^(m/2)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">fastExp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="o">/</span><span class="n">2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">else</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//x^m = x * x(m-1)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fastExp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="o">-</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">fastExp_iter</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">0</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">x</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">m</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">2</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">else</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">result</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">m</span><span class="w"> </span><span class="o">--</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">fastExpBin</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//x^m = x^(m0 * 2^0) * x^(m1 * 2^1) * x^(m2 * 2^2) * ... * x^(mk * 2^k)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">0</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="p">((</span><span class="n">m</span><span class="o">&amp;</span><span class="n">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">1</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">//m0 = 1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">result</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//x对应每一位mi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">x</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">m</span><span class="w"> </span><span class="o">&gt;&gt;=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">++</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">fastExp</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">++</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">fastExp_iter</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">++</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">fastExpBin</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="快速幂取模">快速幂取模</h2>
+<p>与快速幂类似</p>
+<p>只是在每次运算的时候要作 mod m 运算，利用的是模运算规则 (a _ b) mod m = ((a mod m) _ (b mod m)) mod m.</p>
+<p>用快速幂取模的方法比直接求幂再取模的方法要快，因为将乘数限制在一定的范围。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Go-Pholcus抓人民网新闻规则</title>
+      <link>https://itibbers.com/posts/go-pholcus%E7%88%AC%E8%99%AB%E8%A7%84%E5%88%99/</link>
+      <pubDate>Thu, 21 Apr 2016 11:44:03 +0000</pubDate>
+      <guid>https://itibbers.com/posts/go-pholcus%E7%88%AC%E8%99%AB%E8%A7%84%E5%88%99/</guid>
+      <description>&lt;p&gt;Go 语言下有个爬虫软件 pholcus，写了个爬虫的规则，抓的是人民网的最新新闻和 IJGUC 所有期刊。
+pholcus 开源软件做的还是挺棒的，但是觉得 go 语言不太好玩。
+规则放到了&lt;a href=&#34;https://github.com/itibbers/pholcus-spider-lib&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Go 语言下有个爬虫软件 pholcus，写了个爬虫的规则，抓的是人民网的最新新闻和 IJGUC 所有期刊。
+pholcus 开源软件做的还是挺棒的，但是觉得 go 语言不太好玩。
+规则放到了<a href="https://github.com/itibbers/pholcus-spider-lib">Github</a></p>
+<h3 id="人民网新闻">人民网新闻</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">spider_lib</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 基础包</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;github.com/PuerkitoBio/goquery&#34;                        //DOM解析</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;github.com/henrylee2cn/pholcus/app/downloader/request&#34;</span> <span class="c1">//必需</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;github.com/henrylee2cn/pholcus/logs&#34;               //信息输出</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span> <span class="s">&#34;github.com/henrylee2cn/pholcus/app/spider&#34;</span> <span class="c1">//必需</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// . &#34;github.com/henrylee2cn/pholcus/app/spider/common&#34; //选用</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// net包</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;net/http&#34; //设置http.Header</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;net/url&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 编码包</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;encoding/xml&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;encoding/json&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 字符串处理包</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;regexp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;strconv&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;strings&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 其他包</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;math&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">People</span><span class="p">.</span><span class="nf">Register</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Id</span>       <span class="kt">string</span> <span class="s">`json:&#34;id&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Title</span>    <span class="kt">string</span> <span class="s">`json:&#34;title&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Url</span>      <span class="kt">string</span> <span class="s">`json:&#34;url&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Date</span>     <span class="kt">string</span> <span class="s">`json:&#34;date&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">NodeId</span>   <span class="kt">string</span> <span class="s">`json:&#34;nodeId&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ImgCount</span> <span class="kt">string</span> <span class="s">`json:&#34;imgCount&#34;`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">News</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Items</span> <span class="p">[]</span><span class="nx">Item</span> <span class="s">`json:&#34;items&#34;`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">news</span> <span class="nx">News</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">People</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Spider</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Name</span><span class="p">:</span>        <span class="s">&#34;人民网新闻抓取&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Description</span><span class="p">:</span> <span class="s">&#34;人民网最新分类新闻&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Pausetime:    300,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Keyin:        KEYIN,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Limit:        LIMIT,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">EnableCookie</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">RuleTree</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">RuleTree</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Root</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">ctx</span><span class="p">.</span><span class="nf">AddQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">request</span><span class="p">.</span><span class="nx">Request</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">Method</span><span class="p">:</span> <span class="s">&#34;GET&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">Url</span><span class="p">:</span>    <span class="s">&#34;http://news.people.com.cn/210801/211150/index.js?cache=false&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">Rule</span><span class="p">:</span>   <span class="s">&#34;新闻列表&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">Trunk</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Rule</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;新闻列表&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">ParseFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">//query := ctx.GetDom()</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">//str := query.Find(&#34;body&#34;).Text()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">//str := `{&#34;items&#34;:[{&#34;id&#34;:&#34;282&#34;,&#34;title&#34;:&#34;人社&amp;nbsp;转型升级&amp;quot;战术&amp;quot;手册&#34;,&#34;url&#34;:&#34;ht&#34;,&#34;date&#34;:&#34;201&#34;,&#34;nodeId&#34;:&#34;1001&#34;,&#34;imgCount&#34;:&#34;4&#34;}]}`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="nx">str</span> <span class="o">:=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetText</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">news</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;解析错误： %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">/////////////////</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">newsLength</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">news</span><span class="p">.</span><span class="nx">Items</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">newsLength</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">ctx</span><span class="p">.</span><span class="nf">AddQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">request</span><span class="p">.</span><span class="nx">Request</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="nx">Url</span><span class="p">:</span>  <span class="nx">news</span><span class="p">.</span><span class="nx">Items</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Url</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="nx">Rule</span><span class="p">:</span> <span class="s">&#34;热点新闻&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="nx">Temp</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+</span></span><span class="line"><span class="cl">                                <span class="s">&#34;id&#34;</span><span class="p">:</span>       <span class="nx">news</span><span class="p">.</span><span class="nx">Items</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="s">&#34;title&#34;</span><span class="p">:</span>    <span class="nx">news</span><span class="p">.</span><span class="nx">Items</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="s">&#34;date&#34;</span><span class="p">:</span>     <span class="nx">news</span><span class="p">.</span><span class="nx">Items</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Date</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="s">&#34;newsType&#34;</span><span class="p">:</span> <span class="nx">news</span><span class="p">.</span><span class="nx">Items</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">NodeId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">/////////////////</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;热点新闻&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//注意：有无字段语义和是否输出数据必须保持一致</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">ItemFields</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;ID&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;标题&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;内容&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;类别&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;ReleaseTime&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">ParseFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">query</span> <span class="o">:=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetDom</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">// 获取内容</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">content</span> <span class="o">:=</span> <span class="nx">query</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">&#34;#p_content&#34;</span><span class="p">).</span><span class="nf">Text</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// re, _ := regexp.Compile(&#34;\\&lt;[\\S\\s]+?\\&gt;&#34;)</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// content = re.ReplaceAllStringFunc(content, strings.ToLower)</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// content = re.ReplaceAllString(content, &#34;&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">// 结果存入Response中转</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">ctx</span><span class="p">.</span><span class="nf">Output</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">0</span><span class="p">:</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetTemp</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">1</span><span class="p">:</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetTemp</span><span class="p">(</span><span class="s">&#34;title&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">2</span><span class="p">:</span> <span class="nx">content</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">3</span><span class="p">:</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetTemp</span><span class="p">(</span><span class="s">&#34;newsType&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">4</span><span class="p">:</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetTemp</span><span class="p">(</span><span class="s">&#34;date&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="ijguc-期刊">IJGUC 期刊</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">spider_lib</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 基础包</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;github.com/PuerkitoBio/goquery&#34;</span>                        <span class="c1">//DOM解析</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;github.com/henrylee2cn/pholcus/app/downloader/request&#34;</span> <span class="c1">//必需</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span> <span class="s">&#34;github.com/henrylee2cn/pholcus/app/spider&#34;</span>           <span class="c1">//必需</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;github.com/henrylee2cn/pholcus/logs&#34;         //信息输出</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// . &#34;github.com/henrylee2cn/pholcus/app/spider/common&#34; //选用</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// net包</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;net/http&#34; //设置http.Header</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;net/url&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 编码包</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;encoding/xml&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;encoding/json&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 字符串处理包</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;regexp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;strconv&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;strings&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 其他包</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;math&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// &#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">IJGUC</span><span class="p">.</span><span class="nf">Register</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">IJGUC</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Spider</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Name</span><span class="p">:</span>        <span class="s">&#34;IJGUC期刊&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Description</span><span class="p">:</span> <span class="s">&#34;IJGUC期刊&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Pausetime:    300,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Keyin:        KEYIN,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Limit:        LIMIT,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">EnableCookie</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">RuleTree</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">RuleTree</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Root</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">ctx</span><span class="p">.</span><span class="nf">AddQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">request</span><span class="p">.</span><span class="nx">Request</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">Url</span><span class="p">:</span>  <span class="s">&#34;http://www.inderscience.com/info/inarticletoc.php?jcode=ijguc&amp;year=2016&amp;vol=7&amp;issue=1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">Rule</span><span class="p">:</span> <span class="s">&#34;期刊列表&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">Trunk</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Rule</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;期刊列表&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">ParseFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">query</span> <span class="o">:=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetDom</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">7</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">id</span> <span class="o">:=</span> <span class="s">&#34;#eventbody&#34;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#34; a&#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">query</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">id</span><span class="p">).</span><span class="nf">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">j</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">s</span> <span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">if</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Attr</span><span class="p">(</span><span class="s">&#34;href&#34;</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                                <span class="c1">// log.Print(url)</span>
+</span></span><span class="line"><span class="cl">                                <span class="nx">ctx</span><span class="p">.</span><span class="nf">AddQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">request</span><span class="p">.</span><span class="nx">Request</span><span class="p">{</span><span class="nx">Url</span><span class="p">:</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">Rule</span><span class="p">:</span> <span class="s">&#34;文章列表&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">                            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;文章列表&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">ParseFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">query</span> <span class="o">:=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetDom</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">//#journalcol1 article table tbody tr td:eq(1) table:eq(1) a</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">query</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">&#34;#journalcol1 article table tbody tr td&#34;</span><span class="p">).</span><span class="nf">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">td</span> <span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="nx">td</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">&#34;table&#34;</span><span class="p">).</span><span class="nf">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">j</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">table</span> <span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                                <span class="k">if</span> <span class="nx">j</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                                    <span class="nx">table</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">).</span><span class="nf">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">k</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span> <span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                                        <span class="k">if</span> <span class="nx">k</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                                            <span class="k">if</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Attr</span><span class="p">(</span><span class="s">&#34;href&#34;</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                                                <span class="c1">// log.Print(url)</span>
+</span></span><span class="line"><span class="cl">                                                <span class="nx">ctx</span><span class="p">.</span><span class="nf">AddQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">request</span><span class="p">.</span><span class="nx">Request</span><span class="p">{</span><span class="nx">Url</span><span class="p">:</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">Rule</span><span class="p">:</span> <span class="s">&#34;文章页&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">                                            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                                    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">                                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;文章页&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//注意：有无字段语义和是否输出数据必须保持一致</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">ItemFields</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;Title&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;Author&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;Addresses&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;Journal&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;Abstract&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;Keywords&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;DOI&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">ParseFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">query</span> <span class="o">:=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">GetDom</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// 获取内容</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">content</span> <span class="o">:=</span> <span class="nx">query</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">&#34;#col1&#34;</span><span class="p">).</span><span class="nf">Text</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">// 过滤标签</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;\\&lt;[\\S\\s]+?\\&gt;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">content</span> <span class="p">=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">ReplaceAllString</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">// Title</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;Title:(.*?)Author:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">title</span> <span class="o">:=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="nx">content</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// Author</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;Author:(.*?)Addresses:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">au</span> <span class="o">:=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">author</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">au</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">author</span> <span class="p">=</span> <span class="nx">au</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;Author:(.*?)Address:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">author</span> <span class="p">=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="nx">content</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// Addresses &amp; Address</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;Addresses:(.*?)Journal:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">address</span> <span class="o">:=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">addresses</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">address</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">addresses</span> <span class="p">=</span> <span class="nx">address</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;Address:(.*?)Journal:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">addresses</span> <span class="p">=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="nx">content</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// Journal</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;Journal:(.*?)Abstract:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">journal</span> <span class="o">:=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="nx">content</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// Abstract</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;Abstract:(.*?)Keywords:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">abstract</span> <span class="o">:=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="nx">content</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// Keywords</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;Keywords:(.*?)DOI:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">keywords</span> <span class="o">:=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="nx">content</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// DOI</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">re</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;DOI: &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">doiIndex</span> <span class="o">:=</span> <span class="nx">re</span><span class="p">.</span><span class="nf">FindStringSubmatchIndex</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">rs</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">left</span> <span class="o">:=</span> <span class="nx">doiIndex</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">right</span> <span class="o">:=</span> <span class="nx">left</span> <span class="o">+</span> <span class="mi">43</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">doi</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">rs</span><span class="p">[</span><span class="nx">left</span><span class="p">:</span><span class="nx">right</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1">// 结果存入Response中转</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">ctx</span><span class="p">.</span><span class="nf">Output</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">0</span><span class="p">:</span> <span class="nx">title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">1</span><span class="p">:</span> <span class="nx">author</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">2</span><span class="p">:</span> <span class="nx">addresses</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">3</span><span class="p">:</span> <span class="nx">journal</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">4</span><span class="p">:</span> <span class="nx">abstract</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">5</span><span class="p">:</span> <span class="nx">keywords</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mi">6</span><span class="p">:</span> <span class="nx">doi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>]]></content:encoded>
+    </item>
+    <item>
+      <title>65279</title>
+      <link>https://itibbers.com/posts/65279/</link>
+      <pubDate>Thu, 13 Aug 2015 10:44:00 +0000</pubDate>
+      <guid>https://itibbers.com/posts/65279/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;65279&#34; loading=&#34;lazy&#34; src=&#34;https://itibbers.com/images/65279.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如果你在修改文件后，发现网页上多了一个空行，不管怎么修改&lt;code&gt;margin&lt;/code&gt;,&lt;code&gt;padding&lt;/code&gt;都无法消除，但是审查元素的时候，发现多出一行&lt;code&gt;&amp;quot;&amp;amp;#65279&amp;quot;&lt;/code&gt;。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p><img alt="65279" loading="lazy" src="/images/65279.png"></p>
+<p>如果你在修改文件后，发现网页上多了一个空行，不管怎么修改<code>margin</code>,<code>padding</code>都无法消除，但是审查元素的时候，发现多出一行<code>&quot;&amp;#65279&quot;</code>。</p>
+<p>注：IE 下是无法看到<code>65279</code>字样的，Firebug 和 Chrome 才可以看到。</p>
+<p>这是由于文件保存的时候，在前面加入了 BOM 字符。
+UTF-8 不需要 BOM 来表明字节顺序，但可以用 BOM 来表明编码方式。字符<code>ZERO WIDTH NO-BREAK SPACE</code>的编码是<code>EF BB BF</code>，如果接受者收到了三个不可见的字符（0xEF 0xBB 0xBF，即 BOM）开头的字节流，就知道这是 UTF-8 编码了。</p>
+<p>WINDOWS 就是用 BOM 来标记文本文件的编码方式的。</p>
+<p>现在几乎所有的文本编辑软件都可以显示并编辑 UTF-8 编码的文件。但是很遗憾，其中很多软件的表现并不理想。</p>
+<p>对于一般的文件，这样并不会产生什么麻烦。但对于 PHP 来说，BOM 是个大麻烦。</p>
+<p>PHP 并不会忽略 BOM，所以在读取、包含或者引用这些文件时，会把 BOM 作为该文件开头正文的一部分。根据嵌入式语言的特点，这串字符将被直接执行（显示）出来。由此造成即使页面的<code>padding-top</code>设置为 0，也无法让整个网页紧贴浏览器顶部，因为在 html 一开头有这 3 个字符呢！</p>
+<p>最大的麻烦还不是这个。受 COOKIE 送出机制的限制，在这些文件开头已经有 BOM 的文件中，COOKIE 无法送出（因为在 COOKIE 送出前 PHP 已经送出了文件头），所以登入和登出功能失效。一切依赖 COOKIE、SESSION 实现的功能全部无效。
+因此，在编辑、更改任何文本文件时，请务必使用不会乱加 BOM 的编辑器。Linux 下的编辑器应该都没有这个问题。WINDOWS 下，请勿使用记事本等编辑器。推荐的编辑器是：Sublime Text；Editplus 2.12 版本以上； EmEditor； UltraEdit（需要取消‘添加 BOM’的相关选项）； Dreamweaver（需要取消‘添加 BOM’的相关选项）等。
+对于已经添加了 BOM 的文件，要取消的话，可以用以上编辑器另存一次。（Editplus 需要先另存为 gb，再另存为 UTF-8）</p>
+<p><strong>2015/08/13 18:11 补充：</strong>
+在前端显示，不光会占用一个空行，而且还会造成<code>&lt;/head&gt;&lt;body&gt;</code>标签的位移，让<code>&lt;meta&gt;</code>部分移动到<code>body</code>里面。原因未知。只能拿自己博客测试了 T.T 效果如图。</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

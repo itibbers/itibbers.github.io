@@ -1,0 +1,113 @@
+baseURL = 'https://itibbers.com/'
+languageCode = 'en-us'
+title = 'itibbers'
+theme = 'PaperMod'
+
+# PaperMod主题配置
+[params]
+  # 网站描述
+  description = "itibbers - 分享技术、生活和思考的个人博客"
+  keywords = ["技术博客", "编程", "开发", "前端", "生活", "思考", "itibbers"]
+  author = "itibbers"
+  images = ["/og-image.png"]
+
+  # 显示选项
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = false
+  tocopen = false
+
+  # SEO增强
+  env = "production"
+  defaultTheme = "auto"
+  disableThemeToggle = false
+  DateFormat = "January 2, 2006"
+  displayFullLangName = true
+  ShowFullTextinRSS = true
+
+  [params.assets]
+    favicon = "/favicon.ico"
+    favicon16x16 = "/favicon-16x16.png"
+    favicon32x32 = "/favicon-32x32.png"
+    apple_touch_icon = "/apple-touch-icon.png"
+    safari_pinned_tab = "/safari-pinned-tab.svg"
+
+  [params.label]
+    text = "itibbers"
+    icon = "/apple-touch-icon.png"
+    iconHeight = 35
+
+  # profile-mode
+  [params.profileMode]
+    enabled = false
+    title = "ExampleSite"
+    subtitle = "This is subtitle"
+    imageUrl = "<title or url of image>"
+    imageWidth = 120
+    imageHeight = 120
+    imageTitle = "my image"
+
+  # home-info mode
+  [params.homeInfoParams]
+    Title = "Hi there 👋"
+    Content = "欢迎来到 itibbers 的个人博客，分享技术、生活和思考"
+
+  # Open Graph / Twitter Card
+  [params.OpenGraph]
+    type = "website"
+    locale = "zh_CN"
+    url = "https://itibbers.com/"
+    site_name = "itibbers"
+
+  [params.TwitterCard]
+    card = "summary_large_image"
+    site = "@itibbers"
+    creator = "@itibbers"
+
+  [[params.socialIcons]]
+    name = "twitter"
+    url = "https://twitter.com/"
+
+  # [[params.socialIcons]]
+  #   name = "stackoverflow"
+  #   url = "https://stackoverflow.com"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/"
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+
+    [[languages.en.menu.main]]
+      name = "Archive"
+      url = "/archives/"
+      weight = 10
+
+    [[languages.en.menu.main]]
+      name = "Search"
+      url = "/search/"
+      weight = 20
+
+    [[languages.en.menu.main]]
+      name = "Tags"
+      url = "/tags/"
+      weight = 30
+
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses = true
+[markup.highlight]
+  noClasses = false

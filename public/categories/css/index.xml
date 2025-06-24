@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Css on itibbers</title>
+    <link>https://itibbers.com/categories/css/</link>
+    <description>Recent content in Css on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 27 May 2020 16:29:48 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/categories/css/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>11个class选择器可以干掉1个id选择器吗</title>
+      <link>https://itibbers.com/posts/11%E4%B8%AAclass%E9%80%89%E6%8B%A9%E5%99%A8%E5%8F%AF%E4%BB%A5%E5%B9%B2%E6%8E%891%E4%B8%AAid%E9%80%89%E6%8B%A9%E5%99%A8%E5%90%97/</link>
+      <pubDate>Wed, 27 May 2020 16:29:48 +0000</pubDate>
+      <guid>https://itibbers.com/posts/11%E4%B8%AAclass%E9%80%89%E6%8B%A9%E5%99%A8%E5%8F%AF%E4%BB%A5%E5%B9%B2%E6%8E%891%E4%B8%AAid%E9%80%89%E6%8B%A9%E5%99%A8%E5%90%97/</guid>
+      <description>&lt;p&gt;今天遇到一个有趣的问题，class 选择器权重是 10，id 选择器权重是 100，那么 11 个 class 选择器可以干掉 1 个 id 选择器吗？😂&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>今天遇到一个有趣的问题，class 选择器权重是 10，id 选择器权重是 100，那么 11 个 class 选择器可以干掉 1 个 id 选择器吗？😂</p>
+<p>先来一段简单的 html 测试下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;k&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;a b c d e f g h i j k&#34;</span><span class="p">&gt;</span>xxxxx<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;a&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;b&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;c&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;d&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;e&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;f&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;g&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;h&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;i&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;j&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;k&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;m&#34;</span><span class="p">&gt;</span>xxxx<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">a</span><span class="p">.</span><span class="nc">b</span><span class="p">.</span><span class="nc">c</span><span class="p">.</span><span class="nc">d</span><span class="p">.</span><span class="nc">e</span><span class="p">.</span><span class="nc">f</span><span class="p">.</span><span class="nc">g</span><span class="p">.</span><span class="nc">h</span><span class="p">.</span><span class="nc">i</span><span class="p">.</span><span class="nc">j</span><span class="p">.</span><span class="nc">k</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">background</span><span class="p">:</span> <span class="kc">black</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">a</span> <span class="p">.</span><span class="nc">b</span> <span class="p">.</span><span class="nc">c</span> <span class="p">.</span><span class="nc">d</span> <span class="p">.</span><span class="nc">e</span> <span class="p">.</span><span class="nc">f</span> <span class="p">.</span><span class="nc">g</span> <span class="p">.</span><span class="nc">h</span> <span class="p">.</span><span class="nc">i</span> <span class="p">.</span><span class="nc">j</span> <span class="p">.</span><span class="nc">k</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">background</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">#</span><span class="nn">k</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">background</span><span class="p">:</span> <span class="kc">green</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">#</span><span class="nn">m</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">background</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>发现并不能，难道选择器的权重不是 10 和 100？</p>
+<p>查了 MDN，同时通过 Google 搜索发现，张鑫旭大佬以前写过的一篇文章，总结如下：
+以前浏览器通过 8 位字节存储选择器，于是同时出现 256 个选择器溢出到了 id 区域，但是现在这个问题早被 Chrome 修复了。
+其它浏览器未验证，当然这只是一种有趣的极端情况，平常开发中应该不会遇到。</p>
+<blockquote>
+<p><a href="https://www.zhangxinxu.com/wordpress/2012/08/256-class-selector-beat-id-selector/">有趣：256 个 class 选择器可以干掉 1 个 id 选择器</a></p></blockquote>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

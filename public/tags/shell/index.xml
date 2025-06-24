@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Shell on itibbers</title>
+    <link>http://localhost:1313/tags/shell/</link>
+    <description>Recent content in Shell on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 26 Oct 2018 18:51:46 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>shell命令行的操作及命令的搜索</title>
+      <link>http://localhost:1313/posts/shell%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E6%93%8D%E4%BD%9C%E5%8F%8A%E5%91%BD%E4%BB%A4%E7%9A%84%E6%90%9C%E7%B4%A2/</link>
+      <pubDate>Fri, 26 Oct 2018 18:51:46 +0000</pubDate>
+      <guid>http://localhost:1313/posts/shell%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E6%93%8D%E4%BD%9C%E5%8F%8A%E5%91%BD%E4%BB%A4%E7%9A%84%E6%90%9C%E7%B4%A2/</guid>
+      <description>&lt;p&gt;经常会使用shell对文件进行一些操作。但是命令行的操作不熟悉也是特别影响效率的，如何快速度的返回上一次目录，如何编辑当前命令行的内容对于提高效率是非常有帮助的。
+你是否经常连续按“backSpace”键来删除当前的命令，是否为了返回上次目录而不断的“cd”,而又或者不断的按方向键去修改其中写错的某个单词…..这些土鳖的方向必须抛弃。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>经常会使用shell对文件进行一些操作。但是命令行的操作不熟悉也是特别影响效率的，如何快速度的返回上一次目录，如何编辑当前命令行的内容对于提高效率是非常有帮助的。
+你是否经常连续按“backSpace”键来删除当前的命令，是否为了返回上次目录而不断的“cd”,而又或者不断的按方向键去修改其中写错的某个单词…..这些土鳖的方向必须抛弃。</p>
+<h2 id="回到上一次操作的目录">回到上一次操作的目录</h2>
+<pre tabindex="0"><code>cd -
+</code></pre><h2 id="历史命令快捷键">历史命令快捷键</h2>
+<pre tabindex="0"><code>[Ctrl+r], [Ctrl+p], [Ctrl+n]
+</code></pre><p>[Ctrl+r] 是搜索历史命令的，当使用这个组合键后，会出现个输入框，你每按一个字符都会自动从历史命令中匹配出相关结果，选择你要的按回车即可,该命令可以快速定位到你之前使用的任何命令，比如cd过哪个很长的目录。
+[Ctrl+p]和[Ctrl+n]主要功能是翻阅历史命令，上一条和下一条。此命令一般在最近使用过的命令比较方便。</p>
+<h2 id="命令行内快速操作键">命令行内快速操作键</h2>
+<ol>
+<li>移动操作快捷键
+Ctrl + f– 向右移动一个字符，当然多数人用→
+Ctrl + b– 向左移动一个字符， 多数人用←
+ESC + f– 向右移动一个单词，MAC下建议用ALT + →
+ESC + b– 向左移动一个单词，MAC下建议用ALT + ←
+Ctrl + a– 跳到行首
+Ctrl + e– 跳到行尾</li>
+<li>删除操作快捷键
+Ctrl + d– 向右删除一个字符
+Ctrl + h– 向左删除一个字符
+Ctrl + u– 删除当前位置字符至行首（输入密码错误的时候多用下这个）
+Ctrl + k– 删除当前位置字符至行尾
+Ctrl + w– 删除从光标到当前单词开头</li>
+<li>其他操作快捷键
+Ctrl + y– 插入最近删除的单词
+Ctrl + c– 终止操作
+Ctrl + d– 当前操作转到后台
+Ctrl + l– 清屏 （有时候为了好看）</li>
+</ol>
+<p>使用了这些快捷后，立马感觉神清气爽~。over.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title>一句话解压目录下所有gz文件</title>
+      <link>http://localhost:1313/posts/%E4%B8%80%E5%8F%A5%E8%AF%9D%E8%A7%A3%E5%8E%8B%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89gz%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Wed, 26 Jul 2017 08:54:32 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E4%B8%80%E5%8F%A5%E8%AF%9D%E8%A7%A3%E5%8E%8B%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89gz%E6%96%87%E4%BB%B6/</guid>
+      <description>&lt;p&gt;服务器迁移过程中，把www目录下所有文件通过 tar -zxvf 命令打包，再下载上传到新服务器，再解压。
+但是解压后发现个问题，部分文件带着.gz文件后缀。（压缩后有15G大小，难道解压的不充分？）&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>服务器迁移过程中，把www目录下所有文件通过 tar -zxvf 命令打包，再下载上传到新服务器，再解压。
+但是解压后发现个问题，部分文件带着.gz文件后缀。（压缩后有15G大小，难道解压的不充分？）</p>
+<p>如果是.gz压缩包(不带tar)，用gzip命令即可(-d选项可以解压)，格式是
+gzip 压缩包名(包括后面的.gz) -d 解压位置
+如果不指定解压位置，将解压到当前工作文件夹里</p>
+<p>于是写了个shell，这句命令解压当前目录下所有gz文件，服务器恢复正常使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">find ./ -name *.gz -exec gzip -d <span class="o">{}</span> <span class="se">\;</span>
+</span></span></code></pre></div><p>文件较多，需要耐心等待解压过程。</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

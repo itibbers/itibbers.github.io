@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Daily on itibbers</title>
+    <link>https://itibbers.com/categories/daily/</link>
+    <description>Recent content in Daily on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 22 Jun 2016 09:09:40 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/categories/daily/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>类 unix 系统下字符编码转换方法</title>
+      <link>https://itibbers.com/posts/nix%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Wed, 22 Jun 2016 09:09:40 +0000</pubDate>
+      <guid>https://itibbers.com/posts/nix%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95/</guid>
+      <description>&lt;p&gt;用 windows 的时候，如果把 gbk 转换为 utf8，有几个方法，一是记事本另存为，但是存在 BOM 的问题，另一种方法是通过不产生 BOM 的软件，如 vim，sublime 来 code 或保存，太过麻烦。&lt;/p&gt;
+&lt;p&gt;今天无意中发现了 Mac 系统下，有个 iconv 的命令，可以非常方便的转换字符编码。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iconv -f gbk -t utf-8 gbk.cpp &amp;gt; utf8.cpp
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;配合管道输出，简直不能更方便。&lt;/p&gt;
+&lt;p&gt;不光 Mac 系统有，所有类 unix 系统都有这个命令。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;NAME
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       iconv - character &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; conversion
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SYNOPSIS
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       iconv &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;OPTION...&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-f encoding&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-t encoding&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;inputfile ...&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       iconv -l
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <content:encoded><![CDATA[<p>用 windows 的时候，如果把 gbk 转换为 utf8，有几个方法，一是记事本另存为，但是存在 BOM 的问题，另一种方法是通过不产生 BOM 的软件，如 vim，sublime 来 code 或保存，太过麻烦。</p>
+<p>今天无意中发现了 Mac 系统下，有个 iconv 的命令，可以非常方便的转换字符编码。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iconv -f gbk -t utf-8 gbk.cpp &gt; utf8.cpp
+</span></span></code></pre></div><p>配合管道输出，简直不能更方便。</p>
+<p>不光 Mac 系统有，所有类 unix 系统都有这个命令。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">NAME
+</span></span><span class="line"><span class="cl">       iconv - character <span class="nb">set</span> conversion
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">SYNOPSIS
+</span></span><span class="line"><span class="cl">       iconv <span class="o">[</span>OPTION...<span class="o">]</span> <span class="o">[</span>-f encoding<span class="o">]</span> <span class="o">[</span>-t encoding<span class="o">]</span> <span class="o">[</span>inputfile ...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">       iconv -l
+</span></span></code></pre></div>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Auth-Tls on itibbers</title>
+    <link>http://localhost:1313/tags/auth-tls/</link>
+    <description>Recent content in Auth-Tls on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 22 Sep 2017 13:17:40 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/auth-tls/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>连接FTP发送&#34;AUTH TLS&#34;命令后提示“无法连接到服务器”</title>
+      <link>http://localhost:1313/posts/%E8%BF%9E%E6%8E%A5ftp%E5%8F%91%E9%80%81auth-tls%E5%91%BD%E4%BB%A4%E5%90%8E%E6%8F%90%E7%A4%BA%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Fri, 22 Sep 2017 13:17:40 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E8%BF%9E%E6%8E%A5ftp%E5%8F%91%E9%80%81auth-tls%E5%91%BD%E4%BB%A4%E5%90%8E%E6%8F%90%E7%A4%BA%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>&lt;h2 id=&#34;问题场景&#34;&gt;问题场景：&lt;/h2&gt;
+&lt;p&gt;使用FTP客户端连接虚拟主机时，从FTP操作记录中看到客户端在执行AUTH TLS命令后，提示 无法连接到服务器 的错误信息，这是由于目前虚拟主机不支持FTP over TLS的连接方式。FTP over TLS是指客户端显式请求（客户端发送 AUTH TLS 命令）对FTP会话加密。虚拟主机服务器会拒绝请求TLS的连接.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;ftp-auth-tls&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/ftp-auth-tls-1.png&#34;&gt;&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="问题场景">问题场景：</h2>
+<p>使用FTP客户端连接虚拟主机时，从FTP操作记录中看到客户端在执行AUTH TLS命令后，提示 无法连接到服务器 的错误信息，这是由于目前虚拟主机不支持FTP over TLS的连接方式。FTP over TLS是指客户端显式请求（客户端发送 AUTH TLS 命令）对FTP会话加密。虚拟主机服务器会拒绝请求TLS的连接.</p>
+<p><img alt="ftp-auth-tls" loading="lazy" src="/images/ftp-auth-tls-1.png"></p>
+<h2 id="解决方案">解决方案：</h2>
+<p>客户可以设置FTP客户端不要求会话加密，即采用普通的FTP会话方式。</p>
+<p>以FileZilla软件为例，客户在管理站点的时候，加密选择为 只使用普通FTP（不安全） ，如下图所示，保存站点信息之后，再次连接虚拟主机服务器，测试即可成功。</p>
+<p><img alt="ftp-auth-tls" loading="lazy" src="/images/ftp-auth-tls-2.png"></p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

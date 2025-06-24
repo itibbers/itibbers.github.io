@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Hexo on itibbers</title>
+    <link>http://localhost:1313/tags/hexo/</link>
+    <description>Recent content in Hexo on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 30 Jan 2018 14:00:29 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/hexo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hexo图片快捷插入</title>
+      <link>http://localhost:1313/posts/hexo%E5%9B%BE%E7%89%87%E5%BF%AB%E6%8D%B7%E6%8F%92%E5%85%A5/</link>
+      <pubDate>Tue, 30 Jan 2018 14:00:29 +0000</pubDate>
+      <guid>http://localhost:1313/posts/hexo%E5%9B%BE%E7%89%87%E5%BF%AB%E6%8D%B7%E6%8F%92%E5%85%A5/</guid>
+      <description>&lt;p&gt;博客使用hexo搭建，托管于Github，vim编辑文章，生成发布，但是图片插入一直是个头疼的问题，有各种依赖于微博图床的插件/app，可以方便发布，像是iPic，但是好担心微博啥时候不干了，图片存多了，总有一种不安全感，也没法批量管理。于是写了一个shell，本来想写vim插件的，看了看略麻烦。(这种方式shell也不是很麻烦嘛 hahhh)
+&lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/1517292548.png&#34;&gt;&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>博客使用hexo搭建，托管于Github，vim编辑文章，生成发布，但是图片插入一直是个头疼的问题，有各种依赖于微博图床的插件/app，可以方便发布，像是iPic，但是好担心微博啥时候不干了，图片存多了，总有一种不安全感，也没法批量管理。于是写了一个shell，本来想写vim插件的，看了看略麻烦。(这种方式shell也不是很麻烦嘛 hahhh)
+<img loading="lazy" src="/images/1517292548.png"></p>
+<pre tabindex="0"><code>    hexoimg () {
+        CURRENTDATE=`date +%s`
+        imgname=&#34;$1&#34;
+        extension=&#34;${imgname##*.}&#34;
+        fname=&#34;$CURRENTDATE.$extension&#34;
+        cp $1 ~/www/itibbers/source/images/$fname
+        echo \!\[\]\(/images/$fname\) | pbcopy
+        echo \!\[\]\(/images/$fname\) Copied to Clipboard :\)
+    }
+</code></pre><p>拖动图片到terminal是图片绝对地址，这样就可以在vim运行bash，实现拖动上传图片并返回markdown格式化后的img url，返回后粘贴就可以，相当方便了。见图</p>
+<p><img loading="lazy" src="/images/1517294274.png"></p>
+<p><img loading="lazy" src="/images/1517293146.png"></p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Android on itibbers</title>
+    <link>https://itibbers.com/categories/android/</link>
+    <description>Recent content in Android on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 24 Jan 2018 16:59:09 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android Broadcast/EventBus优缺点</title>
+      <link>https://itibbers.com/posts/broadcast-eventbus%E4%BC%98%E7%BC%BA%E7%82%B9/</link>
+      <pubDate>Wed, 24 Jan 2018 16:59:09 +0000</pubDate>
+      <guid>https://itibbers.com/posts/broadcast-eventbus%E4%BC%98%E7%BC%BA%E7%82%B9/</guid>
+      <description>&lt;p&gt;关于 Android 中本地广播和 EventBus 选择的问题：
+本地广播是相对消耗时间、空间最多的一种方式，但是大家都知道，广播是四大组件之一，许多系统级的事件都是通过广播来通知的，比如说网络的变化、电量的变化，短信发送和接收的状态，所以，如果与 android 系统进行相关的通知，还是要选择本地广播；在 BroadcastReceiver 的 onReceive 方法中，可以获得 Context 、intent 参数，这两个参数可以调用许多的 sdk 中的方法，而 EventBus 获得这两个参数相对比较困难；&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>关于 Android 中本地广播和 EventBus 选择的问题：
+本地广播是相对消耗时间、空间最多的一种方式，但是大家都知道，广播是四大组件之一，许多系统级的事件都是通过广播来通知的，比如说网络的变化、电量的变化，短信发送和接收的状态，所以，如果与 android 系统进行相关的通知，还是要选择本地广播；在 BroadcastReceiver 的 onReceive 方法中，可以获得 Context 、intent 参数，这两个参数可以调用许多的 sdk 中的方法，而 EventBus 获得这两个参数相对比较困难；</p>
+<p>因此广播相对于其他的方式而言，广播是重量级的，消耗资源较多的方式。他的优势体现在与 sdk 连接紧密，如果需要同 android 交互的时候，广播的便捷性会抵消掉它过多的资源消耗，但是如果不同 android 交互，或者说，只做很少的交互，使用广播是一种浪费；</p>
+<p>EventBus 作为 Android 开发中常用的框架，拥有着许多优点：</p>
+<ol>
+<li>调度灵活。不依赖于 Context，使用时无需像广播一样关注 Context 的注入与传递。父类对于通知的监听和处理可以继承给子类，这对于简化代码至关重要；通知的优先级，能够保证 Subscriber 关注最重要的通知；粘滞事件（sticky events）能够保证通知不会因 Subscriber 的不在场而忽略。可继承、优先级、粘滞，是 EventBus 比之于广播、观察者等方式最大的优点，它们使得创建结构良好组织紧密的通知系统成为可能。</li>
+<li>使用简单。EventBus 的 Subscriber 注册非常简单，调用 eventBus 对象的 register 方法即可，如果不想创建 eventBus 还可以直接调用静态方法 EventBus.getDefault() 获取默认实例，Subscriber 接收到通知之后的操作放在 onEvent 方法里就行了。成为 Publisher 的过程就更简单了，只需要调用合适的 eventBus（自己创建的或是默认的）的 post 方法即可。</li>
+<li>快速且轻量。作为 github 的明星项目之一， EventBus 的源代码中许多技巧来改善性能，EventBus 的缺点是他的代码逻辑不是很清楚，在 Subscriber 注册的时候，Subscriber 中的方法会被遍历查找以 onEvent 开头的 public 方法。这将带来一些问题，一旦对代码进行混淆，就无法查找到了。好消息是 EventBus 已经打算使用注解来实现，这应该能够解决代码混淆的问题。</li>
+</ol>
+<p>但有一个缺点是观察者独有的，那就是观察者可能会造成接口的膨胀。特别是当程序要求大量形式各异的通知，而程序员有没有做出良好的抽象时，代码中会包含大量的接口，接口数量的增长又会带来命名、注释等等一大堆问题。本质上说观察者要求程序员从零开始实现事件的产生、分发与处理过程，这就要求参与者必须对整个通知过程有着良好的理解。当程序代码适量时，这是一个合理的要求，然而当程序太大时，这将成为一种负担。</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Form on itibbers</title>
+    <link>https://itibbers.com/tags/form/</link>
+    <description>Recent content in Form on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 22 Nov 2016 13:43:18 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/tags/form/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>An invalid form control with name=&#39;xxx&#39; is not focusable.</title>
+      <link>https://itibbers.com/posts/an-invalid-form-control-with-name-xxx-is-not-focusable/</link>
+      <pubDate>Tue, 22 Nov 2016 13:43:18 +0000</pubDate>
+      <guid>https://itibbers.com/posts/an-invalid-form-control-with-name-xxx-is-not-focusable/</guid>
+      <description>&lt;p&gt;在表单提交时，如果某个控件被设置为 &lt;code&gt;display: none&lt;/code&gt; 且该字段可以为空，则必须移除 &lt;code&gt;required&lt;/code&gt; 属性，否则在 Chrome 浏览器中会出现错误。&lt;/p&gt;
+&lt;p&gt;Chrome 浏览器要求必填字段不能为空，因此会弹出&amp;quot;请在此输入&amp;quot;的提示消息。但是，如果该控件被隐藏，Chrome 浏览器在表单提交时无法聚焦到该控件，因为它是不可见的，从而导致表单提交失败。&lt;/p&gt;
+&lt;p&gt;要解决这个问题，当通过 JavaScript 隐藏控件时，我们也必须同时移除该控件的 &lt;code&gt;required&lt;/code&gt; 属性。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>在表单提交时，如果某个控件被设置为 <code>display: none</code> 且该字段可以为空，则必须移除 <code>required</code> 属性，否则在 Chrome 浏览器中会出现错误。</p>
+<p>Chrome 浏览器要求必填字段不能为空，因此会弹出&quot;请在此输入&quot;的提示消息。但是，如果该控件被隐藏，Chrome 浏览器在表单提交时无法聚焦到该控件，因为它是不可见的，从而导致表单提交失败。</p>
+<p>要解决这个问题，当通过 JavaScript 隐藏控件时，我们也必须同时移除该控件的 <code>required</code> 属性。</p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

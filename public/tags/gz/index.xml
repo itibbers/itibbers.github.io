@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Gz on itibbers</title>
+    <link>http://localhost:1313/tags/gz/</link>
+    <description>Recent content in Gz on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>http://localhost:1313/og-image.png</url>
+      <link>http://localhost:1313/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 26 Jul 2017 08:54:32 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/gz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一句话解压目录下所有gz文件</title>
+      <link>http://localhost:1313/posts/%E4%B8%80%E5%8F%A5%E8%AF%9D%E8%A7%A3%E5%8E%8B%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89gz%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Wed, 26 Jul 2017 08:54:32 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E4%B8%80%E5%8F%A5%E8%AF%9D%E8%A7%A3%E5%8E%8B%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89gz%E6%96%87%E4%BB%B6/</guid>
+      <description>&lt;p&gt;服务器迁移过程中，把www目录下所有文件通过 tar -zxvf 命令打包，再下载上传到新服务器，再解压。
+但是解压后发现个问题，部分文件带着.gz文件后缀。（压缩后有15G大小，难道解压的不充分？）&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>服务器迁移过程中，把www目录下所有文件通过 tar -zxvf 命令打包，再下载上传到新服务器，再解压。
+但是解压后发现个问题，部分文件带着.gz文件后缀。（压缩后有15G大小，难道解压的不充分？）</p>
+<p>如果是.gz压缩包(不带tar)，用gzip命令即可(-d选项可以解压)，格式是
+gzip 压缩包名(包括后面的.gz) -d 解压位置
+如果不指定解压位置，将解压到当前工作文件夹里</p>
+<p>于是写了个shell，这句命令解压当前目录下所有gz文件，服务器恢复正常使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">find ./ -name *.gz -exec gzip -d <span class="o">{}</span> <span class="se">\;</span>
+</span></span></code></pre></div><p>文件较多，需要耐心等待解压过程。</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

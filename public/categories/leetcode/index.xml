@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Leetcode on itibbers</title>
+    <link>https://itibbers.com/categories/leetcode/</link>
+    <description>Recent content in Leetcode on itibbers</description>
+    <image>
+      <title>itibbers</title>
+      <url>https://itibbers.com/og-image.png</url>
+      <link>https://itibbers.com/og-image.png</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 May 2020 15:36:38 +0000</lastBuildDate>
+    <atom:link href="https://itibbers.com/categories/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>二叉树锯齿形层次遍历</title>
+      <link>https://itibbers.com/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/</link>
+      <pubDate>Sat, 30 May 2020 15:36:38 +0000</pubDate>
+      <guid>https://itibbers.com/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/</guid>
+      <description>&lt;p&gt;BFS 增加 order。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>BFS 增加 order。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Definition for a binary tree node.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * function TreeNode(val) {
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     this.val = val;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     this.left = this.right = null;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * }
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {TreeNode} root
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return {number[][]}
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">zigzagLevelOrder</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">queue</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">order</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="nx">queue</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">length</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">order</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">while</span> <span class="p">(</span><span class="nx">n</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">while</span> <span class="p">(</span><span class="nx">n</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">order</span> <span class="o">=</span> <span class="o">!</span><span class="nx">order</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">res</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>]]></content:encoded>
+    </item>
+    <item>
+      <title>动态规划模板</title>
+      <link>https://itibbers.com/posts/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%A8%A1%E6%9D%BF/</link>
+      <pubDate>Mon, 02 Mar 2020 16:43:33 +0000</pubDate>
+      <guid>https://itibbers.com/posts/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%A8%A1%E6%9D%BF/</guid>
+      <description>&lt;p&gt;Before starting the topic let me introduce myself. I am a Mobile Developer currently working in Warsaw and spending my free time for interview preparations. I started to prepare for interviews two years ago. At that time I should say I could not solve the two sum problem. Easy problems seemed to me like hard ones so most of the time I had to look at editorials and discuss section. Currently, I have solved ~800 problems and time to time participate in contests. I usually solve 3 problems in a contest and sometimes 4 problems. Ok, lets come back to the topic.&lt;/p&gt;
+&lt;p&gt;Recently I have concentrated my attention on Dynamic Programming cause its one of the hardest topics in an interview prep. After solving ~140 problems in DP I have noticed that there are few patterns that can be found in different problems. So I did a research on that and find the following topics. I will not give complete ways how to solve problems but these patterns may be helpful in solving DP.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Before starting the topic let me introduce myself. I am a Mobile Developer currently working in Warsaw and spending my free time for interview preparations. I started to prepare for interviews two years ago. At that time I should say I could not solve the two sum problem. Easy problems seemed to me like hard ones so most of the time I had to look at editorials and discuss section. Currently, I have solved ~800 problems and time to time participate in contests. I usually solve 3 problems in a contest and sometimes 4 problems. Ok, lets come back to the topic.</p>
+<p>Recently I have concentrated my attention on Dynamic Programming cause its one of the hardest topics in an interview prep. After solving ~140 problems in DP I have noticed that there are few patterns that can be found in different problems. So I did a research on that and find the following topics. I will not give complete ways how to solve problems but these patterns may be helpful in solving DP.</p>
+<h1 id="patterns">Patterns</h1>
+<hr>
+<p><a href="https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns#Minimum-%28Maximum%29-Path-to-Reach-a-Target">Minimum (Maximum) Path to Reach a Target</a>
+<a href="https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns#distinct-ways">Distinct Ways</a>
+<a href="https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns#Merging-Intervals">Merging Intervals</a>
+<a href="https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns#DP-on-Strings">DP on Strings</a>
+<a href="https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns#Decision-Making">Decision Making</a></p>
+<h1 id="minimum-maximum-path-to-reach-a-target">Minimum (Maximum) Path to Reach a Target</h1>
+<hr>
+<p>Generate problem statement for this pattern</p>
+<h3 id="statement">Statement</h3>
+<blockquote>
+<p>Given a target find minimum (maximum) cost / path / sum to reach the target.</p></blockquote>
+<h3 id="approach">Approach</h3>
+<blockquote>
+<p>Choose minimum (maximum) path among all possible paths before the current state, then add value for the current state.</p></blockquote>
+<pre tabindex="0"><code>routes[i] = min(routes[i-1], routes[i-2], ... , routes[i-k]) + cost[i]
+</code></pre><p>Generate optimal solutions for all values in the target and return the value for the target.</p>
+<pre tabindex="0"><code>for (int i = 1; i &lt;= target; ++i) {
+   for (int j = 0; j &lt; ways.size(); ++j) {
+       if (ways[j] &lt;= i) {
+           dp[i] = min(dp[i], dp[i - ways[j]]) + cost / path / sum;
+       }
+   }
+}
+
+return dp[target]
+</code></pre><h3 id="similar-problems">Similar Problems</h3>
+<p><a href="https://leetcode.com/problems/min-cost-climbing-stairs/">746. Min Cost Climbing Stairs</a> <code>Easy</code></p>
+<pre tabindex="0"><code>for (int i = 2; i &lt;= n; ++i) {
+   dp[i] = min(dp[i-1], dp[i-2]) + (i == n ? 0 : cost[i]);
+}
+
+return dp[n]
+</code></pre><p><a href="https://leetcode.com/problems/minimum-path-sum/">64. Minimum Path Sum</a> <code>Medium</code></p>
+<pre tabindex="0"><code>for (int i = 1; i &lt; n; ++i) {
+   for (int j = 1; j &lt; m; ++j) {
+       grid[i][j] = min(grid[i-1][j], grid[i][j-1]) + grid[i][j];
+   }
+}
+
+return grid[n-1][m-1]
+</code></pre><p><a href="https://leetcode.com/problems/coin-change/">322. Coin Change</a> <code>Medium</code></p>
+<pre tabindex="0"><code>for (int j = 1; j &lt;= amount; ++j) {
+   for (int i = 0; i &lt; coins.size(); ++i) {
+       if (coins[i] &lt;= j) {
+           dp[j] = min(dp[j], dp[j - coins[i]] + 1);
+       }
+   }
+}
+</code></pre><p><a href="https://leetcode.com/problems/minimum-falling-path-sum/">931. Minimum Falling Path Sum</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/minimum-cost-for-tickets/">983. Minimum Cost For Tickets</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/2-keys-keyboard/">650. 2 Keys Keyboard</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/perfect-squares/">279. Perfect Squares</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/last-stone-weight-ii/">1049. Last Stone Weight II</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/triangle/">120. Triangle</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/ones-and-zeroes/">474. Ones and Zeroes</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/maximal-square/">221. Maximal Square</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/coin-change/">322. Coin Change</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/tiling-a-rectangle-with-the-fewest-squares/">1240. Tiling a Rectangle with the Fewest Squares</a> <code>Hard</code></p>
+<p><a href="https://leetcode.com/problems/dungeon-game/">174. Dungeon Game</a> <code>Hard</code></p>
+<p><a href="https://leetcode.com/problems/minimum-number-of-refueling-stops/">871. Minimum Number of Refueling Stops</a> <code>Hard</code></p>
+<h1 id="distinct-ways">Distinct Ways</h1>
+<hr>
+<p>Generate problem statement for this pattern</p>
+<h3 id="statement-1">Statement</h3>
+<blockquote>
+<p>Given a target find a number of distinct ways to reach the target.</p></blockquote>
+<h3 id="approach-1">Approach</h3>
+<blockquote>
+<p>Sum all possible ways to reach the current state.</p></blockquote>
+<pre tabindex="0"><code>routes[i] = routes[i-1] + routes[i-2], ... , + routes[i-k]
+</code></pre><p>Generate sum for all values in the target and return the value for the target.</p>
+<pre tabindex="0"><code>for (int i = 1; i &lt;= target; ++i) {
+   for (int j = 0; j &lt; ways.size(); ++j) {
+       if (ways[j] &lt;= i) {
+           dp[i] += dp[i - ways[j]];
+       }
+   }
+}
+
+return dp[target]
+</code></pre><h3 id="similar-problems-1">Similar Problems</h3>
+<p><a href="https://leetcode.com/problems/climbing-stairs/">70. Climbing Stairs</a> <code>easy</code></p>
+<pre tabindex="0"><code>for (int stair = 2; stair &lt;= n; ++stair) {
+   for (int step = 1; step &lt;= 2; ++step) {
+       dp[stair] += dp[stair-step];
+   }
+}
+</code></pre><p><a href="https://leetcode.com/problems/unique-paths/">62. Unique Paths</a> <code>Medium</code></p>
+<pre tabindex="0"><code>for (int i = 1; i &lt; m; ++i) {
+   for (int j = 1; j &lt; n; ++j) {
+       dp[i][j] = dp[i][j-1] + dp[i-1][j];
+   }
+}
+</code></pre><p><a href="https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/">1155. Number of Dice Rolls With Target Sum</a> <code>Medium</code></p>
+<pre tabindex="0"><code>for (int rep = 1; rep &lt;= d; ++rep) {
+   vector&lt;int&gt; new_ways(target+1);
+   for (int already = 0; already &lt;= target; ++already) {
+       for (int pipe = 1; pipe &lt;= f; ++pipe) {
+           if (already - pipe &gt;= 0) {
+               new_ways[already] += ways[already - pipe];
+               new_ways[already] %= mod;
+           }
+       }
+   }
+   ways = new_ways;
+}
+</code></pre><p><strong>Note</strong></p>
+<p>Some questions point out the number of repetitions, in that case, add one more loop to simulate every repetition.</p>
+<p><a href="https://leetcode.com/problems/knight-probability-in-chessboard/">688. Knight Probability in Chessboard</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/target-sum/">494. Target Sum</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/combination-sum-iv/">377. Combination Sum IV</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/knight-dialer/">935. Knight Dialer</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/dice-roll-simulation/">1223. Dice Roll Simulation</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/partition-equal-subset-sum/">416. Partition Equal Subset Sum</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/soup-servings/">808. Soup Servings</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/domino-and-tromino-tiling/">790. Domino and Tromino Tiling</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/">801. Minimum Swaps To Make Sequences Increasing</a></p>
+<p><a href="https://leetcode.com/problems/number-of-longest-increasing-subsequence/">673. Number of Longest Increasing Subsequence</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/unique-paths-ii/">63. Unique Paths II</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/out-of-boundary-paths/">576. Out of Boundary Paths</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/number-of-ways-to-stay-in-the-same-place-after-some-steps/">1269. Number of Ways to Stay in the Same Place After Some Steps</a> <code>Hard</code></p>
+<p><a href="https://leetcode.com/problems/count-vowels-permutation/">1220. Count Vowels Permutation</a> <code>Hard</code></p>
+<h1 id="merging-intervals">Merging Intervals</h1>
+<hr>
+<p>Generate problem statement for this pattern</p>
+<h3 id="statement-2">Statement</h3>
+<blockquote>
+<p>Given a set of numbers find an optimal solution for a problem considering the current number and the best you can get from the left and right sides.</p></blockquote>
+<h3 id="approach-2">Approach</h3>
+<blockquote>
+<p>Find all optimal solutions for every interval and return the best possible answer.</p></blockquote>
+<pre tabindex="0"><code>// from i to j
+dp[i][j] = dp[i][k] + result[k] + dp[k+1][j]
+</code></pre><p>Get the best from the left and right sides and add a solution for the current position.</p>
+<pre tabindex="0"><code>for(int l = 1; l&lt;n; l++) {
+   for(int i = 0; i&lt;n-l; i++) {
+       int j = i+l;
+       for(int k = i; k&lt;j; k++) {
+           dp[i][j] = max(dp[i][j], dp[i][k] + result[k] + dp[k+1][j]);
+       }
+   }
+}
+
+return dp[0][n-1]
+</code></pre><h3 id="similar-problems-2">Similar Problems</h3>
+<p><a href="https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/">1130. Minimum Cost Tree From Leaf Values</a> <code>Medium</code></p>
+<pre tabindex="0"><code>for (int l = 1; l &lt; n; ++l) {
+   for (int i = 0; i &lt; n - l; ++i) {
+       int j = i + l;
+       dp[i][j] = INT_MAX;
+       for (int k = i; k &lt; j; ++k) {
+           dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j] + maxs[i][k] * maxs[k+1][j]);
+       }
+   }
+}
+</code></pre><p><a href="https://leetcode.com/problems/unique-binary-search-trees/">96. Unique Binary Search Trees</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/minimum-score-triangulation-of-polygon/">1039. Minimum Score Triangulation of Polygon</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/remove-boxes/">546. Remove Boxes</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/minimum-cost-to-merge-stones/">1000. Minimum Cost to Merge Stones</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/burst-balloons/">312. Burst Balloons</a> <code>Hard</code></p>
+<p><a href="https://leetcode.com/problems/guess-number-higher-or-lower-ii/">375. Guess Number Higher or Lower II</a> <code>Medium</code></p>
+<h1 id="dp-on-strings">DP on Strings</h1>
+<hr>
+<p>General problem statement for this pattern can vary but most of the time you are given two strings where lengths of those strings are not big</p>
+<h3 id="statement-3">Statement</h3>
+<blockquote>
+<p>Given two strings <code>s1</code> and <code>s2</code>, return <code>some result</code>.</p></blockquote>
+<h3 id="approach-3">Approach</h3>
+<blockquote>
+<p>Most of the problems on this pattern requires a solution that can be accepted in O(n^2) complexity.</p></blockquote>
+<pre tabindex="0"><code>// i - indexing string s1
+// j - indexing string s2
+for (int i = 1; i &lt;= n; ++i) {
+   for (int j = 1; j &lt;= m; ++j) {
+       if (s1[i-1] == s2[j-1]) {
+           dp[i][j] = /*code*/;
+       } else {
+           dp[i][j] = /*code*/;
+       }
+   }
+}
+</code></pre><blockquote>
+<p>If you are given one string <code>s</code> the approach may little vary</p></blockquote>
+<pre tabindex="0"><code>for (int l = 1; l &lt; n; ++l) {
+   for (int i = 0; i &lt; n-l; ++i) {
+       int j = i + l;
+       if (s[i] == s[j]) {
+           dp[i][j] = /*code*/;
+       } else {
+           dp[i][j] = /*code*/;
+       }
+   }
+}
+</code></pre><p><a href="https://leetcode.com/problems/longest-common-subsequence/">1143. Longest Common Subsequence</a> <code>Medium</code></p>
+<pre tabindex="0"><code>for (int i = 1; i &lt;= n; ++i) {
+   for (int j = 1; j &lt;= m; ++j) {
+       if (text1[i-1] == text2[j-1]) {
+           dp[i][j] = dp[i-1][j-1] + 1;
+       } else {
+           dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+       }
+   }
+}
+</code></pre><p><a href="https://leetcode.com/problems/palindromic-substrings/">647. Palindromic Substrings</a> <code>Medium</code></p>
+<pre tabindex="0"><code>for (int l = 1; l &lt; n; ++l) {
+   for (int i = 0; i &lt; n-l; ++i) {
+       int j = i + l;
+       if (s[i] == s[j] &amp;&amp; dp[i+1][j-1] == j-i-1) {
+           dp[i][j] = dp[i+1][j-1] + 2;
+       } else {
+           dp[i][j] = 0;
+       }
+   }
+}
+</code></pre><p><a href="https://leetcode.com/problems/longest-palindromic-subsequence/">516. Longest Palindromic Subsequence</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/shortest-common-supersequence/">1092. Shortest Common Supersequence</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/edit-distance/">72. Edit Distance</a> <code>Hard</code></p>
+<p><a href="https://leetcode.com/problems/distinct-subsequences/">115. Distinct Subsequences</a> <code>Hard</code></p>
+<p><a href="https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/">712. Minimum ASCII Delete Sum for Two Strings</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/longest-palindromic-substring/">5. Longest Palindromic Substring</a> <code>Medium</code></p>
+<h1 id="decision-making">Decision Making</h1>
+<hr>
+<p>The general problem statement for this pattern is forgiven situation decide whether to use or not to use the current state. So, the problem requires you to make a decision at a current state.</p>
+<h3 id="statement-4">Statement</h3>
+<blockquote>
+<p>Given a set of values find an answer with an option to choose or ignore the current value.</p></blockquote>
+<h3 id="approach-4">Approach</h3>
+<blockquote>
+<p>If you decide to choose the current value use the previous result where the value was ignored; vice-versa, if you decide to ignore the current value use previous result where value was used.</p></blockquote>
+<pre tabindex="0"><code>// i - indexing a set of values
+// j - options to ignore j values
+for (int i = 1; i &lt; n; ++i) {
+   for (int j = 1; j &lt;= k; ++j) {
+       dp[i][j] = max({dp[i][j], dp[i-1][j] + arr[i], dp[i-1][j-1]});
+       dp[i][j-1] = max({dp[i][j-1], dp[i-1][j-1] + arr[i], arr[i]});
+   }
+}
+</code></pre><p><a href="https://leetcode.com/problems/house-robber/">198. House Robber</a> <code>Easy</code></p>
+<pre tabindex="0"><code>for (int i = 1; i &lt; n; ++i) {
+   dp[i][1] = max(dp[i-1][0] + nums[i], dp[i-1][1]);
+   dp[i][0] = dp[i-1][1];
+}
+</code></pre><p><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">121. Best Time to Buy and Sell Stock</a> <code>Easy</code></p>
+<p><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/">714. Best Time to Buy and Sell Stock with Transaction Fee</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/">309. Best Time to Buy and Sell Stock with Cooldown</a> <code>Medium</code></p>
+<p><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/">123. Best Time to Buy and Sell Stock III</a> <code>Hard</code></p>
+<p><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/">188. Best Time to Buy and Sell Stock IV</a> <code>Hard</code></p>
+<p>I hope these tips will be helpful 😊</p>
+<blockquote>
+<p><a href="https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns">https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns</a></p></blockquote>]]></content:encoded>
+    </item>
+    <item>
+      <title>链表问题集锦</title>
+      <link>https://itibbers.com/posts/%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/</link>
+      <pubDate>Mon, 02 Sep 2019 01:05:56 +0000</pubDate>
+      <guid>https://itibbers.com/posts/%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/</guid>
+      <description>&lt;p&gt;链表问题在面试过程中也是很重要也很基础的一部分，链表本身很灵活，很考查编程功底，所以是很值得考的地方。我将复习过程中觉得比较好的链表问题整理了下。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>链表问题在面试过程中也是很重要也很基础的一部分，链表本身很灵活，很考查编程功底，所以是很值得考的地方。我将复习过程中觉得比较好的链表问题整理了下。</p>
+<p>下面是本文所要用到链表节点的定义：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><h2 id="1-在-o1时间删除链表节点">1. 在 O(1)时间删除链表节点</h2>
+<p>题目描述：给定链表的头指针和一个节点指针，在 O(1)时间删除该节点。[Google 面试题]</p>
+<p>分析：本题与《编程之美》上的「从无头单链表中删除节点」类似。主要思想都是「狸猫换太子」，即用下一个节点数据覆盖要删除的节点，然后删除下一个节点。但是如果节点是尾节点时，该方法就行不通了。</p>
+<p>代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//O(1)时间删除链表节点，从无头单链表中删除节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">deleteRandomNode</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">cur</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">assert</span><span class="p">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">assert</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>    <span class="c1">//不能是尾节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Node</span><span class="o">*</span> <span class="n">pNext</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cur</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">pNext</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pNext</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">pNext</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="2-单链表的转置">2. 单链表的转置</h2>
+<p>题目描述：输入一个单向链表，输出逆序反转后的链表</p>
+<p>分析：链表的转置是一个很常见、很基础的数据结构题了，非递归的算法很简单，用三个临时指针 pre、head、next 在链表上循环一遍即可。递归算法也是比较简单的，但是如果思路不清晰估计一时半会儿也写不出来吧。</p>
+<p>下面是循环版本和递归版本的链表转置代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//单链表的转置,循环方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Node</span><span class="o">*</span> <span class="nf">reverseByLoop</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">pre</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pre</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pre</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">head</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">pre</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//单链表的转置,递归方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Node</span><span class="o">*</span> <span class="nf">reverseByRecursion</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//第一个条件是判断异常，第二个条件是结束判断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">newHead</span> <span class="o">=</span> <span class="n">reverseByRecursion</span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">newHead</span><span class="p">;</span>    <span class="c1">//返回新链表的头指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><h2 id="3-求链表倒数第-k-个节点">3. 求链表倒数第 k 个节点</h2>
+<p>题目描述：输入一个单向链表，输出该链表中倒数第 k 个节点，链表的倒数第 0 个节点为链表的尾指针。</p>
+<p>分析：设置两个指针 p1、p2，首先 p1 和 p2 都指向 head，然后 p2 向前走 k 步，这样 p1 和 p2 之间就间隔 k 个节点，最后 p1 和 p2 同时向前移动，直至 p2 走到链表末尾。</p>
+<p>代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//倒数第k个节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Node</span><span class="o">*</span> <span class="nf">theKthNode</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">,</span><span class="kt">int</span> <span class="n">k</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>    <span class="c1">//异常判断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">slow</span><span class="p">,</span><span class="o">*</span><span class="n">fast</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(;</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>    <span class="c1">//考虑k大于链表长度的case
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">slow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="4-求链表的中间节点">4. 求链表的中间节点</h2>
+<p>题目描述：求链表的中间节点，如果链表的长度为偶数，返回中间两个节点的任意一个，若为奇数，则返回中间节点。</p>
+<p>分析：此题的解决思路和第 3 题「求链表的倒数第 k 个节点」很相似。可以先求链表的长度，然后计算出中间节点所在链表顺序的位置。但是如果要求只能扫描一遍链表，如何解决呢？最高效的解法和第 3 题一样，通过两个指针来完成。用两个指针从链表头节点开始，一个指针每次向后移动两步，一个每次移动一步，直到快指针移到到尾节点，那么慢指针即是所求。</p>
+<p>代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//求链表的中间节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Node</span><span class="o">*</span> <span class="nf">theMiddleNode</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">slow</span><span class="p">,</span><span class="o">*</span><span class="n">fast</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//如果要求在链表长度为偶数的情况下，返回中间两个节点的第一个，可以用下面的循环条件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//while(fast &amp;&amp; fast-&gt;next != NULL &amp;&amp; fast-&gt;next-&gt;next != NULL)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">while</span><span class="p">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">slow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="5-判断单链表是否存在环">5. 判断单链表是否存在环</h2>
+<p>题目描述：输入一个单向链表，判断链表是否有环？</p>
+<p>分析：通过两个指针，分别从链表的头节点出发，一个每次向后移动一步，另一个移动两步，两个指针移动速度不一样，如果存在环，那么两个指针一定会在环里相遇。</p>
+<p>代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//判断单链表是否存在环,参数circleNode是环内节点，后面的题目会用到
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">hasCircle</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">,</span><span class="n">Node</span> <span class="o">*&amp;</span><span class="n">circleNode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">slow</span><span class="p">,</span><span class="o">*</span><span class="n">fast</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">fast</span> <span class="o">==</span> <span class="n">slow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">circleNode</span> <span class="o">=</span> <span class="n">fast</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="6-找到环的入口点">6. 找到环的入口点</h2>
+<p>题目描述：输入一个单向链表，判断链表是否有环。如果链表存在环，如何找到环的入口点？</p>
+<p>解题思路： 由上题可知，按照 p2 每次两步，p1 每次一步的方式走，发现 p2 和 p1 重合，确定了单向链表有环路了。接下来，让 p2 回到链表的头部，重新走，每次步长不是走 2 了，而是走 1，那么当 p1 和 p2 再次相遇的时候，就是环路的入口了。</p>
+<p>为什么？：假定起点到环入口点的距离为 a，p1 和 p2 的相交点 M 与环入口点的距离为 b，环路的周长为 L，当 p1 和 p2 第一次相遇的时候，假定 p1 走了 n 步。那么有：</p>
+<p>p1 走的路径： a+b ＝ n；
+p2 走的路径： a+b+k<em>L = 2</em>n； p2 比 p1 多走了 k 圈环路，总路程是 p1 的 2 倍</p>
+<p>根据上述公式可以得到 k*L=a+b=n 显然，如果从相遇点 M 开始，p1 再走 n 步的话，还可以再回到相遇点，同时 p2 从头开始走的话，经过 n 步，也会达到相遇点 M。</p>
+<p>显然在这个步骤当中 p1 和 p2 只有前 a 步走的路径不同，所以当 p1 和 p2 再次重合的时候，必然是在链表的环路入口点上。</p>
+<p>代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//找到环的入口点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Node</span><span class="o">*</span> <span class="nf">findLoopPort</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//如果head为空，或者为单结点，则不存在环
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">slow</span><span class="p">,</span><span class="o">*</span><span class="n">fast</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//先判断是否存在环
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">while</span><span class="p">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">fast</span> <span class="o">==</span> <span class="n">slow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="n">slow</span><span class="p">)</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>    <span class="c1">//不存在环
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>                <span class="c1">//快指针从头开始走，步长变为1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">while</span><span class="p">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="n">slow</span><span class="p">)</span>            <span class="c1">//两者相遇即为入口点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">fast</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="7-编程判断两个链表是否相交">7. 编程判断两个链表是否相交</h2>
+<p>题目描述：给出两个单向链表的头指针（如下图所示），</p>
+<p>比如 h1、h2，判断这两个链表是否相交。这里为了简化问题，我们假设两个链表均不带环。</p>
+<p>解题思路：</p>
+<p>直接循环判断第一个链表的每个节点是否在第二个链表中。但，这种方法的时间复杂度为 O(Length(h1) * Length(h2))。显然，我们得找到一种更为有效的方法，至少不能是 O（N^2）的复杂度。</p>
+<p>针对第一个链表直接构造 hash 表，然后查询 hash 表，判断第二个链表的每个节点是否在 hash 表出现，如果所有的第二个链表的节点都能在 hash 表中找到，即说明第二个链表与第一个链表有相同的节点。时间复杂度为为线性：O(Length(h1) + Length(h2))，同时为了存储第一个链表的所有节点，空间复杂度为 O(Length(h1))。是否还有更好的方法呢，既能够以线性时间复杂度解决问题，又能减少存储空间？</p>
+<p>转换为环的问题。把第二个链表接在第一个链表后面，如果得到的链表有环，则说明两个链表相交。如何判断有环的问题上面已经讨论过了，但这里有更简单的方法。因为如果有环，则第二个链表的表头一定也在环上，即第二个链表会构成一个循环链表，我们只需要遍历第二个链表，看是否会回到起始点就可以判断出来。这个方法的时间复杂度是线性的，空间是常熟。</p>
+<p>进一步考虑“如果两个没有环的链表相交于某一节点，那么在这个节点之后的所有节点都是两个链表共有的”这个特点，我们可以知道，如果它们相交，则最后一个节点一定是共有的。而我们很容易能得到链表的最后一个节点，所以这成了我们简化解法的一个主要突破口。那么，我们只要判断两个链表的尾指针是否相等。相等，则链表相交；否则，链表不相交。
+所以，先遍历第一个链表，记住最后一个节点。然后遍历第二个链表，到最后一个节点时和第一个链表的最后一个节点做比较，如果相同，则相交，否则，不相交。这样我们就得到了一个时间复杂度，它为 O((Length(h1) + Length(h2))，而且只用了一个额外的指针来存储最后一个节点。这个方法时间复杂度为线性 O(N)，空间复杂度为 O(1)，显然比解法三更胜一筹。</p>
+<p>解法四的代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//判断两个链表是否相交
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">isIntersect</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">h1</span><span class="p">,</span><span class="n">Node</span> <span class="o">*</span><span class="n">h2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">h1</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">h2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>    <span class="c1">//异常判断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">while</span><span class="p">(</span><span class="n">h1</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h1</span> <span class="o">=</span> <span class="n">h1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">h2</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h2</span> <span class="o">=</span> <span class="n">h2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">h1</span> <span class="o">==</span> <span class="n">h2</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>        <span class="c1">//尾节点是否相同
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">else</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="8-扩展链表有环如何判断相交">8. 扩展：链表有环，如何判断相交</h2>
+<p>题目描述：上面的问题都是针对链表无环的，那么如果现在，链表是有环的呢?上面的方法还同样有效么?</p>
+<p>分析：如果有环且两个链表相交，则两个链表都有共同一个环，即环上的任意一个节点都存在于两个链表上。因此，就可以判断一链表上俩指针相遇的那个节点，在不在另一条链表上。</p>
+<p>代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//判断两个带环链表是否相交
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">isIntersectWithLoop</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">h1</span><span class="p">,</span><span class="n">Node</span> <span class="o">*</span><span class="n">h2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">circleNode1</span><span class="p">,</span><span class="o">*</span><span class="n">circleNode2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">hasCircle</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span><span class="n">circleNode1</span><span class="p">))</span>    <span class="c1">//判断链表带不带环，并保存环内节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>                <span class="c1">//不带环，异常退出
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">hasCircle</span><span class="p">(</span><span class="n">h2</span><span class="p">,</span><span class="n">circleNode2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="n">circleNode2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="n">circleNode2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">temp</span> <span class="o">==</span> <span class="n">circleNode1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="9-扩展两链表相交的第一个公共节点">9. 扩展：两链表相交的第一个公共节点</h2>
+<p>题目描述：如果两个无环单链表相交，怎么求出他们相交的第一个节点呢？</p>
+<p>分析：采用对齐的思想。计算两个链表的长度 L1 , L2，分别用两个指针 p1 , p2 指向两个链表的头，然后将较长链表的 p1（假设为 p1）向后移动 L2 - L1 个节点，然后再同时向后移动 p1 , p2，直到 p1 = p2。相遇的点就是相交的第一个节点。</p>
+<p>代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//求两链表相交的第一个公共节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Node</span><span class="o">*</span> <span class="nf">findIntersectNode</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">h1</span><span class="p">,</span><span class="n">Node</span> <span class="o">*</span><span class="n">h2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">len1</span> <span class="o">=</span> <span class="n">listLength</span><span class="p">(</span><span class="n">h1</span><span class="p">);</span>          <span class="c1">//求链表长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">len2</span> <span class="o">=</span> <span class="n">listLength</span><span class="p">(</span><span class="n">h2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//对齐两个链表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="n">len1</span> <span class="o">&gt;</span> <span class="n">len2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len1</span><span class="o">-</span><span class="n">len2</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">h1</span><span class="o">=</span><span class="n">h1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len2</span><span class="o">-</span><span class="n">len1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">h2</span><span class="o">=</span><span class="n">h2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">h1</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">h1</span> <span class="o">==</span> <span class="n">h2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">h1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h1</span> <span class="o">=</span> <span class="n">h1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h2</span> <span class="o">=</span> <span class="n">h2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="10-总结">10. 总结</h2>
+<p>可以发现，在链表的问题中，通过两个的指针来提高效率是很值得考虑的一个解决方案，所以一定要记住这种解题思路。记住几种典型的链表问题解决方案，很多类似的题目都可以转换到熟悉的问题再解决。</p>
+<p>参考文献</p>
+<blockquote>
+<p><a href="http://blog.csdn.net/v_JULY_v/article/details/6447013">程序员编程艺术：第九章、闲话链表追赶问题</a> &gt; <a href="http://www.cppblog.com/humanchao/archive/2008/04/17/47357.html">判断单链表是否存在环，判断两个链表是否相交问题详解</a> &gt; <a href="http://blog.csdn.net/anonymalias/article/details/11020477">面试算法之链表操作集锦</a></p></blockquote>
+<p>转载自：http://wuchong.me/blog/2014/03/25/interview-link-questions/</p>]]></content:encoded>
+    </item>
+    <item>
+      <title>爬楼梯问题</title>
+      <link>https://itibbers.com/posts/%E7%88%AC%E6%A5%BC%E6%A2%AF%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 19 Feb 2019 18:50:19 +0000</pubDate>
+      <guid>https://itibbers.com/posts/%E7%88%AC%E6%A5%BC%E6%A2%AF%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;p&gt;今天在脉脉上看到有个段子手 HR 说：
+今天沟通了一位候选人，他给我出了个题，说答对了就把简历给我[笑哭][笑哭]各位大佬帮帮忙[抱拳][抱拳]
+一个人爬楼梯，每次只能爬 1 个或 2 个台阶，假设有 10 个台阶，那么这个人有多少种不同的爬楼梯方法？
+我只想在楼梯顶端等你，不想知道是怎么爬的[流泪][流泪]&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>今天在脉脉上看到有个段子手 HR 说：
+今天沟通了一位候选人，他给我出了个题，说答对了就把简历给我[笑哭][笑哭]各位大佬帮帮忙[抱拳][抱拳]
+一个人爬楼梯，每次只能爬 1 个或 2 个台阶，假设有 10 个台阶，那么这个人有多少种不同的爬楼梯方法？
+我只想在楼梯顶端等你，不想知道是怎么爬的[流泪][流泪]</p>
+<p>一个有趣的问题，试着解一下。
+因为最后只有迈一步或两步，所以 n 阶台阶，最后解为 f(n) = f(n - 1) + f(n - 2)
+原来是斐波那契数列，用递归解一下所有可能的爬楼方法。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">ret</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">backtrack</span> <span class="o">=</span> <span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ret</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">str</span> <span class="o">+=</span> <span class="s1">&#39;1&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ret</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">backtrack</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">str</span> <span class="o">+</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">backtrack</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">str</span> <span class="o">+</span> <span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">backtrack</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ret</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+</span></span></code></pre></div>]]></content:encoded>
+    </item>
+  </channel>
+</rss>
