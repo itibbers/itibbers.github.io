@@ -111,3 +111,8 @@ theme = 'PaperMod'
 pygmentsUseClasses = true
 [markup.highlight]
   noClasses = false
+
+# Google Analytics 配置
+[services]
+  [services.googleAnalytics]
+    ID = "G-41ND0L72RZ"

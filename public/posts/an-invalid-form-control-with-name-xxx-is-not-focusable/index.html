@@ -57,7 +57,21 @@ Chrome 浏览器要求必填字段不能为空，因此会弹出&quot;请在此�
         }
 
     </style>
-</noscript><meta property="og:url" content="https://itibbers.com/posts/an-invalid-form-control-with-name-xxx-is-not-focusable/">
+</noscript>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-41ND0L72RZ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-41ND0L72RZ');
+        }
+      </script><meta property="og:url" content="https://itibbers.com/posts/an-invalid-form-control-with-name-xxx-is-not-focusable/">
   <meta property="og:site_name" content="itibbers">
   <meta property="og:title" content="An invalid form control with name=&#39;xxx&#39; is not focusable.">
   <meta property="og:description" content="在表单提交时，如果某个控件被设置为 display: none 且该字段可以为空，则必须移除 required 属性，否则在 Chrome 浏览器中会出现错误。

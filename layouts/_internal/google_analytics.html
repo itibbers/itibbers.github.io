@@ -1,0 +1,10 @@
+{{- $ga := site.Config.Services.GoogleAnalytics }}
+{{- if $ga.ID }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga.ID }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ $ga.ID }}');
+</script>
+{{- end }}
